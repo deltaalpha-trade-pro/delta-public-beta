@@ -157,7 +157,7 @@ export function Navigation() {
     </nav>
   )
 }
-t-foreground transition-colors"
+  className="t-foreground transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 Legal
