@@ -157,9 +157,7 @@ export function Navigation() {
     </nav>
   )
 }
-  className="t-foreground transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
+<Link href="/legal" className="t-foreground transition-colors" onClick={() => setIsOpen(false)}>
                 Legal
               </Link>
               <Button variant="outline" size="sm" asChild className="w-fit bg-transparent">
