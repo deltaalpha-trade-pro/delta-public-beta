@@ -1,4 +1,3 @@
-export const SYSTEM_NAME = "deltapublicbetamain";
 export const config = {
   // Mode control via environment
   INTERNAL_MODE: process.env.WHALEZ_MODE === "INTERNAL",
@@ -11,7 +10,6 @@ export const config = {
 
   // System identity - ONE system, not multiple AIs
   orchestrator: "Whalez-AI",
-  system: "deltapublicbetamain",
 
   // Internal tools with unique codenames and scoped authority
   tools: {
@@ -34,11 +32,11 @@ export const config = {
 
   // Engines - accept instructions ONLY from Layer 3
   engines: {
-    whalezchain: { acceptsFrom: "layer3", executionAllowed: false },
-    gmal: { acceptsFrom: "layer3", executionAllowed: false },
-    ledger: { acceptsFrom: "layer3", executionAllowed: false },
-    email: { acceptsFrom: "layer3", executionAllowed: false },
-    simulation: { acceptsFrom: "layer3", executionAllowed: true },
+    whalezchain: { acceptsFrom: "layer3" },
+    gmal: { acceptsFrom: "layer3" },
+    ledger: { acceptsFrom: "layer3" },
+    email: { acceptsFrom: "layer3" },
+    simulation: { acceptsFrom: "layer3" },
   },
 
   // Layer hierarchy
@@ -64,20 +62,9 @@ export const config = {
 
   // Simulation engine configuration
   simulation: {
-    assets: ["EUR/USD", "GBP/USD", "USD/JPY", "AUD/USD", "USD/CHF", "EUR/GBP", "BTC/USD", "ETH/USD"] as const,
-    maxSessionDuration: 3600000,
-    candleIntervals: ["1m", "5m", "15m", "1h", "4h", "1D"] as const,
-  },
-
-  // Technical indicators
-  indicators: {
-    available: ["RSI", "EMA", "SMA", "MACD", "VOL"] as const,
-    defaults: {
-      rsiPeriod: 14,
-      emaPeriods: [9, 21],
-      smaPeriods: [20, 50],
-      macdParams: { fast: 12, slow: 26, signal: 9 },
-    },
+    assets: ["EUR/USD", "GBP/USD", "USD/JPY", "AUD/USD", "USD/CHF", "EUR/GBP"] as const,
+    maxSessionDuration: 3600000, // 1 hour in ms
+    candleIntervals: ["1m", "5m", "15m", "1h", "4h"] as const,
   },
 } as const
 
@@ -91,7 +78,6 @@ export type WhalesAiRequest = {
   origin?: string
   roleToken?: string
   classification?: RequestClassification
-  invocationSource?: string
 }
 
 export type WhalesAiResponse = {
@@ -101,19 +87,14 @@ export type WhalesAiResponse = {
   layer?: string
   error?: string
   simulationOnly?: boolean
-  system?: string
-  mode?: string
   telemetry?: TelemetryLog
 }
 
-// Audit log for denied actions (server-only)
-export type AuditLog = {
+export type TelemetryLog = {
   timestamp: string
-  route: string
-  intent: string
-  classification: "public"
-  outcome: "denied"
-  reason: string
+  classification: RequestClassification
+  task: string
+  outcome: "allowed" | "rejected" | "simulation"
 }
 
 // Email engine configuration
@@ -121,8 +102,6 @@ export type EmailEvent = (typeof config.email.events)[number]
 
 // Simulation engine configuration
 export type SimulationAsset = (typeof config.simulation.assets)[number]
-export type CandleInterval = (typeof config.simulation.candleIntervals)[number]
-export type IndicatorType = (typeof config.indicators.available)[number]
 
 export type CandleData = {
   time: number
@@ -153,21 +132,4 @@ export type SimulationPosition = {
   closePrice?: number
   closeTime?: number
   pnl?: number
-}
-
-// Indicator data types
-export type IndicatorData = {
-  rsi?: number[]
-  ema?: Record<number, number[]>
-  sma?: Record<number, number[]>
-  macd?: { macd: number[]; signal: number[]; histogram: number[] }
-  volume?: number[]
-}
-
-export type TelemetryLog = {
-  timestamp: string
-  classification: RequestClassification
-  task: string
-  route: string
-  outcome: "allowed" | "rejected" | "denied"
 }

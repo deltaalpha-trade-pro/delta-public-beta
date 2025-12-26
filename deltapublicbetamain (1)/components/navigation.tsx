@@ -157,20 +157,3 @@ export function Navigation() {
     </nav>
   )
 }
-t-foreground transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                Legal
-              </Link>
-              <Button variant="outline" size="sm" asChild className="w-fit bg-transparent">
-                <Link href="/beta-access" onClick={() => setIsOpen(false)}>
-                  Request Access
-                </Link>
-              </Button>
-            </div>
-          </div>
-        )}
-      </div>
-    </nav>
-  )
-}
