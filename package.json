@@ -1,5 +1,18 @@
 {
+  "name": "delta-public-beta",
+  "version": "1.0.0",
+  "private": true,
   "dependencies": {
+    "@next/swc-wasm-nodejs": "^16.1.2",
+    "@next/swc-wasm-web": "^16.1.2",
+    "next": "^16.1.2",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
     "resend": "latest"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   }
 }
