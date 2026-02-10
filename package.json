@@ -2,6 +2,7 @@
   "name": "delta-public-beta",
   "version": "1.0.0",
   "private": true,
+  "packageManager": "pnpm@10.28.2",
   "dependencies": {
     "@next/swc-wasm-nodejs": "^16.1.2",
     "@next/swc-wasm-web": "^16.1.2",
@@ -12,7 +13,10 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start"
+  },
+  "devDependencies": {
+    "tsx": "^4.21.0"
   }
 }

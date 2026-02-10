@@ -1,34 +1,36 @@
-import { NextResponse } from "next/server"
-import type { NextRequest } from "next/server"
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-const INTERNAL_ROUTES = ["/founder-console"]
-
+/**
+ * Next.js 16+ proxy entrypoint (replacement for middleware.ts)
+ * - Keep this file as the ONLY edge-gating entrypoint
+ * - Do not keep /middleware.ts at repo root (Next will fail build)
+ */
 export function proxy(request: NextRequest) {
-  const { pathname, hostname } = request.nextUrl
+  const { pathname } = request.nextUrl;
 
-  const isInternalDomain = hostname.startsWith("internal.")
-  const isBetaDomain = hostname.startsWith("beta.") || !isInternalDomain
+  // Founder console protection (edge gate)
+  if (pathname.startsWith("/founder-console")) {
+    const sessionToken = request.cookies.get("session_token")?.value;
+    const founderBypass = request.cookies.get("founder_bypass")?.value;
 
-  // Check if route is internal-only
-  if (INTERNAL_ROUTES.some((route) => pathname.startsWith(route))) {
-    const isInternalMode = process.env.WHALEZ_MODE === "INTERNAL"
-    const internalToken = request.headers.get("x-whalez-internal-token")
-    const requestSource = request.headers.get("x-request-source")
+    // Allow bypass ONLY in internal mode / non-prod (avoid accidental prod backdoor)
+    const allowBypass =
+      process.env.INTERNAL_MODE === "true" || process.env.NODE_ENV !== "production";
 
-    // STREAM 1: Return 404 unless INTERNAL mode with valid headers
-    // Also reject if accessing internal route from beta.* domain
-    if (!isInternalMode || !internalToken || requestSource !== "internal-console" || isBetaDomain) {
-      // Return 404 - no acknowledgment that route exists
-      return NextResponse.rewrite(new URL("/not-found", request.url))
+    if (allowBypass && founderBypass === "true") {
+      return NextResponse.next();
+    }
+
+    // If not authenticated, redirect to request page
+    if (!sessionToken) {
+      return NextResponse.redirect(new URL("/request-access", request.url));
     }
   }
 
-  const response = NextResponse.next()
-  response.headers.set("x-domain-context", isBetaDomain ? "public" : "internal")
-
-  return response
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/founder-console/:path*", "/((?!_next|api|favicon.ico).*)"],
-}
+  matcher: ["/founder-console/:path*"],
+};
