@@ -3,7 +3,7 @@
 This repository is subordinate to the ROOT authority.
 
 ROOT Repository: /data/data/com.termux/files/home/ROOT
-ROOT Commit: 2794a38
+ROOT Commit: 755a9be
 Authority: Constitutional / Sovereign
 
 This repository MAY NOT:
