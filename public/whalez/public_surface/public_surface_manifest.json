@@ -1,0 +1,29 @@
+{
+  "surface": "delta-public-beta",
+  "mode": "public",
+  "doctrine": {
+    "no_raw_cognition": true,
+    "no_actionable_signals": true,
+    "founder_hidden": true,
+    "effects_not_process": true
+  },
+  "auth": {
+    "signup_url": "/signup",
+    "login_url": "/login",
+    "post_login_redirect": "/dashboard"
+  },
+  "links": {
+    "telegram_channel": "TBD"
+  },
+  "tokens": {
+    "PTN": {
+      "label": "Tokenized Events"
+    },
+    "PRN": {
+      "label": "Governance Records"
+    },
+    "WHZ": {
+      "label": "Financial Value"
+    }
+  }
+}
