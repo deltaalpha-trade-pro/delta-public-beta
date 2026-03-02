@@ -1,8 +1,4 @@
-# ==========================
 # Build-authority surfaces
-# ==========================
-# Owner: deltaalpha-trade-pro
-
 /.github/workflows/   @deltaalpha-trade-pro
 /ci/                  @deltaalpha-trade-pro
 /scripts/             @deltaalpha-trade-pro
@@ -13,5 +9,5 @@
 /vercel.json          @deltaalpha-trade-pro
 /.npmrc               @deltaalpha-trade-pro
 
-# Default owner for everything else (optional but recommended)
+# Default owner for everything else (optional)
 *                     @deltaalpha-trade-pro
