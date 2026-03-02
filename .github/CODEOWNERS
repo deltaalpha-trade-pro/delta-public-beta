@@ -1,13 +1,15 @@
 # Build-authority surfaces
-/.github/workflows/   @deltaalpha-trade-pro
-/ci/                  @deltaalpha-trade-pro
-/scripts/             @deltaalpha-trade-pro
-/package.json         @deltaalpha-trade-pro
-/package-lock.json    @deltaalpha-trade-pro
-/next.config.js       @deltaalpha-trade-pro
-/next.config.mjs      @deltaalpha-trade-pro
-/vercel.json          @deltaalpha-trade-pro
-/.npmrc               @deltaalpha-trade-pro
+# Owner: @deltaalpha-trade-pro
 
-# Default owner for everything else (optional)
-*                     @deltaalpha-trade-pro
+/.github/workflows/**  @deltaalpha-trade-pro
+/ci/**                 @deltaalpha-trade-pro
+/scripts/**            @deltaalpha-trade-pro
+/package.json          @deltaalpha-trade-pro
+/package-lock.json     @deltaalpha-trade-pro
+/next.config.js        @deltaalpha-trade-pro
+/next.config.mjs       @deltaalpha-trade-pro
+/vercel.json           @deltaalpha-trade-pro
+/.npmrc                @deltaalpha-trade-pro
+
+# Default owner
+*                      @deltaalpha-trade-pro
