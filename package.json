@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3001",
-    "build": "next build",
-    "start": "next start -p 3001"
+    "dev": "node scripts/guarded-next.mjs dev",
+    "build": "node scripts/guarded-next.mjs build",
+    "start": "node scripts/guarded-next.mjs start"
   },
   "dependencies": {
     "next": "14.2.15",
