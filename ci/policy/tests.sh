@@ -16,9 +16,9 @@ if bash ci/policy/check_gitignore_exact.sh ci/policy/fixtures/gitignore/fail_whi
   exit 1
 fi
 
-echo "TEST: ban \\Q/\\E: should FAIL on positives"
-# This SHOULD fail because fixtures contain banned literals
-if bash ci/policy/ban_regex_escapes.sh ci/policy/fixtures/ban_qe; then
+echo "TEST: ban regex-escape literals: should FAIL on positives"
+# WHALEZ_SCAN_FIXTURES=1 forces scanning of fixtures
+if WHALEZ_SCAN_FIXTURES=1 bash ci/policy/ban_regex_escapes.sh ci/policy/fixtures/ban_qe; then
   echo "EXPECTED_FAIL_BUT_PASSED" >&2
   exit 1
 fi
