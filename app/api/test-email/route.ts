@@ -1,14 +1,8 @@
-import { Resend } from "resend"
+import { NextResponse } from "next/server";
 
-export async function GET() {
-  const resend = new Resend(process.env.RESEND_API_KEY)
-
-  await resend.emails.send({
-    from: process.env.EMAIL_FROM!,
-    to: process.env.FOUNDER_EMAIL!,
-    subject: "DeltaAlpha Resend Test",
-    html: "<strong>Resend is live in production.</strong>",
-  })
-
-  return new Response("OK")
+export async function POST() {
+  return NextResponse.json(
+    { ok: false, error: "Email disabled in this deployment (orchestrator-owned)." },
+    { status: 503 }
+  );
 }

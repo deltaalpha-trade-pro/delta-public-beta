@@ -25,3 +25,16 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# Local backups
+*.bak.*
+
+# Local env
+.venv/
+node_modules/
+.next/
+
+# Local (Termux) Babel override
+.babelrc
+.env
+.env.*
+!.env.example

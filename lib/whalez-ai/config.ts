@@ -59,7 +59,7 @@ export const config = {
   // Email engine configuration
   email: {
     events: ["beta_request", "beta_approved", "waitlist", "simulation_update"] as const,
-    provider: process.env.EMAIL_PROVIDER || "resend",
+    provider: process.env.EMAIL_PROVIDER || "disabled",
   },
 
   // Simulation engine configuration

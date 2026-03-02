@@ -280,7 +280,7 @@ function createAuditLog(classification: RequestClassification, request: WhalesAi
 
 function logDeniedAction(telemetry: TelemetryLog, request: WhalesAiRequest): void {
   // Server-only logging (silent, no user-facing output)
-  if (process.env.NODE_ENV !== "test") {
+  if (process.env.NODE_ENV !== "test" && process.env.WHALEZ_AUDIT_LOG === "1") {
     console.log("[WHALEZ-AI] DENIED:", {
       timestamp: telemetry.timestamp,
       route: telemetry.route,
