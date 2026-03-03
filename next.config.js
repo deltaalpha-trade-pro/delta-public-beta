@@ -4,3 +4,4 @@ module.exports = {
   // Keep default SWC minify in real builds (Vercel/Linux).
   swcMinify: process.env.TERMUX !== "1",
 };
+// test
