@@ -24,7 +24,6 @@ export function Navigation() {
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground">
               About
@@ -32,34 +31,48 @@ export function Navigation() {
 
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
-                Infrastructure <ChevronDown className="w-3 h-3" />
+                Platform Preview <ChevronDown className="w-3 h-3" />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start">
                 <DropdownMenuItem asChild>
-                  <Link href="/whalezchain">Settlement Ledger</Link>
+                  <Link href="/deltaalpha">DeltaAlpha Preview</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/whalezchain">Settlement Preview</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
 
             <Link href="/beta-access">
-              <Button
-                variant="outline"
-                size="sm"
-                className="w-fit bg-transparent"
-              >
+              <Button variant="outline" size="sm" className="w-fit bg-transparent">
                 Request Access
               </Button>
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden"
-          >
+          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden">
             {isOpen ? <X /> : <Menu />}
           </button>
         </div>
+
+        {isOpen ? (
+          <div className="md:hidden border-t border-border py-4 flex flex-col gap-4">
+            <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground">
+              About
+            </Link>
+            <Link href="/deltaalpha" className="text-sm text-muted-foreground hover:text-foreground">
+              DeltaAlpha Preview
+            </Link>
+            <Link href="/whalezchain" className="text-sm text-muted-foreground hover:text-foreground">
+              Settlement Preview
+            </Link>
+            <Link href="/beta-access">
+              <Button variant="outline" size="sm" className="w-fit bg-transparent">
+                Request Access
+              </Button>
+            </Link>
+          </div>
+        ) : null}
       </div>
     </nav>
   )

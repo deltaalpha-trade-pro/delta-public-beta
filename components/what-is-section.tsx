@@ -5,25 +5,25 @@ const features = [
     icon: Brain,
     title: "AI Intelligence Agents",
     description:
-      "Autonomous analysis systems that process market data, identify patterns, and generate actionable insights through advanced machine learning models.",
+      "Coordinated intelligence systems designed to model, interpret, and present complex operational and financial states.",
   },
   {
     icon: BarChart3,
     title: "Quantitative Analysis Models",
     description:
-      "Sophisticated mathematical frameworks for evaluating market dynamics, risk assessment, and systematic strategy development.",
+      "Structured analytical frameworks for interpreting market behavior, system posture, and bounded trading-oriented previews.",
   },
   {
     icon: Wallet,
-    title: "Internal Ledger Systems",
+    title: "Ledger & Account State Modeling",
     description:
-      "Secure, transparent record-keeping infrastructure for tracking positions, transactions, and portfolio analytics.",
+      "Preview representations of how internal account, ledger, and asset logic may be surfaced in controlled public form.",
   },
   {
     icon: Shield,
-    title: "Digital Asset Logic",
+    title: "Governed System Boundaries",
     description:
-      "Structured frameworks for understanding digital asset behavior, correlation analysis, and market microstructure.",
+      "A posture that emphasizes staged access, bounded behavior, and controlled release rather than unrestricted public exposure.",
   },
 ]
 
@@ -36,9 +36,10 @@ export function WhatIsSection() {
             What WHALEZ-AI Is
           </h2>
           <p className="mt-4 text-muted-foreground leading-relaxed text-pretty">
-            WHALEZ-AI is an integrated ecosystem combining artificial intelligence, quantitative methods, and systematic
-            architecture to deliver financial intelligence. This is not a trading platform—it is an analytical
-            infrastructure designed for insight generation and informed decision-making.
+            WHALEZ-AI is a broader AI-orchestrated ecosystem spanning coordinated intelligence,
+            financial-system modeling, controlled interfaces, and governed operational structure.
+            This public repository is a bounded preview surface for that larger direction, not the
+            full unrestricted live platform.
           </p>
         </div>
 
@@ -56,8 +57,8 @@ export function WhatIsSection() {
         </div>
 
         <p className="mt-8 text-sm text-muted-foreground">
-          WHALEZ-AI does not provide financial advice, trading recommendations, or investment guarantees. All outputs
-          are informational and experimental.
+          This preview surface does not yet represent unrestricted live public onboarding, live trading execution,
+          or full production account access.
         </p>
       </div>
     </section>
