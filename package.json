@@ -2,18 +2,19 @@
   "name": "delta-public-beta",
   "version": "1.0.0",
   "private": true,
+  "packageManager": "pnpm@10.28.2",
   "scripts": {
-    "dev": "node scripts/guarded-next.mjs dev",
-    "build": "node scripts/guarded-next.mjs build",
-    "start": "node scripts/guarded-next.mjs start"
+    "dev": "next dev -p 3010",
+    "build": "next build",
+    "start": "next start -p 3010"
   },
   "dependencies": {
-    "next": "14.2.15",
+    "next": "14.2.35",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "resend": "latest"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.18",
     "@types/node": "^20.14.10",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
@@ -21,6 +22,7 @@
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.18",
     "tsx": "^4.21.0",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "@tailwindcss/postcss": "^4.1.18"
   }
 }
