@@ -12,21 +12,22 @@ export function BetaNotice() {
           </div>
 
           <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-foreground text-balance">
-            Beta Platform Notice
+            Controlled Beta Notice
           </h2>
 
           <div className="mt-6 space-y-4 text-muted-foreground">
             <p className="leading-relaxed">
-              WHALEZ-AI and DeltaAlpha-TradePro are currently operating in a controlled beta environment. Access is
-              limited and features are under active development.
+              DeltaAlpha-Trade-Pro is currently operating as a controlled public preview.
+              Access is limited, features are being staged carefully, and public-facing behavior
+              is still being validated.
             </p>
             <p className="leading-relaxed">
-              This platform does not facilitate live trading execution. All outputs, signals, and analysis are provided
-              for informational and educational purposes only.
+              This repository does not currently provide unrestricted live public trading,
+              unrestricted custody, or fully open production onboarding.
             </p>
             <p className="leading-relaxed">
-              We are continuously refining our systems based on feedback and testing. Thank you for your patience and
-              participation.
+              The purpose of this beta surface is to demonstrate direction, collect feedback,
+              and validate the bounded public experience before broader release.
             </p>
           </div>
 

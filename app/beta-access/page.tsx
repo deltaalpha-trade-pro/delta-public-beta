@@ -1,47 +1,3 @@
-^^\
-const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault()
-  setIsLoading(true)
-
-  const formData = new FormData(e.currentTarget)
-
-  const payload = {
-    name: formData.get("name"),
-    email: formData.get("email"),
-    intendedUse: formData.get("intendedUse"),
-  }
-
-  try {
-    const res = await fetch("/api/beta-access/submit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    })
-
-    if (!res.ok) {
-      throw new Error("Failed to submit beta request")
-    }
-
-    setIsSubmitted(true)
-  } catch (error) {
-    console.error("Beta access submission error:", error)
-    alert("Something went wrong. Please try again.")
-  } finally {
-    setIsLoading(false)
-  }
-import { useState } from "react" import { 
-CheckCircle } from "lucide-react"
-                    <div 
-                      className="space-y-2"> 
-                      <Label 
-                      htmlFor="intendedUse" 
-                      className="text-foreground"> 
-                      <p 
-                      className="text-xs 
-                      text-muted-foreground 
-                      leading-relaxed">
 "use client"
 
 import type React from "react"
@@ -102,14 +58,15 @@ export default function BetaAccessPage() {
             <div className="max-w-2xl mx-auto">
               <div className="text-center">
                 <span className="text-sm text-accent font-medium tracking-wide uppercase">
-                  Join the Beta
+                  Controlled Beta
                 </span>
                 <h1 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-foreground text-balance">
                   Request Beta Access
                 </h1>
                 <p className="mt-6 text-muted-foreground leading-relaxed text-pretty">
-                  WHALEZ-AI and DeltaAlpha-Trade-Pro are currently in controlled beta.
-                  Submit your application to join our early access program.
+                  DeltaAlpha-Trade-Pro is currently operating as a controlled preview environment.
+                  Access is being granted in stages while platform behavior, policy posture, and
+                  public-facing experience continue to be validated.
                 </p>
               </div>
 
@@ -118,12 +75,11 @@ export default function BetaAccessPage() {
                   <div className="p-8 rounded-lg border border-border bg-card text-center">
                     <CheckCircle className="w-12 h-12 text-accent mx-auto mb-4" />
                     <h2 className="text-xl font-medium text-foreground">
-                      Application Received
+                      Request Received
                     </h2>
                     <p className="mt-3 text-muted-foreground leading-relaxed">
-                      Thank you for your interest in WHALEZ-AI. We will review your
-                      application and contact you at the provided email address if
-                      approved for beta access.
+                      Thank you for your interest. We will review your request and contact you
+                      using the email address you provided if you are admitted to the controlled beta.
                     </p>
                   </div>
                 ) : (
@@ -151,4 +107,39 @@ export default function BetaAccessPage() {
                         name="email"
                         type="email"
                         required
-              
+                        placeholder="Enter your email"
+                        className="min-h-[44px] bg-card border-border text-foreground placeholder:text-muted-foreground"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="intendedUse" className="text-foreground">
+                        Intended Use
+                      </Label>
+                      <Textarea
+                        id="intendedUse"
+                        name="intendedUse"
+                        required
+                        placeholder="Tell us how you intend to use DeltaAlpha-Trade-Pro during beta."
+                        className="min-h-[140px] bg-card border-border text-foreground placeholder:text-muted-foreground"
+                      />
+                      <p className="text-xs text-muted-foreground leading-relaxed">
+                        This request is for preview-stage access only. Admission does not imply live trading,
+                        live custody, or unrestricted production access.
+                      </p>
+                    </div>
+
+                    <Button type="submit" disabled={isLoading} className="w-full min-h-[44px]">
+                      {isLoading ? "Submitting..." : "Submit Beta Request"}
+                    </Button>
+                  </form>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
+  )
+}

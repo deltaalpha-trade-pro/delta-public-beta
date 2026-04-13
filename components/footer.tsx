@@ -8,7 +8,7 @@ export function Footer() {
           <div className="col-span-2 md:col-span-1">
             <span className="text-lg font-semibold tracking-tight text-foreground">WHALEZ-AI</span>
             <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-              AI-driven financial intelligence and quantitative systems.
+              Controlled public preview of a broader AI-orchestrated financial ecosystem.
             </p>
           </div>
 
@@ -21,11 +21,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/deltaalpha"
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  DeltaAlpha-TradePro
+                <Link href="/deltaalpha" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  DeltaAlpha Preview
                 </Link>
               </li>
             </ul>
@@ -35,10 +32,7 @@ export function Footer() {
             <h4 className="text-sm font-medium text-foreground mb-4">Access</h4>
             <ul className="space-y-3">
               <li>
-                <Link
-                  href="/beta-access"
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                >
+                <Link href="/beta-access" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                   Beta Access
                 </Link>
               </li>
@@ -54,10 +48,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/legal#privacy"
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                >
+                <Link href="/legal#privacy" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                   Privacy
                 </Link>
               </li>

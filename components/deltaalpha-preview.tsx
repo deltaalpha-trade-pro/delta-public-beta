@@ -8,33 +8,34 @@ export function DeltaAlphaPreview() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div>
-            <span className="text-sm text-accent font-medium tracking-wide uppercase">Public Interface</span>
+            <span className="text-sm text-accent font-medium tracking-wide uppercase">Public Preview</span>
             <h2 className="mt-3 text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground text-balance">
-              DeltaAlpha-TradePro
+              DeltaAlpha-Trade-Pro
             </h2>
             <p className="mt-4 text-muted-foreground leading-relaxed text-pretty">
-              The public-facing intelligence and analysis interface of the WHALEZ-AI ecosystem. DeltaAlpha-TradePro
-              provides access to market insights, signals visualization, and strategy analysis tools.
+              The public-facing preview layer of the WHALEZ-AI ecosystem. This surface presents
+              platform direction, market-oriented interfaces, and bounded demonstrations of how
+              analysis, trading posture, and system coordination are intended to evolve.
             </p>
 
             <ul className="mt-8 space-y-4">
               <li className="flex items-start gap-3">
                 <LineChart className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-muted-foreground">Real-time market insights and data visualization</span>
+                <span className="text-sm text-muted-foreground">Preview market views and interface modeling</span>
               </li>
               <li className="flex items-start gap-3">
                 <Zap className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-muted-foreground">Signal processing and pattern recognition outputs</span>
+                <span className="text-sm text-muted-foreground">Signal and strategy presentation in bounded beta form</span>
               </li>
               <li className="flex items-start gap-3">
                 <Eye className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-muted-foreground">Strategy analysis and performance modeling</span>
+                <span className="text-sm text-muted-foreground">Controlled preview of future account and trading experiences</span>
               </li>
             </ul>
 
             <Button className="mt-8 min-h-[44px]" asChild>
               <Link href="/deltaalpha">
-                Explore DeltaAlpha
+                Explore DeltaAlpha Preview
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Link>
             </Button>

@@ -3,27 +3,27 @@ import { Cpu, Bot, Database, Globe } from "lucide-react"
 const architectureItems = [
   {
     icon: Cpu,
-    title: "AI Core (WHALEZ-AI)",
+    title: "AI Core",
     description:
-      "Central intelligence processing unit that orchestrates all analysis, learning, and output generation across the ecosystem.",
+      "The deeper orchestration layer behind the broader system direction, represented here only through bounded public preview language.",
   },
   {
     icon: Bot,
-    title: "Intelligence Agents",
+    title: "Coordinated Agents",
     description:
-      "Specialized autonomous modules focused on specific analytical domains—market analysis, risk assessment, pattern detection.",
+      "Specialized logic surfaces for analysis, routing, and interpretation, reflected publicly in staged and non-sensitive form.",
   },
   {
     icon: Database,
-    title: "Ledger & Asset Models",
+    title: "Ledger & State Models",
     description:
-      "Structured data architecture for position tracking, transaction history, and comprehensive portfolio state management.",
+      "Illustrative representations of internal financial and system-state structure, presented without exposing private runtime truth.",
   },
   {
     icon: Globe,
-    title: "Public Exchange Interface",
+    title: "Public Preview Interface",
     description:
-      "Secure gateway layer enabling controlled access to intelligence outputs and analysis tools through DeltaAlpha-TradePro.",
+      "A controlled public-facing layer that demonstrates product direction and experience design while preserving private system boundaries.",
   },
 ]
 
@@ -36,7 +36,7 @@ export function ArchitectureSection() {
             System Architecture Overview
           </h2>
           <p className="mt-4 text-muted-foreground leading-relaxed text-pretty">
-            A modular, secure infrastructure designed for scalability, reliability, and institutional-grade performance.
+            A bounded public view of a larger system architecture being introduced in controlled stages.
           </p>
         </div>
 
@@ -57,8 +57,8 @@ export function ArchitectureSection() {
         </div>
 
         <p className="mt-12 text-xs text-muted-foreground text-center max-w-2xl mx-auto">
-          All architectural descriptions are illustrative and represent the intended system design. Specific
-          implementations may vary during the beta development phase.
+          All architectural descriptions on this site are bounded preview representations and should not be read as
+          full exposure of private runtime, founder-private, or governed internal system surfaces.
         </p>
       </div>
     </section>

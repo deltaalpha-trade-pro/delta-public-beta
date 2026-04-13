@@ -1,14 +1,6 @@
 "use client"
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import dynamic from "next/dynamic"
-
-const PieChart = dynamic(() => import("recharts").then((mod) => mod.PieChart), { ssr: false })
-const Pie = dynamic(() => import("recharts").then((mod) => mod.Pie), { ssr: false })
-const Cell = dynamic(() => import("recharts").then((mod) => mod.Cell), { ssr: false })
-const ResponsiveContainer = dynamic(() => import("recharts").then((mod) => mod.ResponsiveContainer), { ssr: false })
-const Legend = dynamic(() => import("recharts").then((mod) => mod.Legend), { ssr: false })
-const Tooltip = dynamic(() => import("recharts").then((mod) => mod.Tooltip), { ssr: false })
 
 const data = [
   { name: "PTN (Potential)", value: 45000000, color: "#4a90d9" },
@@ -18,35 +10,49 @@ const data = [
 ]
 
 export function TokenCirculation() {
+  const total = data.reduce((sum, item) => sum + item.value, 0)
+
   return (
     <Card className="bg-card border-border">
       <CardHeader>
         <CardTitle className="text-foreground">Token Circulation</CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="h-[300px]">
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie data={data} cx="50%" cy="50%" innerRadius={60} outerRadius={100} paddingAngle={2} dataKey="value">
-                {data.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
-                ))}
-              </Pie>
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: "#0a0a0f",
-                  border: "1px solid #1f2937",
-                  borderRadius: "8px",
-                  color: "#f3f4f6",
-                }}
-                formatter={(value: number) => [`${(value / 1000000).toFixed(1)}M`, "Tokens"]}
-              />
-              <Legend
-                verticalAlign="bottom"
-                formatter={(value) => <span className="text-gray-400 text-sm">{value}</span>}
-              />
-            </PieChart>
-          </ResponsiveContainer>
+      <CardContent className="space-y-6">
+        <div className="space-y-3">
+          <div className="flex h-5 overflow-hidden rounded-full border border-border">
+            {data.map((entry) => {
+              const percent = (entry.value / total) * 100
+
+              return (
+                <div
+                  key={entry.name}
+                  title={`${entry.name}: ${(entry.value / 1000000).toFixed(1)}M`}
+                  style={{ backgroundColor: entry.color, width: `${percent}%` }}
+                />
+              )
+            })}
+          </div>
+        </div>
+
+        <div className="grid gap-3 sm:grid-cols-2">
+          {data.map((entry) => {
+            const percent = (entry.value / total) * 100
+
+            return (
+              <div key={entry.name} className="rounded-lg border border-border bg-secondary/30 p-3">
+                <div className="flex items-center gap-3">
+                  <span className="h-3 w-3 rounded-full" style={{ backgroundColor: entry.color }} />
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-sm font-medium text-foreground">{entry.name}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {(entry.value / 1000000).toFixed(1)}M tokens
+                    </p>
+                  </div>
+                  <p className="text-sm font-mono text-foreground">{percent.toFixed(1)}%</p>
+                </div>
+              </div>
+            )
+          })}
         </div>
       </CardContent>
     </Card>

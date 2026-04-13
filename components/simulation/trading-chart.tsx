@@ -56,6 +56,8 @@ export function TradingChart({ sessionId, onSessionCreate }: TradingChartProps) 
       "AUD/USD": 0.655,
       "USD/CHF": 0.88,
       "EUR/GBP": 0.855,
+      "BTC/USD": 68450,
+      "ETH/USD": 3425,
     }
     return prices[selectedAsset]
   }, [])
