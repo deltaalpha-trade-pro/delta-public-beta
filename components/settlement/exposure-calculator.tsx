@@ -53,7 +53,7 @@ export function ExposureCalculator() {
             <div className="space-y-2">
               <Label className="text-muted-foreground">Asset Type</Label>
               <Select value={asset} onValueChange={setAsset}>
-                <SelectTrigger className="bg-input border-border">
+                <SelectTrigger className="w-full bg-input border-border">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent className="bg-card border-border">
