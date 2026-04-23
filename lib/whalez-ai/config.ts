@@ -101,6 +101,11 @@ export type WhalesAiResponse = {
   layer?: string
   error?: string
   simulationOnly?: boolean
+  posture?: "HYBRID"
+  identitySource?: string
+  orchestrationSource?: string
+  chainIdentitySource?: string
+  chainOrchestrationSource?: string
   system?: string
   mode?: string
   telemetry?: TelemetryLog

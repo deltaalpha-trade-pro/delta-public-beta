@@ -9,6 +9,7 @@ import {
 import { layer2 } from "./layer2"
 import { processEmailEvent } from "../engines/email-engine"
 import * as simulationEngine from "../engines/simulation-engine"
+import { PUBLIC_AI_SURFACE } from "../public-surface"
 
 /**
  * Layer 3: Top-level orchestrator (Whalez-AI sits HERE ONLY)
@@ -49,6 +50,11 @@ export async function layer3(request: WhalesAiRequest): Promise<WhalesAiResponse
         explanation: getEducationalExplanation(request.task),
       },
       simulationOnly: true,
+      posture: PUBLIC_AI_SURFACE.posture,
+      identitySource: PUBLIC_AI_SURFACE.identitySource,
+      orchestrationSource: PUBLIC_AI_SURFACE.enterpriseOrchestrationSource,
+      chainIdentitySource: PUBLIC_AI_SURFACE.chainIdentitySource,
+      chainOrchestrationSource: PUBLIC_AI_SURFACE.chainOrchestrationSource,
       layer: "layer3",
       telemetry,
     }
@@ -76,6 +82,11 @@ export async function layer3(request: WhalesAiRequest): Promise<WhalesAiResponse
         message: "Downgraded to observation - insufficient credentials",
       },
       simulationOnly: true,
+      posture: PUBLIC_AI_SURFACE.posture,
+      identitySource: PUBLIC_AI_SURFACE.identitySource,
+      orchestrationSource: PUBLIC_AI_SURFACE.enterpriseOrchestrationSource,
+      chainIdentitySource: PUBLIC_AI_SURFACE.chainIdentitySource,
+      chainOrchestrationSource: PUBLIC_AI_SURFACE.chainOrchestrationSource,
       layer: "layer3",
       telemetry,
     }
@@ -180,6 +191,11 @@ function handleSimulationEngine(request: WhalesAiRequest): WhalesAiResponse {
         success: true,
         data: { assets: simulationEngine.getAvailableAssets() },
         simulationOnly: true,
+      posture: PUBLIC_AI_SURFACE.posture,
+      identitySource: PUBLIC_AI_SURFACE.identitySource,
+      orchestrationSource: PUBLIC_AI_SURFACE.enterpriseOrchestrationSource,
+      chainIdentitySource: PUBLIC_AI_SURFACE.chainIdentitySource,
+      chainOrchestrationSource: PUBLIC_AI_SURFACE.chainOrchestrationSource,
       }
     default:
       return { success: false, error: `Unknown simulation action: ${action}` }
@@ -215,6 +231,11 @@ function handlePublicSimulation(request: WhalesAiRequest, telemetry: TelemetryLo
         success: true,
         data: { assets: simulationEngine.getAvailableAssets() },
         simulationOnly: true,
+      posture: PUBLIC_AI_SURFACE.posture,
+      identitySource: PUBLIC_AI_SURFACE.identitySource,
+      orchestrationSource: PUBLIC_AI_SURFACE.enterpriseOrchestrationSource,
+      chainIdentitySource: PUBLIC_AI_SURFACE.chainIdentitySource,
+      chainOrchestrationSource: PUBLIC_AI_SURFACE.chainOrchestrationSource,
         layer: "layer3",
         telemetry,
       }
@@ -227,6 +248,11 @@ function handlePublicSimulation(request: WhalesAiRequest, telemetry: TelemetryLo
           reason: "PUBLIC_MODE_ENFORCED",
         },
         simulationOnly: true,
+      posture: PUBLIC_AI_SURFACE.posture,
+      identitySource: PUBLIC_AI_SURFACE.identitySource,
+      orchestrationSource: PUBLIC_AI_SURFACE.enterpriseOrchestrationSource,
+      chainIdentitySource: PUBLIC_AI_SURFACE.chainIdentitySource,
+      chainOrchestrationSource: PUBLIC_AI_SURFACE.chainOrchestrationSource,
         layer: "layer3",
         telemetry,
       }
