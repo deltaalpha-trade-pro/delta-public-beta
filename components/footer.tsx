@@ -8,7 +8,7 @@ export function Footer() {
           <div className="col-span-2 md:col-span-1">
             <span className="text-lg font-semibold tracking-tight text-foreground">WHALEZ-AI</span>
             <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-              AI-driven financial intelligence and quantitative systems.
+              Public beta market intelligence, portfolio modeling, and settlement research through DeltaAlpha-TradePro.
             </p>
           </div>
 
@@ -28,6 +28,14 @@ export function Footer() {
                   DeltaAlpha-TradePro
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/dashboard"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Public Beta
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -40,6 +48,14 @@ export function Footer() {
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
                   Beta Access
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/trust-safety"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Trust & Safety
                 </Link>
               </li>
             </ul>
@@ -65,7 +81,12 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-border">
+        <div className="mt-12 pt-8 border-t border-border space-y-4">
+          <p className="text-xs text-muted-foreground text-center max-w-4xl mx-auto leading-relaxed">
+            DeltaAlpha-TradePro is a public beta interface of the WHALEZ-AI ecosystem. The platform provides
+            informational and educational market intelligence only. It does not provide financial advice, execute live
+            trades, custody funds, or guarantee outcomes.
+          </p>
           <p className="text-sm text-muted-foreground text-center">© WHALEZ-AI. All rights reserved.</p>
         </div>
       </div>
