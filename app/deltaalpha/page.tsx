@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { LineChart, Zap, Eye, BarChart3, TrendingUp, Shield } from "lucide-react"
 import type { Metadata } from "next"
+import { PublicAiPosture } from "@/components/public-ai-posture"
 
 export const metadata: Metadata = {
   title: "DeltaAlpha-TradePro | WHALEZ-AI",
@@ -195,6 +196,7 @@ export default function DeltaAlphaPage() {
             </div>
           </div>
         </section>
+        <PublicAiPosture />
       </main>
       <Footer />
     </>
