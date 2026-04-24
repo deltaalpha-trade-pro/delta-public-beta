@@ -5,25 +5,25 @@ const architectureItems = [
     icon: Cpu,
     title: "AI Core (WHALEZ-AI)",
     description:
-      "Central intelligence processing unit that orchestrates all analysis, learning, and output generation across the ecosystem.",
+      "Central intelligence layer for coordinating analysis, research outputs, and reviewable system responses across the ecosystem.",
   },
   {
     icon: Bot,
     title: "Intelligence Agents",
     description:
-      "Specialized autonomous modules focused on specific analytical domains—market analysis, risk assessment, pattern detection.",
+      "Specialized analytical modules focused on market research, risk review, pattern detection, and signal visualization.",
   },
   {
     icon: Database,
-    title: "Ledger & Asset Models",
+    title: "Audit & Asset Models",
     description:
-      "Structured data architecture for position tracking, transaction history, and comprehensive portfolio state management.",
+      "Structured records for portfolio simulations, strategy history, user-visible state, and reproducible beta review.",
   },
   {
     icon: Globe,
-    title: "Public Exchange Interface",
+    title: "Public Beta Gateway",
     description:
-      "Secure gateway layer enabling controlled access to intelligence outputs and analysis tools through DeltaAlpha-TradePro.",
+      "Controlled access layer that exposes selected intelligence outputs through DeltaAlpha-TradePro without live trade execution or custody.",
   },
 ]
 
@@ -36,7 +36,8 @@ export function ArchitectureSection() {
             System Architecture Overview
           </h2>
           <p className="mt-4 text-muted-foreground leading-relaxed text-pretty">
-            A modular, secure infrastructure designed for scalability, reliability, and institutional-grade performance.
+            A modular public beta architecture designed for controlled access, clear boundaries, reviewable outputs, and
+            progressive trust-building.
           </p>
         </div>
 
@@ -57,8 +58,8 @@ export function ArchitectureSection() {
         </div>
 
         <p className="mt-12 text-xs text-muted-foreground text-center max-w-2xl mx-auto">
-          All architectural descriptions are illustrative and represent the intended system design. Specific
-          implementations may vary during the beta development phase.
+          Architectural descriptions are illustrative and represent the public beta posture. Specific implementations may
+          vary during beta development and do not imply live trading, custody, or guaranteed investment outcomes.
         </p>
       </div>
     </section>
