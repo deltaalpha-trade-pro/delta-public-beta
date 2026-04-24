@@ -16,6 +16,9 @@ export function Navigation() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background border-b">
+      <div className="border-b border-border bg-card/80 px-4 py-2 text-center text-xs text-muted-foreground">
+        Public beta: informational market intelligence only. No live trade execution or custody is active during beta.
+      </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2">
@@ -28,6 +31,10 @@ export function Navigation() {
           <div className="hidden md:flex items-center gap-8">
             <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground">
               About
+            </Link>
+
+            <Link href="/trust-safety" className="text-sm text-muted-foreground hover:text-foreground">
+              Trust & Safety
             </Link>
 
             <DropdownMenu>
@@ -56,10 +63,28 @@ export function Navigation() {
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden"
+            aria-label="Toggle navigation menu"
           >
             {isOpen ? <X /> : <Menu />}
           </button>
         </div>
+
+        {isOpen ? (
+          <div className="md:hidden border-t border-border py-4 space-y-3">
+            <Link href="/about" className="block text-sm text-muted-foreground hover:text-foreground">
+              About
+            </Link>
+            <Link href="/trust-safety" className="block text-sm text-muted-foreground hover:text-foreground">
+              Trust & Safety
+            </Link>
+            <Link href="/whalezchain" className="block text-sm text-muted-foreground hover:text-foreground">
+              Settlement Ledger
+            </Link>
+            <Link href="/beta-access" className="block text-sm text-muted-foreground hover:text-foreground">
+              Request Access
+            </Link>
+          </div>
+        ) : null}
       </div>
     </nav>
   )

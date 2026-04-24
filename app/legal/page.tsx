@@ -42,6 +42,21 @@ export default function LegalPage() {
               </div>
 
               <div>
+                <h2 className="text-xl font-medium text-foreground">No Custody or Live Trade Execution During Beta</h2>
+                <div className="mt-4 space-y-4 text-muted-foreground leading-relaxed">
+                  <p>
+                    WHALEZ-AI and DeltaAlpha-TradePro do not custody user funds, hold client assets, manage client
+                    accounts, submit live market orders, or execute trades during beta.
+                  </p>
+                  <p>
+                    Any real trading activity must occur outside the platform through a user's chosen regulated broker,
+                    exchange, custodian, or financial service provider. Read-only, sandbox, paper-trading, and synthetic
+                    balance views may be used for beta testing and research.
+                  </p>
+                </div>
+              </div>
+
+              <div>
                 <h2 className="text-xl font-medium text-foreground">No Investment Guarantees</h2>
                 <div className="mt-4 space-y-4 text-muted-foreground leading-relaxed">
                   <p>
@@ -58,7 +73,7 @@ export default function LegalPage() {
               </div>
 
               <div>
-                <h2 className="text-xl font-medium text-foreground">Experimental Beta Platform</h2>
+                <h2 className="text-xl font-medium text-foreground">Experimental Public Beta Platform</h2>
                 <div className="mt-4 space-y-4 text-muted-foreground leading-relaxed">
                   <p>WHALEZ-AI and DeltaAlpha-TradePro are currently in a beta development phase. This means:</p>
                   <ul className="space-y-2 ml-4">
@@ -115,10 +130,29 @@ export default function LegalPage() {
                     provided during registration. We do not sell personal data to third parties.
                   </p>
                   <p>
-                    Usage data may be collected to improve our platforms and understand how users interact with our
-                    tools. This data is used internally for product development purposes only.
+                    Usage data may be collected to improve our platforms, maintain security, and understand how users
+                    interact with our tools. This data is used internally for product development and reliability
+                    purposes.
+                  </p>
+                  <p>
+                    Audit records, where generated, should use redacted references or synthetic examples for any public
+                    demonstration and should not expose private user data.
                   </p>
                   <p>For questions about data handling, please contact us through our beta access application.</p>
+                </div>
+              </div>
+
+              <div>
+                <h2 className="text-xl font-medium text-foreground">Anti-Impersonation</h2>
+                <div className="mt-4 space-y-4 text-muted-foreground leading-relaxed">
+                  <p>
+                    WHALEZ-AI and DeltaAlpha-TradePro do not authorize celebrity endorsements, guaranteed-profit
+                    promotions, private fund-collection groups, or unofficial representatives.
+                  </p>
+                  <p>
+                    Users should only trust verified channels listed on this website and should not send funds to anyone
+                    claiming to represent WHALEZ-AI or DeltaAlpha-TradePro.
+                  </p>
                 </div>
               </div>
 
@@ -135,7 +169,7 @@ export default function LegalPage() {
 
               <div className="p-6 rounded-lg border border-border bg-card">
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  <strong className="text-foreground">Last Updated:</strong> December 2024
+                  <strong className="text-foreground">Last Updated:</strong> April 2026
                 </p>
                 <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
                   These terms may be updated periodically. Continued use of our platforms constitutes acceptance of any

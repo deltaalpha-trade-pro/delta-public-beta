@@ -1,0 +1,104 @@
+./.git/config:12:[branch "docs/whalez-ai-public-surface-decision"]
+./.git/config:14:	merge = refs/heads/docs/whalez-ai-public-surface-decision
+./.git/HEAD:1:ref: refs/heads/docs/whalez-ai-public-surface-decision
+./.git/logs/refs/heads/main:2:f5ec561e2dffc01fa76040561c9504c8760150af 40e85f06d8d4c2a90245a2600f20091be3770ff9 deltaalpha-trade-pro <222595377+deltaalpha-trade-pro@users.noreply.github.com> 1776941851 +0100	commit: Add WHALEZ-AI public surface decision
+./.git/logs/refs/heads/docs/whalez-ai-public-surface-decision:2:40e85f06d8d4c2a90245a2600f20091be3770ff9 206a55c4cbd26f0d6cd974a3e615d29d9a5f1b69 deltaalpha-trade-pro <222595377+deltaalpha-trade-pro@users.noreply.github.com> 1776942024 +0100	commit: Add WHALEZ-AI integration map
+./.git/logs/HEAD:2:f5ec561e2dffc01fa76040561c9504c8760150af 40e85f06d8d4c2a90245a2600f20091be3770ff9 deltaalpha-trade-pro <222595377+deltaalpha-trade-pro@users.noreply.github.com> 1776941851 +0100	commit: Add WHALEZ-AI public surface decision
+./.git/logs/HEAD:3:40e85f06d8d4c2a90245a2600f20091be3770ff9 40e85f06d8d4c2a90245a2600f20091be3770ff9 deltaalpha-trade-pro <222595377+deltaalpha-trade-pro@users.noreply.github.com> 1776941914 +0100	checkout: moving from main to docs/whalez-ai-public-surface-decision
+./.git/logs/HEAD:4:40e85f06d8d4c2a90245a2600f20091be3770ff9 206a55c4cbd26f0d6cd974a3e615d29d9a5f1b69 deltaalpha-trade-pro <222595377+deltaalpha-trade-pro@users.noreply.github.com> 1776942024 +0100	commit: Add WHALEZ-AI integration map
+./.git/COMMIT_EDITMSG:1:Add WHALEZ-AI integration map
+./.delta_gpt_notice.md:3:DeltaAlpha-Trade-Pro is inside WHALEZ-AI.
+./.delta_gpt_notice.md:9:- GPT outputs are recommendations only, mediated by WHALEZ-AI
+./PATCH_NOTES.md:13:- do NOT show `/founder-console` or internal routes in public nav.
+./app/about/page.tsx:6:  title: "About | WHALEZ-AI",
+./app/about/page.tsx:8:    "Learn about the vision and philosophy behind WHALEZ-AI - AI-driven financial intelligence built on discipline, structure, and sustainability.",
+./app/about/page.tsx:21:                The Vision Behind WHALEZ-AI
+./app/about/page.tsx:30:                    WHALEZ-AI was conceived as a response to the increasing complexity of modern financial markets.
+./app/about/page.tsx:49:                    Every component of WHALEZ-AI is designed with intentionality. From our AI agents to our ledger
+./app/about/page.tsx:58:                    WHALEZ-AI is not a product rushed to market. It is an evolving ecosystem that will continue to
+./app/about/page.tsx:84:                    We will never promise what we cannot deliver. WHALEZ-AI provides tools and insights—not financial
+./app/api/beta-access/submit/route.ts:5:  // Beta access notifications are orchestrator-owned.
+./app/api/test-email/route.ts:5:    { ok: false, error: "Email disabled in this deployment (orchestrator-owned)." },
+./app/banking/page.tsx:73:              WHALEZ-AI operates as a coordination engine, not a chatbot.
+./app/beta-access/page.tsx:111:                  WHALEZ-AI and DeltaAlpha-Trade-Pro are currently in controlled beta.
+./app/beta-access/page.tsx:124:                      Thank you for your interest in WHALEZ-AI. We will review your
+./app/deltaalpha/page.tsx:9:  title: "DeltaAlpha-TradePro | WHALEZ-AI",
+./app/deltaalpha/page.tsx:11:    "Public intelligence and analysis interface of the WHALEZ-AI ecosystem. Access market insights, signals visualization, and strategy analysis tools.",
+./app/deltaalpha/page.tsx:66:                The public-facing intelligence and analysis interface of the WHALEZ-AI ecosystem. DeltaAlpha-TradePro
+./app/deltaalpha/page.tsx:81:              built on the WHALEZ-AI intelligence infrastructure.
+./app/governance/page.tsx:152:              The Ecosystem Law Center documents the constitutional frameworks governing the WHALEZ-AI ecosystem. These
+./app/internal/founder-bootstrap/internal/founder-bootstrap/routes.ts:5:    new URL("/founder-console", "http://localhost:3000")
+./app/layout.tsx:12:  title: "WHALEZ-AI | AI-Driven Financial Intelligence",
+./app/legal/page.tsx:6:  title: "Legal & Disclaimer | WHALEZ-AI",
+./app/legal/page.tsx:8:    "Legal disclaimers, terms of use, and privacy information for WHALEZ-AI and DeltaAlpha-TradePro platforms.",
+./app/legal/page.tsx:23:                Please read the following information carefully before using WHALEZ-AI or DeltaAlpha-TradePro.
+./app/legal/page.tsx:32:                    WHALEZ-AI and DeltaAlpha-TradePro do not provide financial advice, investment recommendations, or
+./app/legal/page.tsx:54:                    WHALEZ-AI accepts no liability for any losses incurred as a result of using our platforms or acting
+./app/legal/page.tsx:63:                  <p>WHALEZ-AI and DeltaAlpha-TradePro are currently in a beta development phase. This means:</p>
+./app/legal/page.tsx:129:                    All content, design, code, algorithms, and systems comprising WHALEZ-AI and DeltaAlpha-TradePro are
+./app/legal/page.tsx:142:                  modifications. If you do not agree with these terms, please discontinue use of WHALEZ-AI and
+./app/simulation/page.tsx:67:              These simulations demonstrate the intended behavior of the WHALEZ-AI ledger system. PTN, PRN, and WHZ are
+./app/whalezchain/page.tsx:86:                      WHALEZ-AI coordinates settlement as a sovereign engine, not a market participant.
+./components/architecture-section.tsx:6:    title: "AI Core (WHALEZ-AI)",
+./components/beta-notice.tsx:20:              WHALEZ-AI and DeltaAlpha-TradePro are currently operating in a controlled beta environment. Access is
+./components/deltaalpha-preview.tsx:16:              The public-facing intelligence and analysis interface of the WHALEZ-AI ecosystem. DeltaAlpha-TradePro
+./components/footer.tsx:9:            <span className="text-lg font-semibold tracking-tight text-foreground">WHALEZ-AI</span>
+./components/footer.tsx:69:          <p className="text-sm text-muted-foreground text-center">© WHALEZ-AI. All rights reserved.</p>
+./components/governance/framework-diagram.tsx:17:                <p className="text-sm font-bold text-primary">WHALEZ-AI</p>
+./components/hero-section.tsx:19:            WHALEZ-AI
+./components/simulation/trading-chart.tsx:9:import type { CandleData, SimulationAsset } from "@/lib/whalez-ai/config"
+./components/what-is-section.tsx:36:            What WHALEZ-AI Is
+./components/what-is-section.tsx:39:            WHALEZ-AI is an integrated ecosystem combining artificial intelligence, quantitative methods, and systematic
+./components/what-is-section.tsx:59:          WHALEZ-AI does not provide financial advice, trading recommendations, or investment guarantees. All outputs
+./lib/whalez-ai/README.md:3:Silent orchestrator system with Layer 3 → 2 → 1 architecture.
+./lib/whalez-ai/README.md:24:- Response always includes: `simulationOnly: true`, `system: "deltapublicbetamain"`, `mode: "PUBLIC"`
+./lib/whalez-ai/SECURITY.md:6:There is no separate "AI" - one orchestrator, one authority chain.
+./lib/whalez-ai/SECURITY.md:70:  2. `x-request-source: internal-console` header
+./lib/whalez-ai/SECURITY.md:77:The `/founder-console` route:
+./lib/whalez-ai/SECURITY.md:96:- Return `simulationOnly: true` for public
+./lib/whalez-ai/SECURITY.md:103:- [ ] No `/app/founder`, `/app/admin`, `/app/console`, `/app/orchestrator`
+./lib/whalez-ai/SECURITY.md:104:- [ ] `/lib/whalez-ai` not imported by UI components
+./lib/whalez-ai/SECURITY.md:107:- [ ] `simulationOnly: true` in all public responses
+./lib/whalez-ai/config.ts:13:  orchestrator: "Whalez-AI",
+./lib/whalez-ai/config.ts:103:  simulationOnly?: boolean
+./lib/whalez-ai/engines/email-engine.ts:3: * All notifications are orchestrator-owned (internal execution plane).
+./lib/whalez-ai/engines/email-engine.ts:37:    error: "Email disabled in this deployment (orchestrator-owned).",
+./lib/whalez-ai/engines/simulation-engine.ts:58:    simulationOnly: true,
+./lib/whalez-ai/engines/simulation-engine.ts:82:    simulationOnly: true,
+./lib/whalez-ai/engines/simulation-engine.ts:124:    simulationOnly: true,
+./lib/whalez-ai/engines/simulation-engine.ts:170:    simulationOnly: true,
+./lib/whalez-ai/engines/simulation-engine.ts:194:      simulationOnly: true,
+./lib/whalez-ai/engines/simulation-engine.ts:213:    simulationOnly: true,
+./lib/whalez-ai/engines/simulation-engine.ts:251:    simulationOnly: true,
+./lib/whalez-ai/engines/simulation-engine.ts:275:    simulationOnly: true,
+./lib/whalez-ai/index.ts:8:export async function orchestrator(request: WhalesAiRequest): Promise<WhalesAiResponse> {
+./lib/whalez-ai/layers/layer1.ts:26:      handledBy: config.orchestrator,
+./lib/whalez-ai/layers/layer1.ts:47:    orchestrator: config.orchestrator,
+./lib/whalez-ai/layers/layer2.ts:82:    console.log(`[${tool.codename}] Reporting to ${config.orchestrator}:`, {
+./lib/whalez-ai/layers/layer3.ts:14: * Layer 3: Top-level orchestrator (Whalez-AI sits HERE ONLY)
+./lib/whalez-ai/layers/layer3.ts:51:      simulationOnly: true,
+./lib/whalez-ai/layers/layer3.ts:78:      simulationOnly: true,
+./lib/whalez-ai/layers/layer3.ts:87:      error: "Pending validation - orchestrator approval required",
+./lib/whalez-ai/layers/layer3.ts:182:        simulationOnly: true,
+./lib/whalez-ai/layers/layer3.ts:217:        simulationOnly: true,
+./lib/whalez-ai/layers/layer3.ts:229:        simulationOnly: true,
+./lib/whalez-ai/layers/layer3.ts:249:  if (headers["x-request-source"] !== "internal-console") {
+./lib/whalez-ai/layers/layer3.ts:284:    console.log("[WHALEZ-AI] DENIED:", {
+./proxy.ts:13:  if (pathname.startsWith("/founder-console")) {
+./proxy.ts:35:  matcher: ["/founder-console/:path*"],
+./WHALEZ_AI_PUBLIC_SURFACE_DECISION.md:1:# WHALEZ-AI Public Surface Decision
+./WHALEZ_AI_PUBLIC_SURFACE_DECISION.md:4:This document formalizes the WHALEZ-AI posture presented through DeltaAlpha-Trade-Pro public surfaces.
+./WHALEZ_AI_PUBLIC_SURFACE_DECISION.md:12:- Whalezchain/enterprise-orchestrator
+./WHALEZ_AI_PUBLIC_SURFACE_DECISION.md:16:- Whalezchain/whalezchain-enterprise-orchestrator
+./WHALEZ_AI_PUBLIC_SURFACE_DECISION.md:20:- deltaalpha-trade-pro/whalez-ai-core
+./WHALEZ_AI_PUBLIC_SURFACE_DECISION.md:24:- deltaalpha-trade-pro/founder-console
+./WHALEZ_AI_PUBLIC_SURFACE_DECISION.md:27:DeltaAlpha-Trade-Pro exposes WHALEZ-AI in HYBRID posture:
+./WHALEZ_AI_PUBLIC_SURFACE_DECISION.md:29:- observer/orchestrator-facing in founder and private contexts
+./WHALEZ_AI_PUBLIC_SURFACE_DECISION.md:32:The public site must not expose founder-console routes, internal execution routes, or raw governance control surfaces.
+./WHALEZ_AI_PUBLIC_SURFACE_DECISION.md:38:- enterprise-orchestrator
+./WHALEZ_AI_INTEGRATION_MAP.md:1:# WHALEZ-AI Integration Map
+./WHALEZ_AI_INTEGRATION_MAP.md:10:- Whalezchain/enterprise-orchestrator
+./WHALEZ_AI_INTEGRATION_MAP.md:14:- Whalezchain/whalezchain-enterprise-orchestrator
+./WHALEZ_AI_INTEGRATION_MAP.md:17:- deltaalpha-trade-pro/whalez-ai-core
+./WHALEZ_AI_INTEGRATION_MAP.md:20:- deltaalpha-trade-pro/founder-console
+./WHALEZ_AI_INTEGRATION_MAP.md:28:- observer/orchestrator-facing

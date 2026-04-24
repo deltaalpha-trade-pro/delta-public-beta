@@ -5,25 +5,25 @@ const features = [
     icon: Brain,
     title: "AI Intelligence Agents",
     description:
-      "Autonomous analysis systems that process market data, identify patterns, and generate actionable insights through advanced machine learning models.",
+      "Analysis systems that process market data, identify patterns, and generate reviewable insights through model-assisted research workflows.",
   },
   {
     icon: BarChart3,
     title: "Quantitative Analysis Models",
     description:
-      "Sophisticated mathematical frameworks for evaluating market dynamics, risk assessment, and systematic strategy development.",
+      "Mathematical frameworks for evaluating market dynamics, risk conditions, and systematic strategy research.",
   },
   {
     icon: Wallet,
-    title: "Internal Ledger Systems",
+    title: "Portfolio Simulation Views",
     description:
-      "Secure, transparent record-keeping infrastructure for tracking positions, transactions, and portfolio analytics.",
+      "Non-custodial beta interfaces for tracking synthetic balances, simulated positions, and portfolio analytics.",
   },
   {
     icon: Shield,
-    title: "Digital Asset Logic",
+    title: "Verification-First Posture",
     description:
-      "Structured frameworks for understanding digital asset behavior, correlation analysis, and market microstructure.",
+      "Structured beta boundaries, append-only audit records, and public trust language designed for accountability and review.",
   },
 ]
 
@@ -37,8 +37,8 @@ export function WhatIsSection() {
           </h2>
           <p className="mt-4 text-muted-foreground leading-relaxed text-pretty">
             WHALEZ-AI is an integrated ecosystem combining artificial intelligence, quantitative methods, and systematic
-            architecture to deliver financial intelligence. This is not a trading platform—it is an analytical
-            infrastructure designed for insight generation and informed decision-making.
+            architecture to deliver financial intelligence. DeltaAlpha-TradePro exposes a controlled public beta layer
+            for insight generation, signal visualization, portfolio modeling, and informed research.
           </p>
         </div>
 
@@ -56,8 +56,8 @@ export function WhatIsSection() {
         </div>
 
         <p className="mt-8 text-sm text-muted-foreground">
-          WHALEZ-AI does not provide financial advice, trading recommendations, or investment guarantees. All outputs
-          are informational and experimental.
+          WHALEZ-AI does not provide financial advice, live trade execution, custody, trading recommendations, or
+          investment guarantees during beta. All outputs are informational and educational.
         </p>
       </div>
     </section>

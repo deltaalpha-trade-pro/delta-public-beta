@@ -12,27 +12,33 @@ export function BetaNotice() {
           </div>
 
           <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-foreground text-balance">
-            Beta Platform Notice
+            Public Beta Notice
           </h2>
 
           <div className="mt-6 space-y-4 text-muted-foreground">
             <p className="leading-relaxed">
-              WHALEZ-AI and DeltaAlpha-TradePro are currently operating in a controlled beta environment. Access is
-              limited and features are under active development.
+              WHALEZ-AI and DeltaAlpha-TradePro are currently operating in a controlled public beta environment. Access
+              is limited and features are under active development.
             </p>
             <p className="leading-relaxed">
-              This platform does not facilitate live trading execution. All outputs, signals, and analysis are provided
-              for informational and educational purposes only.
+              This platform provides informational market intelligence, signal visualization, strategy analysis, and
+              portfolio modeling. It does not custody funds, submit live orders, or facilitate live trade execution
+              during beta.
             </p>
             <p className="leading-relaxed">
-              We are continuously refining our systems based on feedback and testing. Thank you for your patience and
-              participation.
+              Outputs are informational and educational only. Users remain responsible for their own financial decisions
+              and should not rely solely on platform outputs.
             </p>
           </div>
 
-          <Button className="mt-8 min-h-[44px] bg-transparent" variant="outline" asChild>
-            <Link href="/beta-access">Request Beta Access</Link>
-          </Button>
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Button className="min-h-[44px] bg-transparent" variant="outline" asChild>
+              <Link href="/beta-access">Request Beta Access</Link>
+            </Button>
+            <Button className="min-h-[44px]" asChild>
+              <Link href="/trust-safety">Read Trust & Safety</Link>
+            </Button>
+          </div>
         </div>
       </div>
     </section>
