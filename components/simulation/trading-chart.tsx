@@ -13,7 +13,16 @@ interface TradingChartProps {
   onSessionCreate?: (sessionId: string) => void
 }
 
-const AVAILABLE_ASSETS: SimulationAsset[] = ["EUR/USD", "GBP/USD", "USD/JPY", "AUD/USD", "USD/CHF", "EUR/GBP"]
+const AVAILABLE_ASSETS: SimulationAsset[] = [
+  "EUR/USD",
+  "GBP/USD",
+  "USD/JPY",
+  "AUD/USD",
+  "USD/CHF",
+  "EUR/GBP",
+  "BTC/USD",
+  "ETH/USD",
+]
 const TIMEFRAMES = ["1m", "5m", "15m", "1h", "4h", "1D"] as const
 type Timeframe = (typeof TIMEFRAMES)[number]
 
@@ -56,6 +65,8 @@ export function TradingChart({ sessionId, onSessionCreate }: TradingChartProps) 
       "AUD/USD": 0.655,
       "USD/CHF": 0.88,
       "EUR/GBP": 0.855,
+      "BTC/USD": 68500,
+      "ETH/USD": 3450,
     }
     return prices[selectedAsset]
   }, [])
