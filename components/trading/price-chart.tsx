@@ -1,16 +1,17 @@
 "use client"
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import dynamic from "next/dynamic"
+import {
+  Area,
+  Bar,
+  ComposedChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts"
 
-const ComposedChart = dynamic(() => import("recharts").then((mod) => mod.ComposedChart), { ssr: false })
-const Area = dynamic(() => import("recharts").then((mod) => mod.Area), { ssr: false })
-const Bar = dynamic(() => import("recharts").then((mod) => mod.Bar), { ssr: false })
-const ResponsiveContainer = dynamic(() => import("recharts").then((mod) => mod.ResponsiveContainer), { ssr: false })
-const XAxis = dynamic(() => import("recharts").then((mod) => mod.XAxis), { ssr: false })
-const YAxis = dynamic(() => import("recharts").then((mod) => mod.YAxis), { ssr: false })
-const Tooltip = dynamic(() => import("recharts").then((mod) => mod.Tooltip), { ssr: false })
+import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 const data = [
   { time: "09:00", price: 1.245, volume: 12500 },
