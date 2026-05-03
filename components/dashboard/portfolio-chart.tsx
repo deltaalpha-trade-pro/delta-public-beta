@@ -1,14 +1,15 @@
 "use client"
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import dynamic from "next/dynamic"
+import {
+  Area,
+  AreaChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts"
 
-const AreaChart = dynamic(() => import("recharts").then((mod) => mod.AreaChart), { ssr: false })
-const Area = dynamic(() => import("recharts").then((mod) => mod.Area), { ssr: false })
-const ResponsiveContainer = dynamic(() => import("recharts").then((mod) => mod.ResponsiveContainer), { ssr: false })
-const XAxis = dynamic(() => import("recharts").then((mod) => mod.XAxis), { ssr: false })
-const YAxis = dynamic(() => import("recharts").then((mod) => mod.YAxis), { ssr: false })
-const Tooltip = dynamic(() => import("recharts").then((mod) => mod.Tooltip), { ssr: false })
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 const data = [
   { date: "Jan", value: 10000 },
@@ -46,7 +47,7 @@ export function PortfolioChart() {
                 axisLine={false}
                 tickLine={false}
                 tick={{ fill: "#6b7280", fontSize: 12 }}
-                tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
+                tickFormatter={(value) => `$${(Number(value) / 1000).toFixed(0)}k`}
               />
               <Tooltip
                 contentStyle={{
@@ -55,7 +56,7 @@ export function PortfolioChart() {
                   borderRadius: "8px",
                   color: "#f3f4f6",
                 }}
-                formatter={(value: number) => [`$${value.toLocaleString()}`, "Portfolio Value"]}
+                formatter={(value) => [`$${Number(value).toLocaleString()}`, "Portfolio Value"]}
               />
               <Area type="monotone" dataKey="value" stroke="#4a90d9" strokeWidth={2} fill="url(#portfolioGradient)" />
             </AreaChart>
