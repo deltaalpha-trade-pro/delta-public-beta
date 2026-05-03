@@ -301,6 +301,8 @@ function getBasePrice(asset: SimulationAsset): number {
     "AUD/USD": 0.655,
     "USD/CHF": 0.88,
     "EUR/GBP": 0.855,
+    "BTC/USD": 68500,
+    "ETH/USD": 3450,
   }
   return basePrices[asset]
 }
