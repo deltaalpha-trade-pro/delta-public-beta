@@ -1,3 +1,5 @@
+import { config, type EmailEvent } from "../config";
+
 /**
  * Email is disabled on the Delta Public Beta surface.
  * All notifications are orchestrator-owned (internal execution plane).
@@ -25,6 +27,10 @@ export interface EmailSendResult {
   error: string;
 }
 
+export function getAvailableEvents(): readonly EmailEvent[] {
+  return config.email.events;
+}
+
 export function isEmailEnabled(): boolean {
   return false;
 }
@@ -40,6 +46,7 @@ export async function sendEmail(_req: EmailSendRequest): Promise<EmailSendResult
 
 /** Convenience aliases for callers that might use an engine object */
 export const EmailEngine = {
+  getAvailableEvents,
   isEnabled: isEmailEnabled,
   send: sendEmail,
   sendEmail,
