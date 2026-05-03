@@ -1,5 +1,5 @@
-import { FounderGate } from "@/components/founder-gate"
+import { notFound } from "next/navigation"
 
 export default function InternalFounderPage() {
-  return <FounderGate variant="internal" />
+  notFound()
 }
