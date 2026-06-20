@@ -1,0 +1,7 @@
+declare module "recharts"
+declare module "lucide-react"
+declare module "cmdk"
+declare module "sonner"
+declare module "vaul"
+declare module "input-otp"
+declare module "react-resizable-panels"

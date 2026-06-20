@@ -1,0 +1,38 @@
+import Link from "next/link"
+
+const surfaces = [
+  ["Market Intelligence", "Available to activated accounts with platform-ready research access."],
+  ["Strategy Workspace", "Unlocked for qualified accounts once verification and activity posture are satisfied."],
+  ["Portfolio Oversight", "Account-aware oversight surface for notices, holdings posture, and monitored actions."],
+]
+
+export function DeltaAlphaPreview() {
+  return (
+    <section className="py-20 md:py-28">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
+        <div>
+          <p className="text-sm uppercase tracking-[0.22em] text-[#8eb4e0]">Engine surfaces</p>
+          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">Gated products, not brochure cards</h2>
+          <p className="mt-5 text-base leading-8 text-slate-300">
+            DeltaAlpha-TradePro organizes account access around real product surfaces with explicit eligibility and notices.
+          </p>
+          <Link
+            href="/dashboard"
+            className="mt-8 inline-flex min-h-[48px] items-center rounded-full bg-white px-5 py-3 text-sm font-medium text-slate-950"
+          >
+            Open dashboard
+          </Link>
+        </div>
+
+        <div className="grid gap-4">
+          {surfaces.map(([title, body]) => (
+            <div key={title} className="rounded-3xl border border-white/10 bg-white/[0.04] p-6">
+              <h3 className="text-lg font-medium text-white">{title}</h3>
+              <p className="mt-3 text-sm leading-7 text-slate-300">{body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

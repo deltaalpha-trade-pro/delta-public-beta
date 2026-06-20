@@ -1,0 +1,42 @@
+import Link from "next/link"
+
+export function HeroSection() {
+  return (
+    <section className="relative overflow-hidden pt-24">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(84,140,255,0.26),transparent_42%),linear-gradient(180deg,#09111d_0%,#0d1117_42%,#101826_100%)]" />
+      <div className="relative mx-auto max-w-7xl px-4 pb-24 pt-24 sm:px-6 lg:px-8 md:pb-32">
+        <div className="max-w-4xl">
+          <p className="text-sm uppercase tracking-[0.28em] text-[#93b8e8]">Public platform surface</p>
+          <h1 className="mt-6 text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-7xl">
+            Precision access to DeltaAlpha-TradePro
+          </h1>
+          <p className="mt-8 max-w-2xl text-lg leading-8 text-slate-300">
+            Account-based market intelligence, guided onboarding, and entitlement-aware engine access built for a premium
+            public platform posture.
+          </p>
+
+          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+            <Link
+              href="/signup"
+              className="inline-flex min-h-[48px] items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-medium text-slate-950"
+            >
+              Create Account
+            </Link>
+            <Link
+              href="/login"
+              className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-white/15 px-6 py-3 text-sm font-medium text-white"
+            >
+              Sign In
+            </Link>
+            <Link
+              href="/beta-access"
+              className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-[#3d5f88] bg-[#10213a] px-6 py-3 text-sm font-medium text-[#cfe2ff]"
+            >
+              Guided Access
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
