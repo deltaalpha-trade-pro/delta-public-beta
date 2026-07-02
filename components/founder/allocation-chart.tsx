@@ -1,11 +1,14 @@
 "use client";
 
-import dynamic from "next/dynamic";
-
-// ONLY chart containers should be dynamic
-const BarChart = dynamic(() => import("recharts").then(m => m.BarChart), { ssr: false });
-
-import { Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer
+} from "recharts";
 
 export default function AllocationChart({ data }: any) {
   return (
@@ -15,7 +18,7 @@ export default function AllocationChart({ data }: any) {
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
-        <Bar dataKey="value" fill="#8884d8" />
+        <Bar dataKey="value" />
       </BarChart>
     </ResponsiveContainer>
   );
