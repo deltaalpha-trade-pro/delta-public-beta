@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { processTrade } from "../_core/state-machine";
+import type { TradeStatus } from "../_core/types";
 
 export async function POST(req: Request) {
   const body = await req.json();
@@ -11,8 +12,7 @@ export async function POST(req: Request) {
     amount: body.amount,
     price: body.price,
 
-    // FIX: must match TradeStatus union type
-    status: "pending",
+    status: "created" as TradeStatus,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   };
