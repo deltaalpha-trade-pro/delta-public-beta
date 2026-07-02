@@ -1,12 +1,36 @@
-// only showing the FIXED section pattern
+"use client";
 
-const prices: Record<SimulationAsset, number> = {
-  "EUR/USD": 1.085,
-  "GBP/USD": 1.27,
-  "USD/JPY": 149.5,
-  "AUD/USD": 0.66,
-  "USD/CHF": 0.88,
-  "EUR/GBP": 0.86,
-  "BTC/USD": 43000,
-  "ETH/USD": 2400
-};
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer
+} from "recharts";
+
+export function TradingChart() {
+  const data = [
+    { name: "EUR/USD", value: 1.085 },
+    { name: "GBP/USD", value: 1.27 },
+    { name: "USD/JPY", value: 149.5 },
+    { name: "AUD/USD", value: 0.66 },
+    { name: "USD/CHF", value: 0.88 },
+    { name: "EUR/GBP", value: 0.86 },
+    { name: "BTC/USD", value: 43000 },
+    { name: "ETH/USD", value: 2400 }
+  ];
+
+  return (
+    <ResponsiveContainer width="100%" height={300}>
+      <LineChart data={data}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Tooltip />
+        <Line type="monotone" dataKey="value" />
+      </LineChart>
+    </ResponsiveContainer>
+  );
+}
