@@ -11,7 +11,8 @@ export async function POST(req: Request) {
     amount: body.amount,
     price: body.price,
 
-    status: "created",
+    // FIX: must match TradeStatus union type
+    status: "pending",
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   };
