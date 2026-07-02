@@ -2,13 +2,19 @@ import { spawnSync } from "node:child_process";
 
 function isTermuxOrAndroid() {
   const env = process.env;
+
   const prefix = env.PREFIX || "";
-  return (
+
+  const isTermux =
     !!env.TERMUX_VERSION ||
     prefix.includes("com.termux") ||
-    !!env.ANDROID_ROOT ||
-    process.platform === "android"
-  );
+    !!env.ANDROID_ROOT;
+
+  // 🔥 IMPORTANT FIX:
+  // NEVER block CI systems like Vercel
+  const isCI = !!process.env.VERCEL || !!process.env.CI;
+
+  return isTermux && !isCI;
 }
 
 const cmd = process.argv[2];
@@ -19,7 +25,7 @@ if (!cmd) {
 
 if (isTermuxOrAndroid()) {
   console.error(
-    `TERMUX_GUARD_BLOCKED: next ${cmd} is disabled on Termux/Android. See docs/termux-smoke.md`
+    \`TERMUX_GUARD_BLOCKED: next \${cmd} is disabled on Termux/Android. See docs/termux-smoke.md\`
   );
   process.exit(42);
 }
