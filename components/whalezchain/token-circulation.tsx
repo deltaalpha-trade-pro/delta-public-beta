@@ -1,50 +1,49 @@
 "use client"
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import dynamic from "next/dynamic"
-
-const PieChart = import { PieChart } from "recharts")
-const Pie = import { Pie } from "recharts")
-const Cell = import { Cell } from "recharts")
-const ResponsiveContainer = import { ResponsiveContainer } from "recharts")
-const Legend = import { Legend } from "recharts")
-const Tooltip = import { Tooltip } from "recharts")
-
-const data = [
-  { name: "PTN (Potential)", value: 45000000, color: "#4a90d9" },
-  { name: "PRN (Proven)", value: 28000000, color: "#10b981" },
-  { name: "WHZ (Whalez)", value: 12000000, color: "#f59e0b" },
-  { name: "Reserved", value: 15000000, color: "#6b7280" },
-]
+import {
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
+  Legend,
+  Tooltip
+} from "recharts"
 
 export function TokenCirculation() {
+  const data = [
+    { name: "Liquidity", value: 40 },
+    { name: "Team", value: 20 },
+    { name: "Ecosystem", value: 25 },
+    { name: "Reserve", value: 15 },
+  ]
+
+  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"]
+
   return (
-    <Card className="bg-card border-border">
+    <Card>
       <CardHeader>
-        <CardTitle className="text-foreground">Token Circulation</CardTitle>
+        <CardTitle>Token Circulation</CardTitle>
       </CardHeader>
+
       <CardContent>
-        <div className="h-[300px]">
-          <ResponsiveContainer width="100%" height="100%">
+        <div style={{ width: "100%", height: 300 }}>
+          <ResponsiveContainer>
             <PieChart>
-              <Pie data={data} cx="50%" cy="50%" innerRadius={60} outerRadius={100} paddingAngle={2} dataKey="value">
+              <Pie
+                data={data}
+                dataKey="value"
+                nameKey="name"
+                outerRadius={100}
+                fill="#8884d8"
+              >
                 {data.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: "#0a0a0f",
-                  border: "1px solid #1f2937",
-                  borderRadius: "8px",
-                  color: "#f3f4f6",
-                }}
-                formatter={(value: number) => [`${(value / 1000000).toFixed(1)}M`, "Tokens"]}
-              />
-              <Legend
-                verticalAlign="bottom"
-                formatter={(value) => <span className="text-gray-400 text-sm">{value}</span>}
-              />
+
+              <Tooltip />
+              <Legend />
             </PieChart>
           </ResponsiveContainer>
         </div>
