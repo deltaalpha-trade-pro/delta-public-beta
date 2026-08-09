@@ -102,16 +102,18 @@ export function CommunicationsSection() {
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{card.body}</p>
 
                 <div className="mt-5">
-                  <Button asChild variant={isDisabled ? "outline" : "default"} className="w-full justify-between">
-                    {isDisabled ? (
+                  {isDisabled ? (
+                    <Button variant="outline" className="w-full justify-between" disabled>
                       <span>{card.cta}</span>
-                    ) : (
+                    </Button>
+                  ) : (
+                    <Button asChild variant="default" className="w-full justify-between">
                       <Link href={card.link} target={card.link.startsWith("/") ? undefined : "_blank"} rel="noreferrer">
                         <span>{card.cta}</span>
                         <ArrowUpRight className="ml-2 h-4 w-4" />
                       </Link>
-                    )}
-                  </Button>
+                    </Button>
+                  )}
                 </div>
               </article>
             )
