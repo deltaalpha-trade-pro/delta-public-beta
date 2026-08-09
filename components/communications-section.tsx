@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowUpRight, Mail, MessagesSquare, Smartphone, Globe } from "lucide-react"
+import { ArrowUpRight, Mail, MessagesSquare, Smartphone, Globe, ShieldCheck } from "lucide-react"
 
 const telegramUrl = process.env.NEXT_PUBLIC_TELEGRAM_CHANNEL_URL?.trim() || "https://t.me/whalez_ai_deltaalpha_trade_pro"
 const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, "") || ""
@@ -10,6 +10,7 @@ const whatsappUrl = whatsappNumber
 const facebookUrl = process.env.NEXT_PUBLIC_FACEBOOK_PAGE_URL?.trim() || ""
 const instagramUrl = process.env.NEXT_PUBLIC_INSTAGRAM_URL?.trim() || ""
 const mailSurfaceUrl = process.env.NEXT_PUBLIC_WHALEZ_MAIL_URL?.trim() || "/mail"
+const statusApiUrl = "/api/status"
 const tidioConfigured = Boolean(process.env.NEXT_PUBLIC_TIDIO_PUBLIC_KEY?.trim())
 const metaPixelConfigured = Boolean(process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim())
 
@@ -54,6 +55,15 @@ const cards = [
     disabled: !facebookUrl && !instagramUrl,
   },
   {
+    title: "Relay status API",
+    icon: ShieldCheck,
+    status: "Verification surface",
+    body:
+      "Use the status endpoint to confirm which widgets, webhook signatures, and downstream relays are configured before going live.",
+    link: statusApiUrl,
+    cta: "Open /api/status",
+  },
+  {
     title: "Whalez-mail",
     icon: Mail,
     status: "Surface available",
@@ -79,7 +89,7 @@ export function CommunicationsSection() {
           </p>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-5">
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-6 gap-5">
           {cards.map((card) => {
             const Icon = card.icon
             const isDisabled = card.disabled ?? false
