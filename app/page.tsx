@@ -3,6 +3,7 @@ import { HeroSection } from "@/components/hero-section"
 import { WhatIsSection } from "@/components/what-is-section"
 import { DeltaAlphaPreview } from "@/components/deltaalpha-preview"
 import { EcosystemProductsSection } from "@/components/ecosystem-products-section"
+import { CommunicationsSection } from "@/components/communications-section"
 import { ArchitectureSection } from "@/components/architecture-section"
 import { BetaNotice } from "@/components/beta-notice"
 import { Footer } from "@/components/footer"
@@ -16,6 +17,7 @@ export default function HomePage() {
         <WhatIsSection />
         <DeltaAlphaPreview />
         <EcosystemProductsSection />
+        <CommunicationsSection />
         <ArchitectureSection />
         <BetaNotice />
       </main>
