@@ -24,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Gitignore exact-line check
-        run: bash ci/policy/check_gitignore_exact.sh ci/policy/gitignore.required.lines .gitignore
+        run: bash ci/policy/check_gitignore_exact.sh .gitignore ci/policy/gitignore.required.lines
 
   ban-qe:
     name: Policy Guards / ban-qe
