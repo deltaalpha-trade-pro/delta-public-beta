@@ -1,4 +1,4 @@
-﻿name: Policy Guards
+name: Policy Guards
 
 on:
   pull_request:
