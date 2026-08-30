@@ -15,8 +15,8 @@ export function OPTIONS() {
   return apiOptions()
 }
 
-export async function GET(request: Request, context: { params: Promise<{ path: string[] }> }) {
-  const { path } = await context.params
+export async function GET(request: Request, context: { params: { path: string[] } }) {
+  const { path } = context.params
   const normalized = `/${path.join("/")}`
 
   if (normalized === "/health") {
@@ -50,8 +50,8 @@ export async function GET(request: Request, context: { params: Promise<{ path: s
   return apiJson({ error: "not_found", path: normalized }, { status: 404 })
 }
 
-export async function POST(request: Request, context: { params: Promise<{ path: string[] }> }) {
-  const { path } = await context.params
+export async function POST(request: Request, context: { params: { path: string[] } }) {
+  const { path } = context.params
   const normalized = `/${path.join("/")}`
 
   if (isProtectedPath(normalized)) {
