@@ -14,7 +14,7 @@ import * as simulationEngine from "../engines/simulation-engine"
  * Layer 3: Top-level orchestrator (Whalez-AI sits HERE ONLY)
  *
  * PHASE 4A: Hard-lock PUBLIC execution
- * - All execution intents in PUBLIC mode return simulation-only response
+ * - All execution intents in PUBLIC mode remain simulation-only
  * - Audit logging for denied actions
  * - Engines can ONLY be invoked from this layer
  */
@@ -33,7 +33,7 @@ export async function layer3(request: WhalesAiRequest): Promise<WhalesAiResponse
     // Log denied action (server-only, silent)
     logDeniedAction(telemetry, request)
 
-    // Only allow simulation:* tasks in PUBLIC mode
+    // Public callers may use only simulation:* tasks. No live execution path exists.
     if (request.task.startsWith("simulation:")) {
       return handlePublicSimulation(request, telemetry)
     }
@@ -190,7 +190,8 @@ function handlePublicSimulation(request: WhalesAiRequest, telemetry: TelemetryLo
   const action = request.task.replace("simulation:", "")
   const data = request.data || {}
 
-  // Only allow read-only simulation operations in PUBLIC mode
+  // Public callers can mutate only synthetic in-memory simulation state.
+  // No broker, ledger, settlement, custody, or live execution is reachable here.
   switch (action) {
     case "create":
       return {
@@ -207,6 +208,30 @@ function handlePublicSimulation(request: WhalesAiRequest, telemetry: TelemetryLo
     case "tick":
       return {
         ...simulationEngine.tickSession(data.sessionId),
+        layer: "layer3",
+        telemetry,
+      }
+    case "open":
+      return {
+        ...simulationEngine.openPosition(data.sessionId, data.direction, data.size),
+        layer: "layer3",
+        telemetry,
+      }
+    case "close":
+      return {
+        ...simulationEngine.closePosition(data.sessionId, data.positionId),
+        layer: "layer3",
+        telemetry,
+      }
+    case "end":
+      return {
+        ...simulationEngine.endSession(data.sessionId),
+        layer: "layer3",
+        telemetry,
+      }
+    case "replay":
+      return {
+        ...simulationEngine.replaySession(data.sessionId, data.fromIndex),
         layer: "layer3",
         telemetry,
       }
