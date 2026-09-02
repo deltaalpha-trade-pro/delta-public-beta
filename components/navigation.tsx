@@ -10,12 +10,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { EcosystemMark, WhalezchainMark, DeltaAlphaMark } from "@/components/brand-marks"
 
 const publicLinks = [
-  { href: "/about", label: "About" },
+  { href: "/#communications", label: "Communications" },
   { href: "/#product-surface", label: "Products" },
   { href: "/whalezchain", label: "Ledger" },
-  { href: "/beta-access", label: "Beta Access" },
+  { href: "/mail", label: "Whalez-mail" },
 ]
 
 const accessLinks = [
@@ -32,8 +33,14 @@ export function Navigation() {
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/70 to-transparent" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center gap-2" onClick={() => setIsOpen(false)}>
-            <span className="text-lg font-semibold tracking-tight text-foreground">DeltaAlpha-TradePro</span>
+          <Link href="/" className="flex items-center gap-3" onClick={() => setIsOpen(false)}>
+            <EcosystemMark className="h-8 w-8 text-primary" />
+            <div className="leading-tight">
+              <span className="block text-sm font-semibold tracking-[0.24em] text-foreground">WHALEZ-AI</span>
+              <span className="block text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+                DeltaAlpha-TradePro
+              </span>
+            </div>
           </Link>
 
           <div className="hidden md:flex items-center gap-8">
@@ -49,10 +56,16 @@ export function Navigation() {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="glass-panel">
                 <DropdownMenuItem asChild>
-                  <Link href="/whalezchain">Settlement Ledger</Link>
+                  <Link href="/whalezchain" className="flex items-center gap-2">
+                    <WhalezchainMark className="h-4 w-4 text-primary" />
+                    Settlement Ledger
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link href="/dashboard">Dashboard</Link>
+                  <Link href="/mail" className="flex items-center gap-2">
+                    <DeltaAlphaMark className="h-4 w-4 text-primary" />
+                    Whalez-mail
+                  </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

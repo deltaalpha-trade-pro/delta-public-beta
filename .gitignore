@@ -38,3 +38,7 @@ node_modules/
 .env
 .env.*
 !.env.example
+
+# Runtime / local application state
+data/
+whalez-core/data/
