@@ -7,7 +7,16 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-const ASSETS = ["EUR/USD", "GBP/USD", "USD/JPY", "AUD/USD", "USD/CHF", "EUR/GBP", "BTC/USD", "ETH/USD"] as const
+const ASSETS = [
+  "EUR/USD",
+  "GBP/USD",
+  "USD/JPY",
+  "AUD/USD",
+  "USD/CHF",
+  "EUR/GBP",
+  "BTC/USD",
+  "ETH/USD",
+] as const
 
 type OrderResult = {
   success: boolean
@@ -15,6 +24,7 @@ type OrderResult = {
   simulationOnly?: boolean
   asset?: string
   side?: string
+  direction?: string
   size?: number
   sessionId?: string
   position?: {
@@ -26,7 +36,11 @@ type OrderResult = {
   }
 }
 
-export function TradeForm() {
+type TradeFormProps = {
+  onOrderRecorded?: (result: OrderResult) => void
+}
+
+export function TradeForm({ onOrderRecorded }: TradeFormProps) {
   const [asset, setAsset] = useState<(typeof ASSETS)[number]>("EUR/USD")
   const [amount, setAmount] = useState("")
   const [result, setResult] = useState<OrderResult | null>(null)
@@ -36,7 +50,10 @@ export function TradeForm() {
     const size = Number.parseFloat(amount)
 
     if (!Number.isFinite(size) || size <= 0) {
-      setResult({ success: false, error: "Enter a valid simulation size greater than zero." })
+      setResult({
+        success: false,
+        error: "Enter a valid demo size greater than zero.",
+      })
       return
     }
 
@@ -52,8 +69,16 @@ export function TradeForm() {
 
       const data = (await response.json()) as OrderResult
       setResult(data)
+
+      if (data.success) {
+        onOrderRecorded?.(data)
+        setAmount("")
+      }
     } catch {
-      setResult({ success: false, error: "Unable to reach the DeltaAlpha simulation service." })
+      setResult({
+        success: false,
+        error: "Unable to reach the DeltaAlpha simulation service.",
+      })
     } finally {
       setSubmitting(false)
     }
@@ -62,15 +87,19 @@ export function TradeForm() {
   return (
     <Card className="bg-card border-border">
       <CardHeader>
-        <CardTitle className="text-foreground">Simulation Order</CardTitle>
+        <CardTitle className="text-foreground">Demo Order Ticket</CardTitle>
       </CardHeader>
+
       <CardContent>
         <div className="space-y-4">
           <div className="space-y-2">
             <Label className="text-muted-foreground">Asset</Label>
+
             <select
               value={asset}
-              onChange={(event) => setAsset(event.target.value as (typeof ASSETS)[number])}
+              onChange={(event) =>
+                setAsset(event.target.value as (typeof ASSETS)[number])
+              }
               className="flex h-10 w-full rounded-md border border-border bg-input px-3 py-2 text-sm text-foreground outline-none"
             >
               {ASSETS.map((item) => (
@@ -87,19 +116,23 @@ export function TradeForm() {
                 value="buy"
                 className="data-[state=active]:bg-emerald-500/20 data-[state=active]:text-emerald-400"
               >
-                Buy
+                Buy / Long
               </TabsTrigger>
+
               <TabsTrigger
                 value="sell"
                 className="data-[state=active]:bg-red-500/20 data-[state=active]:text-red-400"
               >
-                Sell
+                Sell / Short
               </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="buy" className="space-y-4 mt-4">
+            <TabsContent value="buy" className="mt-4 space-y-4">
               <div className="space-y-2">
-                <Label className="text-muted-foreground">Simulation Size</Label>
+                <Label className="text-muted-foreground">
+                  Demo Position Size
+                </Label>
+
                 <Input
                   type="number"
                   min="0"
@@ -110,19 +143,23 @@ export function TradeForm() {
                   className="bg-input border-border text-foreground"
                 />
               </div>
+
               <Button
                 type="button"
                 disabled={submitting}
                 onClick={() => placeOrder("buy")}
                 className="w-full bg-emerald-500 hover:bg-emerald-600 text-white"
               >
-                {submitting ? "Processing…" : "Place Simulated Buy"}
+                {submitting ? "Processing…" : "Place Demo Buy"}
               </Button>
             </TabsContent>
 
-            <TabsContent value="sell" className="space-y-4 mt-4">
+            <TabsContent value="sell" className="mt-4 space-y-4">
               <div className="space-y-2">
-                <Label className="text-muted-foreground">Simulation Size</Label>
+                <Label className="text-muted-foreground">
+                  Demo Position Size
+                </Label>
+
                 <Input
                   type="number"
                   min="0"
@@ -133,13 +170,14 @@ export function TradeForm() {
                   className="bg-input border-border text-foreground"
                 />
               </div>
+
               <Button
                 type="button"
                 disabled={submitting}
                 onClick={() => placeOrder("sell")}
                 className="w-full bg-red-500 hover:bg-red-600 text-white"
               >
-                {submitting ? "Processing…" : "Place Simulated Sell"}
+                {submitting ? "Processing…" : "Place Demo Sell"}
               </Button>
             </TabsContent>
           </Tabs>
@@ -148,15 +186,24 @@ export function TradeForm() {
             <div className="rounded-lg border border-border bg-secondary/40 p-4 text-sm">
               {result.success ? (
                 <div className="space-y-1 text-emerald-400">
-                  <p className="font-medium">Simulation order verified.</p>
+                  <p className="font-medium">Demo order verified.</p>
+
                   <p className="text-muted-foreground">
-                    {result.side?.toUpperCase()} {result.asset} • size {result.size}
+                    {result.side?.toUpperCase()} {result.asset} • size{" "}
+                    {result.size}
                   </p>
+
                   <p className="text-muted-foreground">
-                    Session {result.sessionId} • Position {result.position?.positionId}
+                    Entry {result.position?.entryPrice ?? "—"}
                   </p>
+
                   <p className="text-muted-foreground">
-                    Entry {result.position?.entryPrice} • Verified: {result.verification?.verified ? "YES" : "NO"}
+                    Session {result.sessionId ?? "—"}
+                  </p>
+
+                  <p className="text-muted-foreground">
+                    Verified:{" "}
+                    {result.verification?.verified ? "YES" : "NO"}
                   </p>
                 </div>
               ) : (
@@ -165,8 +212,9 @@ export function TradeForm() {
             </div>
           )}
 
-          <p className="text-xs text-muted-foreground text-center">
-            Public beta simulation only — synthetic in-memory state, no broker, custody, settlement, or live execution.
+          <p className="text-center text-xs text-muted-foreground">
+            Demo Trading only. Synthetic execution. No broker, custody,
+            settlement, or live trading.
           </p>
         </div>
       </CardContent>

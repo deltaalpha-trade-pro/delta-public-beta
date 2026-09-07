@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server"
+import { cookies } from "next/headers"
 import { z } from "zod"
 import { orchestrator, type SimulationAsset } from "@/lib/whalez-ai"
 
@@ -13,6 +14,19 @@ const orderSchema = z.object({
 })
 
 export async function POST(request: Request) {
+  const access = cookies().get("access_token")?.value
+
+  if (!access) {
+    return NextResponse.json(
+      {
+        success: false,
+        error: "unauthorized",
+        simulationOnly: true,
+      },
+      { status: 401 },
+    )
+  }
+
   const body = await request.json().catch(() => null)
   const parsed = orderSchema.safeParse(body)
 
