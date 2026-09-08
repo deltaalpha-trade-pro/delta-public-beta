@@ -1,7 +1,7 @@
 import {
   config,
-  type WhalesAiRequest,
-  type WhalesAiResponse,
+  type WhalezAiRequest,
+  type WhalezAiResponse,
   type RequestClassification,
   type TelemetryLog,
   type AuditLog,
@@ -22,7 +22,7 @@ import * as simulationEngine from "../engines/simulation-engine"
 // Audit log storage (server-only, in-memory for now)
 const auditLogs: AuditLog[] = []
 
-export async function layer3(request: WhalesAiRequest): Promise<WhalesAiResponse> {
+export async function layer3(request: WhalezAiRequest): Promise<WhalezAiResponse> {
   const classification = classifyRequest(request)
   const telemetry = createAuditLog(classification, request)
 
@@ -139,7 +139,7 @@ export function instructEngine(engine: keyof typeof config.engines, instruction:
   return true
 }
 
-async function handleEmailEngine(request: WhalesAiRequest): Promise<WhalesAiResponse> {
+async function handleEmailEngine(request: WhalezAiRequest): Promise<WhalezAiResponse> {
   const action = request.task.replace("email:", "")
 
   if (action === "send" && request.data) {
@@ -156,7 +156,7 @@ async function handleEmailEngine(request: WhalesAiRequest): Promise<WhalesAiResp
   }
 }
 
-function handleSimulationEngine(request: WhalesAiRequest): WhalesAiResponse {
+function handleSimulationEngine(request: WhalezAiRequest): WhalezAiResponse {
   const action = request.task.replace("simulation:", "")
   const data = request.data || {}
 
@@ -186,7 +186,7 @@ function handleSimulationEngine(request: WhalesAiRequest): WhalesAiResponse {
   }
 }
 
-function handlePublicSimulation(request: WhalesAiRequest, telemetry: TelemetryLog): WhalesAiResponse {
+function handlePublicSimulation(request: WhalezAiRequest, telemetry: TelemetryLog): WhalezAiResponse {
   const action = request.task.replace("simulation:", "")
   const data = request.data || {}
 
@@ -262,7 +262,7 @@ function handlePublicSimulation(request: WhalesAiRequest, telemetry: TelemetryLo
  * BotID-style internal request classification
  * No third-party dependency - security logic in intelligence layer
  */
-function classifyRequest(request: WhalesAiRequest): RequestClassification {
+function classifyRequest(request: WhalezAiRequest): RequestClassification {
   const headers = request.internalHeaders || {}
 
   // No headers = public request
@@ -293,7 +293,7 @@ function validateRoleToken(token: string): boolean {
   return token.startsWith("whalez-role-") && token.length > 20
 }
 
-function createAuditLog(classification: RequestClassification, request: WhalesAiRequest): TelemetryLog {
+function createAuditLog(classification: RequestClassification, request: WhalezAiRequest): TelemetryLog {
   return {
     timestamp: new Date().toISOString(),
     classification,
@@ -303,7 +303,7 @@ function createAuditLog(classification: RequestClassification, request: WhalesAi
   }
 }
 
-function logDeniedAction(telemetry: TelemetryLog, request: WhalesAiRequest): void {
+function logDeniedAction(telemetry: TelemetryLog, request: WhalezAiRequest): void {
   // Server-only logging (silent, no user-facing output)
   if (process.env.NODE_ENV !== "test" && process.env.WHALEZ_AUDIT_LOG === "1") {
     console.log("[WHALEZ-AI] DENIED:", {
