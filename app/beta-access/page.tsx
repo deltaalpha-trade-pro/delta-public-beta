@@ -137,7 +137,7 @@ export default function BetaAccessPage() {
                       >
                         {error}
                       </p>
-                    )}
+                    ) : null}
 
                     <Button type="submit" className="w-full min-h-[44px]" disabled={isLoading}>
                       {isLoading ? "Submitting..." : "Submit Beta Request"}
