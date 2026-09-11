@@ -2,7 +2,6 @@ import {
   clearAccessCookie,
   ok,
   demoMode,
-  err,
   getAccessCookie,
   authBridgeConfigured,
   authBridgeUnavailable,
