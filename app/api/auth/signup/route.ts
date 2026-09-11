@@ -2,6 +2,7 @@ import {
   ok,
   err,
   demoMode,
+  setAccessCookie,
   authBridgeConfigured,
   authBridgeUnavailable,
   runplaneAuthFetch,
@@ -17,7 +18,6 @@ export async function POST(req: Request) {
   if (!normalizedEmail || !normalizedPassword) return err("Missing email or password", 400);
 
   if (demoMode()) {
-    const { setAccessCookie } = await import("../_util");
     setAccessCookie(`demo:${normalizedEmail}`);
     return ok({
       user_id: crypto.randomUUID(),
