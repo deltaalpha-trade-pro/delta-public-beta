@@ -1,30 +1,51 @@
-import { ok, err, demoMode, setAccessCookie } from "../_util";
+import {
+  ok,
+  err,
+  demoMode,
+  setAccessCookie,
+  authBridgeConfigured,
+  authBridgeUnavailable,
+  runplaneAuthFetch,
+  formBody,
+  extractRunplaneSession,
+  responseBody,
+} from "../_util";
 
 export async function POST(req: Request) {
   const { email, password } = await req.json().catch(() => ({}));
-  if (!email || !password) return err("Missing email or password", 400);
+  const normalizedEmail = String(email || "").toLowerCase().trim();
+  const normalizedPassword = String(password || "");
+  if (!normalizedEmail || !normalizedPassword) return err("Missing email or password", 400);
 
   if (demoMode()) {
-    setAccessCookie(`demo:${String(email).toLowerCase()}`);
+    setAccessCookie(`demo:${normalizedEmail}`);
     return ok({
       user_id: crypto.randomUUID(),
-      email: String(email).toLowerCase(),
+      email: normalizedEmail,
       risk_tier: "R0",
       verification_level: "V0",
       mode: "demo",
     });
   }
 
-  const api = process.env.NEXT_PUBLIC_API_URL;
-  if (!api) return err("NEXT_PUBLIC_API_URL not set", 500);
+  if (!authBridgeConfigured()) return authBridgeUnavailable();
 
-  const res = await fetch(`${api}/auth/login`, {
+  const res = await runplaneAuthFetch("/auth/login", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password }),
-    credentials: "include",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: formBody({ email: normalizedEmail, password: normalizedPassword }),
   });
 
-  const data = await res.json().catch(() => ({}));
-  return ok(data, res.status);
+  const session = extractRunplaneSession(res);
+  if (res.status >= 400 || !session) {
+    const data = await responseBody(res);
+    return ok(data, res.status >= 400 ? res.status : 502);
+  }
+
+  setAccessCookie(session);
+  return ok({
+    email: normalizedEmail,
+    authenticated: true,
+    mode: "runplane-auth",
+  });
 }
