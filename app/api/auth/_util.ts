@@ -57,7 +57,7 @@ export function extractAccessToken(data: unknown): string | null {
 
 export function authBridgeUnavailable() {
   return err(
-    "Runplane auth bridge is not configured for this deployment. Set RUNPLANE_AUTH_ENABLED=true and RUNPLANE_AUTH_URL to activate real auth.",
+    "Authentication is temporarily unavailable. Please try again shortly.",
     503,
   );
 }
@@ -91,13 +91,34 @@ export function runplaneCookie(value: string): string {
   return `rp=${value}`;
 }
 
+const SAFE_DETAIL_MAX_LENGTH = 240;
+const HTML_OR_DOCUMENT_PATTERN = /<!doctype|<html|<head|<body|<script|<style|cloudflare|server error/i;
+
+function safeDetail(value: unknown, fallback: string): string {
+  if (typeof value !== "string") return fallback;
+  const detail = value.trim();
+  if (!detail || detail.length > SAFE_DETAIL_MAX_LENGTH || HTML_OR_DOCUMENT_PATTERN.test(detail)) {
+    return fallback;
+  }
+  return detail;
+}
+
 export async function responseBody(response: Response): Promise<unknown> {
   const text = await response.text();
   if (!text) return {};
+
   try {
-    return JSON.parse(text);
+    const parsed = JSON.parse(text);
+    if (parsed && typeof parsed === "object") {
+      const record = parsed as Record<string, unknown>;
+      if ("detail" in record) {
+        return { ...record, detail: safeDetail(record.detail, "Authentication request could not be completed.") };
+      }
+      return parsed;
+    }
+    return {};
   } catch {
-    return { detail: text };
+    return { detail: "Authentication service returned an unexpected response. Please try again." };
   }
 }
 
