@@ -1,4 +1,4 @@
-import { config, type WhalesAiRequest, type WhalesAiResponse } from "../config"
+import { config, type WhalezAiRequest, type WhalezAiResponse } from "../config"
 
 /**
  * Layer 1: Core Whalez-AI integration
@@ -7,7 +7,7 @@ import { config, type WhalesAiRequest, type WhalesAiResponse } from "../config"
  * STREAM 2: Engines accept instructions ONLY from Layer 3
  * This layer processes but does not directly instruct engines
  */
-export async function layer1(request: WhalesAiRequest): Promise<WhalesAiResponse> {
+export async function layer1(request: WhalezAiRequest): Promise<WhalezAiResponse> {
   // Only accept requests that have passed through Layer 3 and 2
   if (request.classification !== "internal-verified") {
     return {
@@ -35,7 +35,7 @@ export async function layer1(request: WhalesAiRequest): Promise<WhalesAiResponse
   }
 }
 
-async function executeTask(request: WhalesAiRequest): Promise<any> {
+async function executeTask(request: WhalezAiRequest): Promise<any> {
   // Core processing - tool results already attached from Layer 2
   const toolResult = request.data?.toolResult
 

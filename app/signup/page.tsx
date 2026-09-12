@@ -4,7 +4,7 @@ import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { AuthCard } from "@/components/auth/auth-card";
-import { signup } from "@/lib/auth/client";
+import { signup, readAuthError } from "@/lib/auth/client";
 
 function SignupForm() {
   const [email, setEmail] = useState("");
@@ -22,12 +22,16 @@ function SignupForm() {
     try {
       const res = await signup(email.trim(), password);
       if (!res.ok) {
-        const j = await res.json().catch(() => ({}));
-        throw new Error(j?.detail || "Signup failed");
+        throw new Error(await readAuthError(res, "Unable to create your account. Please try again."));
       }
       router.push(next);
     } catch (e: any) {
-      setErr(e?.message || "Signup failed");
+      const message = typeof e?.message === "string" ? e.message.trim() : "";
+      setErr(
+        message && message.length <= 240 && !/<!doctype|<html|<head|<body|<script|<style|cloudflare/i.test(message)
+          ? message
+          : "Unable to create your account right now. Please try again shortly.",
+      );
     } finally {
       setBusy(false);
     }
@@ -36,7 +40,7 @@ function SignupForm() {
   return (
     <AuthCard
       title="Create your DeltaAlpha account"
-      subtitle="Public node onboarding — governed by Whalez policies."
+      subtitle="Public beta access — governed by Whalez policies."
       footer={
         <span>
           Already have an account?{" "}
@@ -69,9 +73,7 @@ function SignupForm() {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
           />
-          <p className="mt-1 text-xs text-zinc-500">
-            Minimum 8 chars recommended. MFA will be added in the next milestone.
-          </p>
+          <p className="mt-1 text-xs text-zinc-500">Use at least 8 characters.</p>
         </div>
 
         {err ? (
@@ -88,7 +90,7 @@ function SignupForm() {
         </button>
 
         <p className="text-xs text-zinc-500">
-          By creating an account you agree to the Terms. Execution remains gated by governance & legal triggers.
+          By creating an account you agree to the Terms. Access and execution remain subject to the controlled beta.
         </p>
       </form>
     </AuthCard>

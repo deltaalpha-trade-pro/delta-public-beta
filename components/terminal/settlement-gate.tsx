@@ -11,7 +11,7 @@ type AuthorizationState = "checking" | "authorized" | "denied" | "slow"
 export function SettlementGate() {
   const [authState, setAuthState] = useState<AuthorizationState>("authorized")
 
-  // Simulated settlement state
+  // Simulated settlement state for the public beta experience.
   const settlementState = {
     whzLocked: 50,
     whzRequired: 50,
@@ -40,20 +40,20 @@ export function SettlementGate() {
       case "checking":
         return {
           icon: <div className="w-8 h-8 rounded-full border-2 border-primary border-t-transparent animate-spin" />,
-          title: "Verifying Settlement Authority",
-          description: "Checking WHZ bond and exposure limits...",
+          title: "Checking Demo Settlement State",
+          description: "Simulating WHZ bond and exposure checks...",
           badge: null,
           color: "text-muted-foreground",
         }
       case "authorized":
         return {
           icon: <CheckCircle className="w-8 h-8 text-emerald-400" />,
-          title: "Accelerated Settlement Authorized",
-          description: "WHZ bond active. Pre-finality execution enabled.",
+          title: "Accelerated Settlement Simulated",
+          description: "Demo WHZ bond state satisfies the simulated acceleration rules.",
           badge: (
             <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30">
               <Zap className="w-3 h-3 mr-1" />
-              T+0 Available
+              SIMULATED T+0
             </Badge>
           ),
           color: "text-emerald-400",
@@ -61,12 +61,12 @@ export function SettlementGate() {
       case "slow":
         return {
           icon: <Clock className="w-8 h-8 text-amber-400" />,
-          title: "Standard Settlement Only",
-          description: "Insufficient WHZ bond. Trades allowed at standard speed.",
+          title: "Standard Settlement Simulated",
+          description: "Demo bond state produces the simulated standard-speed outcome.",
           badge: (
             <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30">
               <Clock className="w-3 h-3 mr-1" />
-              T+2 Settlement
+              SIMULATED T+2
             </Badge>
           ),
           color: "text-amber-400",
@@ -74,12 +74,12 @@ export function SettlementGate() {
       case "denied":
         return {
           icon: <XCircle className="w-8 h-8 text-red-400" />,
-          title: "Execution Blocked",
-          description: "Exposure limit exceeded. Reduce positions or increase bond.",
+          title: "Demo Execution Blocked",
+          description: "The simulated exposure limit has been exceeded.",
           badge: (
             <Badge className="bg-red-500/20 text-red-400 border-red-500/30">
               <XCircle className="w-3 h-3 mr-1" />
-              Blocked
+              SIMULATED BLOCK
             </Badge>
           ),
           color: "text-red-400",
@@ -94,12 +94,12 @@ export function SettlementGate() {
       <CardHeader className="pb-3">
         <CardTitle className="text-foreground flex items-center gap-2 text-base">
           <Shield className="w-5 h-5 text-primary" />
-          Settlement Gate
+          Demo Settlement Simulation
         </CardTitle>
-        <p className="text-xs text-muted-foreground">Authorization required for accelerated settlement</p>
+        <p className="text-xs text-muted-foreground">Synthetic authorization state for beta demonstration only</p>
       </CardHeader>
       <CardContent className="space-y-4">
-        {/* Authorization Status */}
+        {/* Simulated Authorization Status */}
         <div className="p-4 rounded-lg bg-secondary/50 border border-border text-center">
           <div className="flex justify-center mb-3">{auth.icon}</div>
           <h4 className={`text-sm font-medium ${auth.color} mb-1`}>{auth.title}</h4>
@@ -107,11 +107,11 @@ export function SettlementGate() {
           {auth.badge}
         </div>
 
-        {/* WHZ Bond Status */}
+        {/* WHZ Bond Simulation */}
         <div className="p-3 rounded-lg bg-secondary/30 border border-border">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs text-muted-foreground flex items-center gap-1">
-              <Lock className="w-3 h-3" /> WHZ Locked
+              <Lock className="w-3 h-3" /> Demo WHZ Locked
             </span>
             <span className="text-xs font-mono text-foreground">
               {settlementState.whzLocked} / {settlementState.whzRequired}
@@ -127,10 +127,10 @@ export function SettlementGate() {
           </div>
         </div>
 
-        {/* Exposure */}
+        {/* Exposure Simulation */}
         <div className="p-3 rounded-lg bg-secondary/30 border border-border">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs text-muted-foreground">Current Exposure</span>
+            <span className="text-xs text-muted-foreground">Demo Exposure</span>
             <span className="text-xs font-mono text-foreground">
               {settlementState.exposure.toLocaleString()} / {settlementState.maxExposure.toLocaleString()} PRN
             </span>
@@ -143,9 +143,9 @@ export function SettlementGate() {
           </div>
         </div>
 
-        {/* Pending Settlements */}
+        {/* Simulated Pending Settlements */}
         <div className="flex items-center justify-between p-3 rounded-lg bg-secondary/30 border border-border">
-          <span className="text-xs text-muted-foreground">Pending Settlements</span>
+          <span className="text-xs text-muted-foreground">Simulated Pending Settlements</span>
           <Badge variant="outline" className="text-xs">
             {settlementState.pendingSettlements}
           </Badge>
@@ -159,27 +159,26 @@ export function SettlementGate() {
           disabled={authState === "checking"}
         >
           {authState === "checking" ? (
-            "Checking..."
+            "Checking Demo State..."
           ) : (
             <>
-              Re-verify Authorization
+              Re-check Demo State
               <ArrowRight className="w-4 h-4 ml-2" />
             </>
           )}
         </Button>
 
-        {/* Authority Hierarchy Notice */}
+        {/* Simulation Boundary Notice */}
         <div className="p-3 rounded-lg bg-primary/5 border border-primary/10">
           <div className="flex items-start gap-2">
             <AlertTriangle className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
             <div className="space-y-1">
               <p className="text-xs text-muted-foreground">
-                <strong className="text-foreground">Authority Hierarchy:</strong>
+                <strong className="text-foreground">Simulation only:</strong>
               </p>
               <p className="text-xs text-muted-foreground">
-                Trading is permitted. Settlement speed is governed separately. The system may{" "}
-                <strong className="text-foreground">deny speed</strong> while{" "}
-                <strong className="text-foreground">allowing trades</strong>.
+                Bond, exposure, settlement speed, and authorization outcomes shown here are synthetic demo state. No live
+                trade, custody, broker, or settlement execution is enabled.
               </p>
             </div>
           </div>

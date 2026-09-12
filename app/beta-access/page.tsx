@@ -8,18 +8,63 @@ import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 
+const SAFE_ERROR_MAX_LENGTH = 240
+const HTML_OR_DOCUMENT_PATTERN = /<!doctype|<html|<head|<body|<script|<style|cloudflare|server error/i
+
+function safePublicError(value: unknown, fallback: string) {
+  if (typeof value !== "string") return fallback
+  const message = value.trim()
+  if (!message || message.length > SAFE_ERROR_MAX_LENGTH || HTML_OR_DOCUMENT_PATTERN.test(message)) return fallback
+  return message
+}
+
 export default function BetaAccessPage() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState("")
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setIsLoading(true)
+    setError("")
 
-    window.setTimeout(() => {
+    const form = event.currentTarget
+    const formData = new FormData(form)
+
+    try {
+      const response = await fetch("/api/beta-access/submit", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.get("name"),
+          email: formData.get("email"),
+          intendedUse: formData.get("intendedUse"),
+        }),
+      })
+
+      const contentType = response.headers.get("content-type") || ""
+      let body: Record<string, unknown> | null = null
+      if (contentType.toLowerCase().includes("application/json")) {
+        const parsed = await response.json().catch(() => null)
+        if (parsed && typeof parsed === "object") body = parsed as Record<string, unknown>
+      }
+
+      if (!response.ok || !body?.accepted) {
+        throw new Error(
+          safePublicError(body?.error, "Unable to submit the beta access request right now. Please try again shortly."),
+        )
+      }
+
       setIsSubmitted(true)
+      form.reset()
+    } catch (err) {
+      const message = err instanceof Error ? err.message : ""
+      setError(safePublicError(message, "Unable to submit the beta access request right now. Please try again shortly."))
+    } finally {
       setIsLoading(false)
-    }, 300)
+    }
   }
 
   return (
@@ -53,49 +98,22 @@ export default function BetaAccessPage() {
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="space-y-2">
-                      <label htmlFor="name" className="text-sm font-medium text-foreground">
-                        Full name
-                      </label>
-                      <input
-                        id="name"
-                        name="name"
-                        type="text"
-                        required
-                        className="w-full min-h-[44px] rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-primary"
-                        placeholder="Enter your full name"
-                      />
+                      <label htmlFor="name" className="text-sm font-medium text-foreground">Full name</label>
+                      <input id="name" name="name" type="text" required className="w-full min-h-[44px] rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-primary" placeholder="Enter your full name" />
                     </div>
 
                     <div className="space-y-2">
-                      <label htmlFor="email" className="text-sm font-medium text-foreground">
-                        Email address
-                      </label>
-                      <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        required
-                        className="w-full min-h-[44px] rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-primary"
-                        placeholder="name@example.com"
-                      />
+                      <label htmlFor="email" className="text-sm font-medium text-foreground">Email address</label>
+                      <input id="email" name="email" type="email" required className="w-full min-h-[44px] rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-primary" placeholder="name@example.com" />
                     </div>
 
                     <div className="space-y-2">
-                      <label htmlFor="intendedUse" className="text-sm font-medium text-foreground">
-                        Intended use
-                      </label>
-                      <textarea
-                        id="intendedUse"
-                        name="intendedUse"
-                        required
-                        rows={5}
-                        className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-primary"
-                        placeholder="Tell us how you plan to use the public beta surface."
-                      />
-                      <p className="text-xs text-muted-foreground leading-relaxed">
-                        Public beta access remains subject to staged review and controlled activation.
-                      </p>
+                      <label htmlFor="intendedUse" className="text-sm font-medium text-foreground">Intended use</label>
+                      <textarea id="intendedUse" name="intendedUse" required rows={5} className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none focus:border-primary" placeholder="Tell us how you plan to use the public beta surface." />
+                      <p className="text-xs text-muted-foreground leading-relaxed">Public beta access remains subject to staged review and controlled activation.</p>
                     </div>
+
+                    {error ? <p role="alert" className="text-sm text-destructive leading-relaxed">{error}</p> : null}
 
                     <Button type="submit" className="w-full min-h-[44px]" disabled={isLoading}>
                       {isLoading ? "Submitting..." : "Submit Beta Request"}

@@ -1,0 +1,18 @@
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @media (prefers-color-scheme: light) {
+      .bg { fill: #0f172a; }
+      .fg { fill: #f8fafc; }
+      .stroke { stroke: #f8fafc; }
+    }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #f8fafc; }
+      .fg { fill: #0f172a; }
+      .stroke { stroke: #0f172a; }
+    }
+  </style>
+  <rect class="bg" width="180" height="180" rx="38" />
+  <rect x="40" y="40" width="100" height="100" rx="30" class="fg" opacity="0.12" />
+  <path d="M63 90c0-15 12-27 27-27h0c15 0 27 12 27 27s-12 27-27 27h0c-15 0-27-12-27-27Z" fill="none" class="stroke" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M75 90c0-8 6-14 14-14h2c8 0 14 6 14 14s-6 14-14 14h-2c-8 0-14-6-14-14Z" class="fg" />
+</svg>

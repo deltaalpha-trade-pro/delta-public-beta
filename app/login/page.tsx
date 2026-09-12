@@ -4,7 +4,7 @@ import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { AuthCard } from "@/components/auth/auth-card";
-import { login } from "@/lib/auth/client";
+import { login, readAuthError } from "@/lib/auth/client";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -22,12 +22,16 @@ function LoginForm() {
     try {
       const res = await login(email.trim(), password);
       if (!res.ok) {
-        const j = await res.json().catch(() => ({}));
-        throw new Error(j?.detail || "Login failed");
+        throw new Error(await readAuthError(res, "Unable to sign in. Please check your details and try again."));
       }
       router.push(next);
     } catch (e: any) {
-      setErr(e?.message || "Login failed");
+      const message = typeof e?.message === "string" ? e.message.trim() : "";
+      setErr(
+        message && message.length <= 240 && !/<!doctype|<html|<head|<body|<script|<style|cloudflare/i.test(message)
+          ? message
+          : "Unable to sign in right now. Please try again shortly.",
+      );
     } finally {
       setBusy(false);
     }

@@ -3,27 +3,27 @@ import { Brain, BarChart3, Wallet, Shield } from "lucide-react"
 const features = [
   {
     icon: Brain,
-    title: "AI Intelligence Agents",
+    title: "AI Intelligence",
     description:
-      "Autonomous analysis systems that process market data, identify patterns, and generate actionable insights through advanced machine learning models.",
+      "AI-assisted analysis that processes market context, identifies patterns, and helps users interpret complex information.",
   },
   {
     icon: BarChart3,
-    title: "Quantitative Analysis Models",
+    title: "Quantitative Analysis",
     description:
-      "Sophisticated mathematical frameworks for evaluating market dynamics, risk assessment, and systematic strategy development.",
+      "Systematic models for evaluating market dynamics, risk context, and strategy behavior without presenting outputs as guaranteed outcomes.",
   },
   {
     icon: Wallet,
-    title: "Internal Ledger Systems",
+    title: "Portfolio & Account Views",
     description:
-      "Secure, transparent record-keeping infrastructure for tracking positions, transactions, and portfolio analytics.",
+      "User-facing previews for balances, portfolio context, movement history, and simulated financial states during the controlled beta.",
   },
   {
     icon: Shield,
-    title: "Digital Asset Logic",
+    title: "Digital Asset Intelligence",
     description:
-      "Structured frameworks for understanding digital asset behavior, correlation analysis, and market microstructure.",
+      "Structured tools for understanding digital-asset behavior, correlations, market structure, and related risk factors.",
   },
 ]
 
@@ -37,8 +37,8 @@ export function WhatIsSection() {
           </h2>
           <p className="mt-4 text-muted-foreground leading-relaxed text-pretty">
             WHALEZ-AI is an integrated ecosystem combining artificial intelligence, quantitative methods, and systematic
-            architecture to deliver financial intelligence. This is not a trading platform—it is an analytical
-            infrastructure designed for insight generation and informed decision-making.
+            analysis to deliver financial intelligence. The public beta focuses on insight, modeling, controlled
+            simulations, and informed decision-making—not live financial execution.
           </p>
         </div>
 
@@ -56,8 +56,8 @@ export function WhatIsSection() {
         </div>
 
         <p className="mt-8 text-sm text-muted-foreground">
-          WHALEZ-AI does not provide financial advice, trading recommendations, or investment guarantees. All outputs
-          are informational and experimental.
+          WHALEZ-AI does not provide financial advice, trading recommendations, or investment guarantees. All public-beta
+          outputs are informational, experimental, or simulated where explicitly stated.
         </p>
       </div>
     </section>

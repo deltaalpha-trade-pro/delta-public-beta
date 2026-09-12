@@ -8,7 +8,7 @@ export function Footer() {
           <div className="col-span-2 md:col-span-1">
             <span className="text-lg font-semibold tracking-tight text-foreground">WHALEZ-AI</span>
             <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-              AI-driven financial intelligence and quantitative systems in controlled public beta.
+              AI-driven financial intelligence, market analysis, communications, and controlled beta product previews.
             </p>
           </div>
 
@@ -23,11 +23,6 @@ export function Footer() {
               <li>
                 <Link href="/deltaalpha" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                   DeltaAlpha-TradePro
-                </Link>
-              </li>
-              <li>
-                <Link href="/whalezchain" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Settlement Ledger
                 </Link>
               </li>
             </ul>
@@ -51,42 +46,23 @@ export function Footer() {
                   Sign up
                 </Link>
               </li>
+              <li>
+                <Link href="/#communications" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Communications
+                </Link>
+              </li>
             </ul>
           </div>
 
           <div>
             <h4 className="text-sm font-medium text-foreground mb-4">Legal</h4>
             <ul className="space-y-3">
-              <li>
-                <Link href="/legal" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Legal Center
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Terms
-                </Link>
-              </li>
-              <li>
-                <Link href="/privacy" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Privacy
-                </Link>
-              </li>
-              <li>
-                <Link href="/risk-disclosure" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Risk Disclosure
-                </Link>
-              </li>
-              <li>
-                <Link href="/beta-disclaimer" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Beta Disclaimer
-                </Link>
-              </li>
-              <li>
-                <Link href="/cookies" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Cookies
-                </Link>
-              </li>
+              <li><Link href="/legal" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Legal Center</Link></li>
+              <li><Link href="/terms" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Terms</Link></li>
+              <li><Link href="/privacy" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Privacy</Link></li>
+              <li><Link href="/risk-disclosure" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Risk Disclosure</Link></li>
+              <li><Link href="/beta-disclaimer" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Beta Disclaimer</Link></li>
+              <li><Link href="/cookies" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Cookies</Link></li>
             </ul>
           </div>
         </div>

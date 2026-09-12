@@ -89,17 +89,17 @@ export function TradingPanel() {
             <div className="h-64 bg-secondary/30 rounded-lg flex items-center justify-center border border-border/50">
               <div className="text-center">
                 <BarChart3 className="w-12 h-12 text-muted-foreground/30 mx-auto mb-2" />
-                <p className="text-sm text-muted-foreground">Price Chart</p>
+                <p className="text-sm text-muted-foreground">Simulated Price Chart</p>
                 <p className="text-xs text-muted-foreground/70 mt-1">{selectedInstrument.price.toLocaleString()} PRN</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* Order Book */}
+        {/* Simulated Order Book */}
         <Card className="bg-card border-border">
           <CardHeader className="pb-2">
-            <CardTitle className="text-foreground text-base">Order Book</CardTitle>
+            <CardTitle className="text-foreground text-base">Demo Order Book</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             {/* Asks */}
@@ -136,14 +136,14 @@ export function TradingPanel() {
         </Card>
       </div>
 
-      {/* Order Entry */}
+      {/* Demo Order Entry */}
       <Card className="bg-card border-border">
         <CardHeader className="pb-2">
           <CardTitle className="text-foreground text-base flex items-center gap-2">
-            Order Entry
+            Demo Order Entry
             <Badge variant="outline" className="text-[10px] bg-secondary text-muted-foreground">
               <Clock className="w-2.5 h-2.5 mr-1" />
-              Settlement Speed Governed by WHZ Bond
+              Synthetic settlement simulation
             </Badge>
           </CardTitle>
         </CardHeader>
@@ -169,7 +169,7 @@ export function TradingPanel() {
                   onClick={() => setSide("buy")}
                 >
                   <TrendingUp className="w-4 h-4 mr-2" />
-                  Buy
+                  Demo Buy
                 </Button>
                 <Button
                   variant={side === "sell" ? "default" : "outline"}
@@ -177,18 +177,18 @@ export function TradingPanel() {
                   onClick={() => setSide("sell")}
                 >
                   <TrendingDown className="w-4 h-4 mr-2" />
-                  Sell
+                  Demo Sell
                 </Button>
               </div>
 
               <div className="space-y-3">
                 <div>
-                  <Label className="text-xs text-muted-foreground">Amount</Label>
+                  <Label className="text-xs text-muted-foreground">Demo Amount</Label>
                   <Input placeholder="0.00" className="font-mono bg-secondary border-border" />
                 </div>
                 {orderType === "limit" && (
                   <div>
-                    <Label className="text-xs text-muted-foreground">Limit Price</Label>
+                    <Label className="text-xs text-muted-foreground">Demo Limit Price</Label>
                     <Input placeholder="0.00" className="font-mono bg-secondary border-border" />
                   </div>
                 )}
@@ -197,7 +197,7 @@ export function TradingPanel() {
 
             {/* Order Summary */}
             <div className="p-4 bg-secondary/50 rounded-lg border border-border space-y-3">
-              <h4 className="text-sm font-medium text-foreground">Order Preview</h4>
+              <h4 className="text-sm font-medium text-foreground">Demo Order Preview</h4>
               <div className="space-y-2 text-xs">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Instrument</span>
@@ -218,7 +218,7 @@ export function TradingPanel() {
               </div>
               <div className="pt-3 border-t border-border">
                 <p className="text-[10px] text-muted-foreground">
-                  Trade execution allowed. Settlement speed determined by Settlement Authority.
+                  Synthetic demo order only. No broker execution, custody, live settlement, or live trading is enabled.
                 </p>
               </div>
             </div>

@@ -21,17 +21,17 @@ export default function TerminalPage() {
                 <Terminal className="w-5 h-5 text-primary" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-foreground">Execution Terminal</h1>
-                <p className="text-xs text-muted-foreground">Trading governed by Settlement Authority</p>
+                <h1 className="text-xl font-bold text-foreground">Demo Trading Terminal</h1>
+                <p className="text-xs text-muted-foreground">Synthetic trading and settlement simulation</p>
               </div>
             </div>
             <Badge variant="outline" className="bg-primary/10 text-primary border-primary/30 w-fit">
               <Shield className="w-3 h-3 mr-1" />
-              Authority Hierarchy Active
+              Public Beta Simulation
             </Badge>
           </div>
 
-          {/* Banking State Bar - Always Visible at Top */}
+          {/* Demo Banking State Bar - Always Visible at Top */}
           <div className="mb-4">
             <BankingStateBar />
           </div>
@@ -43,18 +43,18 @@ export default function TerminalPage() {
               <TradingPanel />
             </div>
 
-            {/* Settlement Gate - 1 column */}
+            {/* Settlement Simulation - 1 column */}
             <div className="lg:col-span-1">
               <SettlementGate />
             </div>
           </div>
 
-          {/* Authority Notice */}
+          {/* Simulation Boundary Notice */}
           <div className="mt-4 p-4 rounded-lg bg-secondary/50 border border-border">
             <p className="text-xs text-muted-foreground text-center">
-              <strong className="text-foreground">Authority Hierarchy:</strong> Trades may execute, but settlement speed
-              depends on WHZ bond status. Insufficient bond results in SLOW_SETTLEMENT (standard T+2). The system can
-              deny speed while allowing trades.
+              <strong className="text-foreground">Public beta simulation:</strong> Market data, order entry, WHZ bond,
+              exposure, escrow, and settlement outcomes shown here are synthetic. No live trading, broker execution,
+              custody, or settlement execution is enabled.
             </p>
           </div>
         </div>
