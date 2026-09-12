@@ -59,11 +59,6 @@ export default function DashboardPage() {
                 <Link href="/login">
                   <Button className="min-h-11 rounded-xl">Login</Button>
                 </Link>
-                <Link href="/founder">
-                  <Button variant="outline" className="min-h-11 rounded-xl border-white/15 bg-white/5 backdrop-blur-xl">
-                    Founder gate
-                  </Button>
-                </Link>
               </div>
             </div>
           </div>
