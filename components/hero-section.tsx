@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Shield } from "lucide-react"
-import { EcosystemMark, WhalezchainMark, DeltaAlphaMark } from "@/components/brand-marks"
+import { EcosystemMark, DeltaAlphaMark } from "@/components/brand-marks"
 
 export function HeroSection() {
   return (
@@ -12,7 +12,7 @@ export function HeroSection() {
         <div className="text-center max-w-4xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-secondary/50 mb-8">
             <Shield className="w-3 h-3 text-primary" />
-            <span className="text-xs text-muted-foreground">Public beta gateway for real ecosystem wiring</span>
+            <span className="text-xs text-muted-foreground">Controlled public beta</span>
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight text-foreground text-balance">
@@ -20,22 +20,18 @@ export function HeroSection() {
           </h1>
 
           <p className="mt-4 text-lg sm:text-xl md:text-2xl text-primary tracking-wide">
-            Trading Terminal · Banking · Investment · Escrow · Settlement
+            Market Intelligence · Portfolio Modeling · Digital Finance Previews · Communications
           </p>
 
           <p className="mt-6 text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed text-pretty">
-            A public coordination layer for the Whalez-AI ecosystem: communications, market intelligence, mail
-            routing, settlement visibility, and the launch surfaces that support controlled execution.
+            A public gateway for financial intelligence, market analysis, controlled simulations, and ecosystem
+            communication—designed to help users understand complex financial systems without implying live execution.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-xs text-muted-foreground">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5">
               <EcosystemMark className="h-4 w-4 text-primary" />
               Whalez-AI Ecosystem
-            </span>
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5">
-              <WhalezchainMark className="h-4 w-4 text-primary" />
-              Whalezchain
             </span>
             <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5">
               <DeltaAlphaMark className="h-4 w-4 text-primary" />
@@ -49,13 +45,13 @@ export function HeroSection() {
               className="w-full sm:w-auto min-h-[44px] bg-foreground text-background hover:bg-foreground/90"
               asChild
             >
-              <Link href="/mail">
-                Open Whalez-mail
+              <Link href="/deltaalpha">
+                Explore DeltaAlpha
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Link>
             </Button>
             <Button variant="outline" size="lg" className="w-full sm:w-auto min-h-[44px] bg-transparent" asChild>
-              <Link href="/#communications">Review live communications wiring</Link>
+              <Link href="/#communications">Review communications</Link>
             </Button>
           </div>
         </div>
