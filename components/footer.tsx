@@ -25,11 +25,6 @@ export function Footer() {
                   DeltaAlpha-TradePro
                 </Link>
               </li>
-              <li>
-                <Link href="/mail" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Whalez-mail
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -62,36 +57,12 @@ export function Footer() {
           <div>
             <h4 className="text-sm font-medium text-foreground mb-4">Legal</h4>
             <ul className="space-y-3">
-              <li>
-                <Link href="/legal" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Legal Center
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Terms
-                </Link>
-              </li>
-              <li>
-                <Link href="/privacy" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Privacy
-                </Link>
-              </li>
-              <li>
-                <Link href="/risk-disclosure" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Risk Disclosure
-                </Link>
-              </li>
-              <li>
-                <Link href="/beta-disclaimer" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Beta Disclaimer
-                </Link>
-              </li>
-              <li>
-                <Link href="/cookies" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Cookies
-                </Link>
-              </li>
+              <li><Link href="/legal" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Legal Center</Link></li>
+              <li><Link href="/terms" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Terms</Link></li>
+              <li><Link href="/privacy" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Privacy</Link></li>
+              <li><Link href="/risk-disclosure" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Risk Disclosure</Link></li>
+              <li><Link href="/beta-disclaimer" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Beta Disclaimer</Link></li>
+              <li><Link href="/cookies" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Cookies</Link></li>
             </ul>
           </div>
         </div>
