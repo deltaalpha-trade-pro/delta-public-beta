@@ -9,7 +9,6 @@ import { EcosystemMark } from "@/components/brand-marks"
 const publicLinks = [
   { href: "/#communications", label: "Communications" },
   { href: "/#product-surface", label: "Products" },
-  { href: "/mail", label: "Whalez-mail" },
 ]
 
 const accessLinks = [
@@ -91,9 +90,6 @@ export function Navigation() {
                   {item.label}
                 </Link>
               ))}
-              <p className="px-3 pt-2 text-xs leading-relaxed text-muted-foreground">
-                Private founder and internal routes are not part of the public experience.
-              </p>
             </div>
           </div>
         </div>
