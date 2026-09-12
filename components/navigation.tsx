@@ -2,20 +2,13 @@
 
 import Link from "next/link"
 import { useState } from "react"
-import { ChevronDown, Menu, X } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { EcosystemMark, WhalezchainMark, DeltaAlphaMark } from "@/components/brand-marks"
+import { EcosystemMark } from "@/components/brand-marks"
 
 const publicLinks = [
   { href: "/#communications", label: "Communications" },
   { href: "/#product-surface", label: "Products" },
-  { href: "/whalezchain", label: "Ledger" },
   { href: "/mail", label: "Whalez-mail" },
 ]
 
@@ -44,31 +37,11 @@ export function Navigation() {
           </Link>
 
           <div className="hidden md:flex items-center gap-8">
-            {publicLinks.slice(0, 2).map((item) => (
+            {publicLinks.map((item) => (
               <Link key={item.href} href={item.href} className="text-sm text-muted-foreground hover:text-foreground">
                 {item.label}
               </Link>
             ))}
-
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
-                Infrastructure <ChevronDown className="w-3 h-3" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="glass-panel">
-                <DropdownMenuItem asChild>
-                  <Link href="/whalezchain" className="flex items-center gap-2">
-                    <WhalezchainMark className="h-4 w-4 text-primary" />
-                    Settlement Ledger
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/mail" className="flex items-center gap-2">
-                    <DeltaAlphaMark className="h-4 w-4 text-primary" />
-                    Whalez-mail
-                  </Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
 
             <Link href="/beta-access">
               <Button variant="outline" size="sm" className="w-fit bg-white/5 border-white/15 backdrop-blur-xl">
@@ -119,7 +92,7 @@ export function Navigation() {
                 </Link>
               ))}
               <p className="px-3 pt-2 text-xs leading-relaxed text-muted-foreground">
-                Private founder and internal routes are not exposed on the public deployment.
+                Private founder and internal routes are not part of the public experience.
               </p>
             </div>
           </div>

@@ -4,9 +4,7 @@ import { ArrowUpRight, Mail, MessagesSquare, Smartphone, Globe, ShieldCheck } fr
 
 const telegramUrl = process.env.NEXT_PUBLIC_TELEGRAM_CHANNEL_URL?.trim() || "https://t.me/whalez_ai_deltaalpha_trade_pro"
 const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, "") || ""
-const whatsappUrl = whatsappNumber
-  ? `https://wa.me/${whatsappNumber}`
-  : "https://wa.me/"
+const whatsappUrl = whatsappNumber ? `https://wa.me/${whatsappNumber}` : "https://wa.me/"
 const facebookUrl = process.env.NEXT_PUBLIC_FACEBOOK_PAGE_URL?.trim() || ""
 const instagramUrl = process.env.NEXT_PUBLIC_INSTAGRAM_URL?.trim() || ""
 const mailSurfaceUrl = process.env.NEXT_PUBLIC_WHALEZ_MAIL_URL?.trim() || "/mail"
@@ -18,57 +16,51 @@ const cards = [
   {
     title: "Tidio live support",
     icon: MessagesSquare,
-    status: tidioConfigured ? "Widget ready" : "Set NEXT_PUBLIC_TIDIO_PUBLIC_KEY",
-    body:
-      "Loads the Tidio widget on the public surface when the public key is present. That gives the site an always-on support channel without manual reloads.",
+    status: tidioConfigured ? "Available" : "Not connected",
+    body: "Live support is shown here only when the public support channel is configured for the beta.",
     link: "#",
-    cta: "Widget loads in page",
-    disabled: true,
+    cta: tidioConfigured ? "Open support" : "Unavailable",
+    disabled: !tidioConfigured,
   },
   {
     title: "Telegram channel",
     icon: Globe,
     status: "Connected",
-    body:
-      "Use Telegram for broadcast updates, operational alerts, and community announcements from the public beta surface.",
+    body: "Use Telegram for public announcements, community updates, and beta communications.",
     link: telegramUrl,
     cta: "Open Telegram",
   },
   {
     title: "Business WhatsApp",
     icon: Smartphone,
-    status: whatsappNumber ? "Connected" : "Set NEXT_PUBLIC_WHATSAPP_NUMBER",
-    body:
-      "Routes users into WhatsApp Business for high-touch support, onboarding, and direct escalation paths.",
+    status: whatsappNumber ? "Connected" : "Not connected",
+    body: "WhatsApp Business is available for high-touch support only when the public channel is configured.",
     link: whatsappUrl,
-    cta: "Open WhatsApp",
+    cta: whatsappNumber ? "Open WhatsApp" : "Unavailable",
     disabled: !whatsappNumber,
   },
   {
     title: "Meta Facebook / Instagram",
     icon: ArrowUpRight,
-    status: metaPixelConfigured ? "Pixel ready" : "Set NEXT_PUBLIC_META_PIXEL_ID",
-    body:
-      "Tracks public-beta page activity through Meta Pixel when configured, and links outward to social profiles for campaign continuity.",
+    status: metaPixelConfigured || facebookUrl || instagramUrl ? "Available" : "Not connected",
+    body: "Social links and optional measurement are activated only when the corresponding public configuration exists.",
     link: facebookUrl || instagramUrl || "#",
-    cta: facebookUrl ? "Open Facebook" : instagramUrl ? "Open Instagram" : "Configure Meta links",
+    cta: facebookUrl ? "Open Facebook" : instagramUrl ? "Open Instagram" : "Unavailable",
     disabled: !facebookUrl && !instagramUrl,
   },
   {
-    title: "Relay status API",
+    title: "Public status",
     icon: ShieldCheck,
-    status: "Verification surface",
-    body:
-      "Use the status endpoint to confirm which widgets, webhook signatures, and downstream relays are configured before going live.",
+    status: "Available",
+    body: "Review the public status surface to see which supported communications integrations are currently available.",
     link: statusApiUrl,
-    cta: "Open /api/status",
+    cta: "Open status",
   },
   {
     title: "Whalez-mail",
     icon: Mail,
-    status: "Surface available",
-    body:
-      "Dedicated mail surface for founder, operations, investor, and partner communications. This route becomes the anchor for the mail rebuild.",
+    status: "Available",
+    body: "Public communications surface for structured beta correspondence and future workflow routing.",
     link: mailSurfaceUrl,
     cta: "Open Whalez-mail",
   },
@@ -81,11 +73,11 @@ export function CommunicationsSection() {
         <div className="max-w-3xl">
           <span className="text-sm text-accent font-medium tracking-wide uppercase">Communications</span>
           <h2 className="mt-3 text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground text-balance">
-            Real support channels, real distribution wiring
+            Public communication channels
           </h2>
           <p className="mt-4 text-muted-foreground leading-relaxed text-pretty">
-            This surface is where the public beta connects to live support, broadcast channels, business chat, social
-            media tracking, and the Whalez-mail rebuild. The page only activates what is actually configured.
+            Available channels are shown according to the current public-beta configuration. Internal configuration names
+            and operational controls are intentionally kept out of the public experience.
           </p>
         </div>
 
