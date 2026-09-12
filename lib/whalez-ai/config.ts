@@ -84,7 +84,7 @@ export const config = {
 // Request classification types
 export type RequestClassification = "public" | "internal-verified" | "internal-pending" | "rejected"
 
-export type WhalesAiRequest = {
+export type WhalezAiRequest = {
   task: string
   data?: any
   internalHeaders?: Record<string, string>
@@ -94,7 +94,7 @@ export type WhalesAiRequest = {
   invocationSource?: string
 }
 
-export type WhalesAiResponse = {
+export type WhalezAiResponse = {
   success: boolean
   data?: any
   handledBy?: string

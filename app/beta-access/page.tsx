@@ -11,15 +11,48 @@ import { Button } from "@/components/ui/button"
 export default function BetaAccessPage() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState("")
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setIsLoading(true)
+    setError("")
 
-    window.setTimeout(() => {
+    const form = event.currentTarget
+    const formData = new FormData(form)
+
+    try {
+      const response = await fetch("/api/beta-access/submit", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.get("name"),
+          email: formData.get("email"),
+          intendedUse: formData.get("intendedUse"),
+        }),
+      })
+
+      const body = await response.json().catch(() => null)
+
+      if (!response.ok || !body?.accepted) {
+        throw new Error(
+          body?.error || "Unable to submit the beta access request right now.",
+        )
+      }
+
       setIsSubmitted(true)
+      form.reset()
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Unable to submit the beta access request right now.",
+      )
+    } finally {
       setIsLoading(false)
-    }, 300)
+    }
   }
 
   return (
@@ -96,6 +129,15 @@ export default function BetaAccessPage() {
                         Public beta access remains subject to staged review and controlled activation.
                       </p>
                     </div>
+
+                    {error ? (
+                      <p
+                        role="alert"
+                        className="text-sm text-destructive leading-relaxed"
+                      >
+                        {error}
+                      </p>
+                    ) : null}
 
                     <Button type="submit" className="w-full min-h-[44px]" disabled={isLoading}>
                       {isLoading ? "Submitting..." : "Submit Beta Request"}

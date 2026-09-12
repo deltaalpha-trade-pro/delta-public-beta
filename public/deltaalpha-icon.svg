@@ -1,0 +1,19 @@
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @media (prefers-color-scheme: light) {
+      .bg { fill: #0f172a; }
+      .fg { fill: #f8fafc; }
+      .stroke { stroke: #f8fafc; }
+    }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #f8fafc; }
+      .fg { fill: #0f172a; }
+      .stroke { stroke: #0f172a; }
+    }
+  </style>
+  <rect class="bg" width="180" height="180" rx="38" />
+  <polygon points="90,32 138,124 42,124" fill="none" class="stroke" stroke-width="10" stroke-linejoin="round" />
+  <path d="M63 110h54M59 90h62M68 70h44" class="stroke" stroke-width="10" stroke-linecap="round" />
+  <path d="M90 52v64" class="stroke" stroke-width="10" stroke-linecap="round" />
+  <path d="M78 66l12-14 12 14" class="stroke" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

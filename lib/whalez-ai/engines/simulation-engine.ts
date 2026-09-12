@@ -4,7 +4,7 @@ import {
   type CandleData,
   type SimulationSession,
   type SimulationPosition,
-  type WhalesAiResponse,
+  type WhalezAiResponse,
 } from "../config"
 
 /**
@@ -26,7 +26,7 @@ const sessions = new Map<string, SimulationSession>()
 /**
  * Create new simulation session
  */
-export function createSession(asset: SimulationAsset): WhalesAiResponse {
+export function createSession(asset: SimulationAsset): WhalezAiResponse {
   if (!config.simulation.assets.includes(asset)) {
     return {
       success: false,
@@ -62,7 +62,7 @@ export function createSession(asset: SimulationAsset): WhalesAiResponse {
 /**
  * Get session data
  */
-export function getSession(sessionId: string): WhalesAiResponse {
+export function getSession(sessionId: string): WhalezAiResponse {
   const session = sessions.get(sessionId)
 
   if (!session) {
@@ -86,7 +86,7 @@ export function getSession(sessionId: string): WhalesAiResponse {
 /**
  * Open simulated position
  */
-export function openPosition(sessionId: string, direction: "long" | "short", size: number): WhalesAiResponse {
+export function openPosition(sessionId: string, direction: "long" | "short", size: number): WhalezAiResponse {
   const session = sessions.get(sessionId)
 
   if (!session) {
@@ -128,7 +128,7 @@ export function openPosition(sessionId: string, direction: "long" | "short", siz
 /**
  * Close simulated position
  */
-export function closePosition(sessionId: string, positionId: string): WhalesAiResponse {
+export function closePosition(sessionId: string, positionId: string): WhalezAiResponse {
   const session = sessions.get(sessionId)
 
   if (!session) {
@@ -174,7 +174,7 @@ export function closePosition(sessionId: string, positionId: string): WhalesAiRe
 /**
  * Generate next candle for session
  */
-export function tickSession(sessionId: string): WhalesAiResponse {
+export function tickSession(sessionId: string): WhalezAiResponse {
   const session = sessions.get(sessionId)
 
   if (!session) {
@@ -217,7 +217,7 @@ export function tickSession(sessionId: string): WhalesAiResponse {
 /**
  * End simulation session
  */
-export function endSession(sessionId: string): WhalesAiResponse {
+export function endSession(sessionId: string): WhalezAiResponse {
   const session = sessions.get(sessionId)
 
   if (!session) {
@@ -255,7 +255,7 @@ export function endSession(sessionId: string): WhalesAiResponse {
 /**
  * Replay session from candle history
  */
-export function replaySession(sessionId: string, fromIndex = 0): WhalesAiResponse {
+export function replaySession(sessionId: string, fromIndex = 0): WhalezAiResponse {
   const session = sessions.get(sessionId)
 
   if (!session) {

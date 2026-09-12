@@ -8,7 +8,7 @@ export function Footer() {
           <div className="col-span-2 md:col-span-1">
             <span className="text-lg font-semibold tracking-tight text-foreground">WHALEZ-AI</span>
             <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-              AI-driven financial intelligence and quantitative systems in controlled public beta.
+              AI-driven financial intelligence, market analysis, communications, and controlled beta product previews.
             </p>
           </div>
 
@@ -26,8 +26,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/whalezchain" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Settlement Ledger
+                <Link href="/mail" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Whalez-mail
                 </Link>
               </li>
             </ul>
@@ -49,6 +49,11 @@ export function Footer() {
               <li>
                 <Link href="/signup" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                   Sign up
+                </Link>
+              </li>
+              <li>
+                <Link href="/#communications" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Communications
                 </Link>
               </li>
             </ul>
