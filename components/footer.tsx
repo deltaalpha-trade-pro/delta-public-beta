@@ -8,7 +8,7 @@ export function Footer() {
           <div className="col-span-2 md:col-span-1">
             <span className="text-lg font-semibold tracking-tight text-foreground">WHALEZ-AI</span>
             <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-              AI-driven financial intelligence, communications, and settlement surfaces in controlled public beta.
+              AI-driven financial intelligence, market analysis, communications, and controlled beta product previews.
             </p>
           </div>
 
@@ -23,11 +23,6 @@ export function Footer() {
               <li>
                 <Link href="/deltaalpha" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                   DeltaAlpha-TradePro
-                </Link>
-              </li>
-              <li>
-                <Link href="/whalezchain" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Settlement Ledger
                 </Link>
               </li>
               <li>
