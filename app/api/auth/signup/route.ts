@@ -30,11 +30,16 @@ export async function POST(req: Request) {
 
   if (!authBridgeConfigured()) return authBridgeUnavailable();
 
-  const res = await runplaneAuthFetch("/auth/register", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: formBody({ email: normalizedEmail, password: normalizedPassword }),
-  });
+  let res: Response;
+  try {
+    res = await runplaneAuthFetch("/auth/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: formBody({ email: normalizedEmail, password: normalizedPassword }),
+    });
+  } catch {
+    return err("Authentication service is temporarily unavailable. Please try again shortly.", 502);
+  }
 
   const data = await responseBody(res);
   if (res.status >= 400) return ok(data, res.status);
