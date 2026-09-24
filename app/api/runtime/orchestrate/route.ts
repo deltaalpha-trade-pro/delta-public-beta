@@ -1,5 +1,4 @@
 import crypto from "node:crypto";
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
@@ -52,6 +51,14 @@ function json(data: unknown, status = 200) {
   });
 }
 
+function runtimeBridgeEnabled(): boolean {
+  return process.env.WHALEZ_RUNTIME_BRIDGE_ENABLED === "true";
+}
+
+function isControlledTestnetAccount(value: string): boolean {
+  return value.startsWith("whalezchain-testnet://");
+}
+
 async function requireRealUser(): Promise<
   { ok: true; user: AuthIdentity } |
   { ok: false; response: NextResponse }
@@ -72,6 +79,16 @@ async function requireRealUser(): Promise<
         success: false,
         error: "runtime commands are unavailable in demo mode",
       }, 403),
+    };
+  }
+
+  if (!runtimeBridgeEnabled()) {
+    return {
+      ok: false,
+      response: json({
+        success: false,
+        error: "runtime bridge is not enabled",
+      }, 404),
     };
   }
 
@@ -121,7 +138,9 @@ async function requireRealUser(): Promise<
     }
 
     const record = data as Record<string, unknown>;
-    const userId = typeof record.user_id === "string" ? record.user_id.trim() : "";
+    const userId = typeof record.user_id === "string"
+      ? record.user_id.trim()
+      : "";
     const riskTier = record.risk_tier;
     const verificationLevel = record.verification_level;
 
@@ -242,6 +261,16 @@ export async function POST(request: Request) {
       error: "Invalid runtime command",
       details: parsed.error.flatten().fieldErrors,
     }, 400);
+  }
+
+  if (
+    !isControlledTestnetAccount(parsed.data.payload.from_account) ||
+    !isControlledTestnetAccount(parsed.data.payload.to_account)
+  ) {
+    return json({
+      success: false,
+      error: "runtime bridge currently accepts controlled WhalezChain testnet accounts only",
+    }, 403);
   }
 
   const correlationId = crypto.randomUUID();
