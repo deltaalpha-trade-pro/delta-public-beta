@@ -1,6 +1,5 @@
 import crypto from "node:crypto";
 import { NextResponse } from "next/server";
-import { z } from "zod";
 
 import {
   authBridgeConfigured,
@@ -15,31 +14,10 @@ import { orchestrate } from "@/lib/whalez-runtime/orchestrator-client";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const commandSchema = z.object({
-  operation: z.literal("ledger.write"),
-  idempotencyKey: z
-    .string()
-    .trim()
-    .min(8)
-    .max(128)
-    .regex(/^[A-Za-z0-9._:-]+$/),
-  payload: z
-    .object({
-      from_account: z.string().trim().min(1).max(256),
-      to_account: z.string().trim().min(1).max(256),
-      asset_symbol: z.enum(["WHZ", "PTN", "PRN"]),
-      amount: z.union([
-        z.number().finite().positive(),
-        z.string().trim().min(1).max(64),
-      ]),
-    })
-    .strict(),
-}).strict();
-
 type AuthIdentity = {
   user_id: string;
-  risk_tier: "R0" | "R1" | "R2" | "R3";
-  verification_level: "V0" | "V1" | "V2" | "V3";
+  risk_tier: string;
+  verification_level: string;
 };
 
 function json(data: unknown, status = 200) {
@@ -51,280 +29,477 @@ function json(data: unknown, status = 200) {
   });
 }
 
-function runtimeBridgeEnabled(): boolean {
-  return process.env.WHALEZ_RUNTIME_BRIDGE_ENABLED === "true";
+function bridgeEnabled() {
+  return (
+    process.env.WHALEZ_RUNTIME_BRIDGE_ENABLED || ""
+  ).toLowerCase() === "true";
 }
 
-function isControlledTestnetAccount(value: string): boolean {
-  return value.startsWith("whalezchain-testnet://");
+function isObject(value: unknown): value is Record<string, unknown> {
+  return (
+    !!value &&
+    typeof value === "object" &&
+    !Array.isArray(value)
+  );
 }
 
-async function requireRealUser(): Promise<
-  { ok: true; user: AuthIdentity } |
-  { ok: false; response: NextResponse }
-> {
-  const access = getAccessCookie();
+function isControlledTestnetAccount(value: unknown) {
+  return (
+    typeof value === "string" &&
+    value.length <= 256 &&
+    value.startsWith("whalezchain-testnet://")
+  );
+}
 
-  if (!access) {
+function isValidIdempotencyKey(value: unknown) {
+  return (
+    typeof value === "string" &&
+    /^[A-Za-z0-9._:-]{8,128}$/.test(value.trim())
+  );
+}
+
+function isValidAsset(value: unknown): value is "WHZ" | "PTN" | "PRN" {
+  return (
+    value === "WHZ" ||
+    value === "PTN" ||
+    value === "PRN"
+  );
+}
+
+function normalizeAmount(value: unknown): string | null {
+  if (typeof value === "number") {
+    return Number.isFinite(value) && value > 0
+      ? String(value)
+      : null;
+  }
+
+  if (typeof value !== "string") return null;
+
+  const trimmed = value.trim();
+  if (!trimmed || trimmed.length > 64) return null;
+
+  const amount = Number(trimmed);
+  if (!Number.isFinite(amount) || amount <= 0) return null;
+
+  return trimmed;
+}
+
+async function requireUser():
+  Promise<
+    | { ok: true; user: AuthIdentity }
+    | { ok: false; response: ReturnType<typeof json> }
+  > {
+  if (!getAccessCookie()) {
     return {
       ok: false,
-      response: json({ success: false, error: "unauthorized" }, 401),
+      response: json(
+        { success: false, error: "unauthorized" },
+        401,
+      ),
     };
   }
 
   if (demoMode()) {
     return {
       ok: false,
-      response: json({
-        success: false,
-        error: "runtime commands are unavailable in demo mode",
-      }, 403),
+      response: json(
+        {
+          success: false,
+          error: "runtime commands are unavailable in demo mode",
+        },
+        403,
+      ),
     };
   }
 
-  if (!runtimeBridgeEnabled()) {
+  if (!bridgeEnabled()) {
     return {
       ok: false,
-      response: json({
-        success: false,
-        error: "runtime bridge is not enabled",
-      }, 404),
+      response: json(
+        {
+          success: false,
+          error: "runtime bridge is not enabled",
+        },
+        404,
+      ),
     };
   }
 
   if (!authBridgeConfigured()) {
     return {
       ok: false,
-      response: json({
-        success: false,
-        error: "authentication service is unavailable",
-      }, 503),
+      response: json(
+        {
+          success: false,
+          error: "authentication service is unavailable",
+        },
+        503,
+      ),
     };
   }
 
   try {
-    const response = await runplaneAuthFetch("/auth/me", {
-      method: "GET",
-      headers: { Cookie: runplaneCookie(access) },
-    });
+    const upstream = await runplaneAuthFetch(
+      "/auth/me",
+      {
+        method: "GET",
+        headers: {
+          Cookie: runplaneCookie(
+            getAccessCookie() as string,
+          ),
+        },
+      },
+    );
 
-    const data = await responseBody(response);
+    const data = await responseBody(
+      upstream,
+    );
 
-    if (response.status === 401) {
+    if (upstream.status === 401) {
       return {
         ok: false,
-        response: json({ success: false, error: "unauthorized" }, 401),
+        response: json(
+          {
+            success: false,
+            error: "unauthorized",
+          },
+          401,
+        ),
       };
     }
-
-    if (!response.ok) {
-      return {
-        ok: false,
-        response: json({
-          success: false,
-          error: "authentication service unavailable",
-        }, 503),
-      };
-    }
-
-    if (!data || typeof data !== "object") {
-      return {
-        ok: false,
-        response: json({
-          success: false,
-          error: "authentication response invalid",
-        }, 503),
-      };
-    }
-
-    const record = data as Record<string, unknown>;
-    const userId = typeof record.user_id === "string"
-      ? record.user_id.trim()
-      : "";
-    const riskTier = record.risk_tier;
-    const verificationLevel = record.verification_level;
 
     if (
-      !userId ||
-      !["R0", "R1", "R2", "R3"].includes(String(riskTier)) ||
-      !["V0", "V1", "V2", "V3"].includes(String(verificationLevel))
+      !upstream.ok ||
+      !isObject(data)
     ) {
       return {
         ok: false,
-        response: json({
-          success: false,
-          error: "authentication identity incomplete",
-        }, 503),
+        response: json(
+          {
+            success: false,
+            error: "authentication service unavailable",
+          },
+          503,
+        ),
+      };
+    }
+
+    const userId = data.user_id;
+    const riskTier = data.risk_tier;
+    const verificationLevel =
+      data.verification_level;
+
+    if (
+      typeof userId !== "string" ||
+      !userId.trim() ||
+      typeof riskTier !== "string" ||
+      typeof verificationLevel !== "string"
+    ) {
+      return {
+        ok: false,
+        response: json(
+          {
+            success: false,
+            error: "authentication identity incomplete",
+          },
+          503,
+        ),
       };
     }
 
     return {
       ok: true,
       user: {
-        user_id: userId.slice(0, 128),
-        risk_tier: riskTier as AuthIdentity["risk_tier"],
+        user_id: userId.trim().slice(0, 128),
+        risk_tier: riskTier.trim().slice(0, 32),
         verification_level:
-          verificationLevel as AuthIdentity["verification_level"],
+          verificationLevel.trim().slice(0, 32),
       },
     };
   } catch {
     return {
       ok: false,
-      response: json({
-        success: false,
-        error: "authentication service unavailable",
-      }, 503),
+      response: json(
+        {
+          success: false,
+          error: "authentication service unavailable",
+        },
+        503,
+      ),
     };
   }
 }
 
-function publicRuntimeResult(
-  upstreamStatus: number,
-  upstreamBody: unknown,
+function publicResult(
+  statusCode: number,
+  body: unknown,
+  correlationId: string,
 ) {
-  if (!upstreamBody || typeof upstreamBody !== "object") {
+  if (!isObject(body)) {
     return {
       success: false,
       error: "runtime service returned an invalid response",
       status: "failed",
+      correlationId,
     };
   }
 
-  const body = upstreamBody as Record<string, unknown>;
-  const lifecycle =
-    body.lifecycle && typeof body.lifecycle === "object"
-      ? (body.lifecycle as Record<string, unknown>)
-      : {};
-
-  const execution =
-    body.execution && typeof body.execution === "object"
-      ? (body.execution as Record<string, unknown>)
-      : {};
-
-  const approval =
-    body.approval && typeof body.approval === "object"
-      ? (body.approval as Record<string, unknown>)
-      : {};
+  const lifecycle = isObject(body.lifecycle)
+    ? body.lifecycle
+    : {};
+  const execution = isObject(body.execution)
+    ? body.execution
+    : {};
+  const approval = isObject(body.approval)
+    ? body.approval
+    : {};
 
   const status =
     typeof lifecycle.status === "string"
       ? lifecycle.status
       : typeof execution.status === "string"
         ? execution.status
-        : upstreamStatus >= 400
+        : statusCode >= 400
           ? "failed"
           : "accepted";
 
-  const executionResult =
-    execution.result && typeof execution.result === "object"
-      ? (execution.result as Record<string, unknown>)
+  let executionId: string | undefined;
+
+  if (status === "executed") {
+    const result = isObject(execution.result)
+      ? execution.result
+      : {};
+    const canonical = isObject(result.execution)
+      ? result.execution
       : {};
 
-  const canonicalExecution =
-    executionResult.execution &&
-    typeof executionResult.execution === "object"
-      ? (executionResult.execution as Record<string, unknown>)
-      : {};
+    if (
+      typeof canonical.execution_id === "string"
+    ) {
+      executionId = canonical.execution_id;
+    }
+  }
 
   return {
-    success: upstreamStatus < 400 && body.ok !== false,
+    success:
+      statusCode < 400 &&
+      body.ok !== false,
     status,
     requestId:
       typeof approval.request_id === "string"
         ? approval.request_id
         : undefined,
-    approvalRequired: status === "waiting_approval",
-    idempotentReplay: body.idempotent_replay === true,
+    approvalRequired:
+      status === "waiting_approval",
+    idempotentReplay:
+      body.idempotent_replay === true,
     execution:
       status === "executed"
         ? {
             status: "executed",
-            executionId:
-              typeof canonicalExecution.execution_id === "string"
-                ? canonicalExecution.execution_id
-                : undefined,
+            executionId,
           }
         : undefined,
+    correlationId,
   };
 }
 
-export async function POST(request: Request) {
-  const auth = await requireRealUser();
-  if (!auth.ok) return auth.response;
+export async function POST(
+  request: Request,
+) {
+  const auth = await requireUser();
 
-  const body = await request.json().catch(() => null);
-  const parsed = commandSchema.safeParse(body);
-
-  if (!parsed.success) {
-    return json({
-      success: false,
-      error: "Invalid runtime command",
-      details: parsed.error.flatten().fieldErrors,
-    }, 400);
+  if (!auth.ok) {
+    return auth.response;
   }
+
+  const body = await request
+    .json()
+    .catch(() => null);
+
+  if (!isObject(body)) {
+    return json(
+      {
+        success: false,
+        error: "Invalid runtime command",
+      },
+      400,
+    );
+  }
+
+  if (body.operation !== "ledger.write") {
+    return json(
+      {
+        success: false,
+        error: "Unsupported runtime operation",
+      },
+      400,
+    );
+  }
+
+  if (!isValidIdempotencyKey(
+    body.idempotencyKey,
+  )) {
+    return json(
+      {
+        success: false,
+        error: "Invalid idempotency key",
+      },
+      400,
+    );
+  }
+
+  if (!isObject(body.payload)) {
+    return json(
+      {
+        success: false,
+        error: "Invalid runtime payload",
+      },
+      400,
+    );
+  }
+
+  const payload = body.payload;
 
   if (
-    !isControlledTestnetAccount(parsed.data.payload.from_account) ||
-    !isControlledTestnetAccount(parsed.data.payload.to_account)
+    !isControlledTestnetAccount(
+      payload.from_account,
+    ) ||
+    !isControlledTestnetAccount(
+      payload.to_account,
+    )
   ) {
-    return json({
-      success: false,
-      error: "runtime bridge currently accepts controlled WhalezChain testnet accounts only",
-    }, 403);
+    return json(
+      {
+        success: false,
+        error:
+          "runtime bridge currently accepts controlled WhalezChain testnet accounts only",
+      },
+      403,
+    );
   }
 
-  const correlationId = crypto.randomUUID();
+  if (!isValidAsset(
+    payload.asset_symbol,
+  )) {
+    return json(
+      {
+        success: false,
+        error: "Invalid asset",
+      },
+      400,
+    );
+  }
+
+  const amount = normalizeAmount(
+    payload.amount,
+  );
+
+  if (!amount) {
+    return json(
+      {
+        success: false,
+        error: "Invalid amount",
+      },
+      400,
+    );
+  }
+
+  const correlationId =
+    crypto.randomUUID();
 
   try {
     const upstream = await orchestrate({
-      operation: parsed.data.operation,
-      idempotencyKey: parsed.data.idempotencyKey,
+      operation: "ledger.write",
+      idempotencyKey:
+        String(body.idempotencyKey).trim(),
       actor: auth.user,
       payload: {
-        ...parsed.data.payload,
-        amount: String(parsed.data.payload.amount),
+        from_account:
+          String(payload.from_account),
+        to_account:
+          String(payload.to_account),
+        asset_symbol:
+          payload.asset_symbol,
+        amount,
       },
     });
 
-    const result = publicRuntimeResult(upstream.status, upstream.body);
-
-    if (result.status === "waiting_approval") {
-      return json(result, 202);
-    }
-
-    if (result.status === "blocked") {
-      return json(result, 403);
-    }
-
-    if (result.status === "failed" || !result.success) {
-      return json({
-        success: false,
-        error: "runtime command could not be completed",
-        status: result.status,
-      }, upstream.status >= 500 ? 502 : 409);
-    }
-
-    return json({
-      ...result,
+    const result = publicResult(
+      upstream.status,
+      upstream.body,
       correlationId,
-    }, 200);
-  } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "runtime request failed";
+    );
 
     if (
-      message === "WHALEZ_ORCHESTRATOR_URL is not configured" ||
-      message === "WHALEZ_ORCHESTRATOR_API_KEY is not configured"
+      result.status === "waiting_approval"
     ) {
-      return json({
-        success: false,
-        error: "runtime service is not configured",
-      }, 503);
+      return json(
+        result,
+        202,
+      );
     }
 
-    return json({
-      success: false,
-      error: "runtime service is temporarily unavailable",
-    }, 504);
+    if (
+      result.status === "blocked"
+    ) {
+      return json(
+        result,
+        403,
+      );
+    }
+
+    if (
+      result.status === "failed" ||
+      !result.success
+    ) {
+      return json(
+        {
+          success: false,
+          error:
+            "runtime command could not be completed",
+          status: result.status,
+          correlationId,
+        },
+        upstream.status >= 500
+          ? 502
+          : 409,
+      );
+    }
+
+    return json(
+      result,
+      200,
+    );
+  } catch (error) {
+    const message =
+      error instanceof Error
+        ? error.message
+        : "";
+
+    if (
+      message ===
+        "WHALEZ_ORCHESTRATOR_URL is not configured" ||
+      message ===
+        "WHALEZ_ORCHESTRATOR_API_KEY is not configured"
+    ) {
+      return json(
+        {
+          success: false,
+          error:
+            "runtime service is not configured",
+        },
+        503,
+      );
+    }
+
+    return json(
+      {
+        success: false,
+        error:
+          "runtime service is temporarily unavailable",
+      },
+      504,
+    );
   }
 }
