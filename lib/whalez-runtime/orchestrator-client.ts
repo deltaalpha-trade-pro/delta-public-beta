@@ -9,13 +9,14 @@ export type RuntimeLedgerPayload = {
 
 export type RuntimeActor = {
   user_id: string;
-  risk_tier: "R0" | "R1" | "R2" | "R3";
-  verification_level: "V0" | "V1" | "V2" | "V3";
+  risk_tier: string;
+  verification_level: string;
 };
 
 export type OrchestratorCommand = {
   operation: "ledger.write";
   idempotencyKey: string;
+  correlationId?: string;
   actor: RuntimeActor;
   payload: RuntimeLedgerPayload;
 };
@@ -24,6 +25,7 @@ export type OrchestratorResponse = {
   status: number;
   ok: boolean;
   body: unknown;
+  correlationId: string;
 };
 
 function getOrchestratorUrl(): string {
@@ -42,12 +44,20 @@ function getOrchestratorApiKey(): string {
   return value;
 }
 
-export async function orchestrate(command: OrchestratorCommand): Promise<OrchestratorResponse> {
-  const correlationId = crypto.randomUUID();
+export async function orchestrate(
+  command: OrchestratorCommand,
+): Promise<OrchestratorResponse> {
+  const correlationId =
+    command.correlationId?.trim() ||
+    crypto.randomUUID();
+
   const url = `${getOrchestratorUrl()}/orchestrate`;
 
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 12_000);
+  const timeout = setTimeout(
+    () => controller.abort(),
+    12_000,
+  );
 
   try {
     const response = await fetch(url, {
@@ -64,7 +74,8 @@ export async function orchestrate(command: OrchestratorCommand): Promise<Orchest
         context: {
           source: "deltaalpha-trade-pro",
           correlation_id: correlationId,
-          idempotency_key: command.idempotencyKey,
+          idempotency_key:
+            command.idempotencyKey,
           actor: command.actor,
           payload: command.payload,
         },
@@ -88,6 +99,7 @@ export async function orchestrate(command: OrchestratorCommand): Promise<Orchest
       status: response.status,
       ok: response.ok,
       body,
+      correlationId,
     };
   } finally {
     clearTimeout(timeout);
