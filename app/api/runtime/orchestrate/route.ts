@@ -35,12 +35,20 @@ function bridgeEnabled() {
   ).toLowerCase() === "true";
 }
 
-function isObject(value: unknown): value is Record<string, unknown> {
-  return (
-    !!value &&
-    typeof value === "object" &&
-    !Array.isArray(value)
-  );
+function configuredTestnetSource(): string | null {
+  const value = (
+    process.env.WHALEZ_RUNTIME_TESTNET_SOURCE_ACCOUNT || ""
+  ).trim();
+
+  if (
+    !value ||
+    !value.startsWith("whalezchain-testnet://") ||
+    value.length > 256
+  ) {
+    return null;
+  }
+
+  return value;
 }
 
 function isControlledTestnetAccount(value: unknown) {
@@ -121,6 +129,19 @@ async function requireUser():
           error: "runtime bridge is not enabled",
         },
         404,
+      ),
+    };
+  }
+
+  if (!configuredTestnetSource()) {
+    return {
+      ok: false,
+      response: json(
+        {
+          success: false,
+          error: "runtime testnet source is not configured",
+        },
+        503,
       ),
     };
   }
@@ -228,6 +249,14 @@ async function requireUser():
       ),
     };
   }
+}
+
+function isObject(value: unknown): value is Record<string, unknown> {
+  return (
+    !!value &&
+    typeof value === "object" &&
+    !Array.isArray(value)
+  );
 }
 
 function publicResult(
@@ -360,11 +389,20 @@ export async function POST(
   }
 
   const payload = body.payload;
+  const sourceAccount = configuredTestnetSource();
+
+  if (!sourceAccount) {
+    return json(
+      {
+        success: false,
+        error: "runtime testnet source is not configured",
+      },
+      503,
+    );
+  }
 
   if (
-    !isControlledTestnetAccount(
-      payload.from_account,
-    ) ||
+    payload.from_account !== sourceAccount ||
     !isControlledTestnetAccount(
       payload.to_account,
     )
@@ -373,7 +411,7 @@ export async function POST(
       {
         success: false,
         error:
-          "runtime bridge currently accepts controlled WhalezChain testnet accounts only",
+          "runtime bridge currently accepts only the configured controlled testnet source and a WhalezChain testnet destination",
       },
       403,
     );
@@ -413,10 +451,11 @@ export async function POST(
       operation: "ledger.write",
       idempotencyKey:
         String(body.idempotencyKey).trim(),
+      correlationId,
       actor: auth.user,
       payload: {
         from_account:
-          String(payload.from_account),
+          sourceAccount,
         to_account:
           String(payload.to_account),
         asset_symbol:
@@ -428,7 +467,7 @@ export async function POST(
     const result = publicResult(
       upstream.status,
       upstream.body,
-      correlationId,
+      upstream.correlationId,
     );
 
     if (
@@ -459,7 +498,8 @@ export async function POST(
           error:
             "runtime command could not be completed",
           status: result.status,
-          correlationId,
+          correlationId:
+            upstream.correlationId,
         },
         upstream.status >= 500
           ? 502
