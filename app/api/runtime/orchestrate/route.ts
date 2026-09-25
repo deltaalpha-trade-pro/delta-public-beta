@@ -338,7 +338,7 @@ export async function POST(
 ) {
   const auth = await requireUser();
 
-  if (!auth.ok) {
+  if (auth.ok === false) {
     return auth.response;
   }
 
