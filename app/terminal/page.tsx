@@ -42,7 +42,7 @@ export default function TerminalPage() {
             <LiveMarketData />
           </div>
 
-          {/* Main Terminal Layout */>
+          {/* Main Terminal Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
             {/* Trading Panel - 3 columns */}
             <div className="lg:col-span-3">
