@@ -13,7 +13,7 @@ export function GET() {
 export async function POST(request: Request) {
   const secret = process.env.TELEGRAM_WEBHOOK_SECRET_TOKEN?.trim() || ""
   const headerToken = request.headers.get("x-telegram-bot-api-secret-token")
-  const verification = verifyTelegramWebhook(secret, headerToken)
+  const verification = verifyTelegramWebhook(secret, headerToken, process.env.NODE_ENV === "production")
 
   if (!verification.verified) {
     return Response.json(
