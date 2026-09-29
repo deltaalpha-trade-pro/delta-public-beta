@@ -83,3 +83,20 @@ export function DeltaAlphaMark({ title = "DeltaAlpha-TradePro", ...props }: Mark
     </svg>
   )
 }
+
+
+export type AssetMarkProps = React.ImgHTMLAttributes<HTMLImageElement> & {
+  title?: string
+}
+
+export function WhzMark({ title = "WHZ", alt = title, ...props }: AssetMarkProps) {
+  return <img src="/whz-icon.svg" alt={alt} title={title} {...props} />
+}
+
+export function PtnMark({ title = "PTN", alt = title, ...props }: AssetMarkProps) {
+  return <img src="/ptn-icon.svg" alt={alt} title={title} {...props} />
+}
+
+export function PrnMark({ title = "PRN", alt = title, ...props }: AssetMarkProps) {
+  return <img src="/prn-icon.svg" alt={alt} title={title} {...props} />
+}
