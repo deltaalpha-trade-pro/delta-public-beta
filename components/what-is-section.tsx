@@ -42,6 +42,13 @@ export function WhatIsSection() {
           </p>
         </div>
 
+        <div className="mt-8 rounded-2xl border border-primary/20 bg-primary/5 p-6 shadow-[0_0_60px_rgba(96,165,250,0.08)]">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">One intelligence · many capabilities</p>
+          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+            Whalez-AI may use different models, agents, tools, and runtimes for different functions. They operate as delegated capabilities of one Whalez-AI identity rather than separate public AIs.
+          </p>
+        </div>
+
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-6">
           {features.map((feature) => (
             <div
