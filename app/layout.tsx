@@ -6,10 +6,16 @@ import { IntegrationScripts } from "@/components/integration-scripts"
 import "./globals.css"
 
 export const metadata: Metadata = {
+  applicationName: "Whalez-AI Ecosystem",
   title: "WHALEZ-AI Ecosystem | DeltaAlpha-TradePro",
   description:
     "Whalez-AI ecosystem gateway for trading intelligence, communications, banking, settlement, and founder-controlled public beta surfaces.",
   generator: "Whalez-AI",
+  keywords: ["Whalez-AI", "WhalezChain", "DeltaAlpha-TradePro", "WHZ", "PTN", "PRN"],
+  other: {
+    "whalez-ai-identity": "Whalez-AI",
+    "whalez-ai-model-policy": "one-intelligence-many-capabilities",
+  },
   icons: {
     icon: [
       {
