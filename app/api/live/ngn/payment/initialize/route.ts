@@ -1,32 +1,33 @@
-import { NextResponse } from "next/server";
 import { createHash } from "node:crypto";
-import { z } from "zod";
+import { NextResponse } from "next/server";
 
 import { getLiveIdentity } from "@/lib/live-settlement/auth";
 import { initializePaystackTransaction } from "@/lib/live-settlement/paystack";
 import { postSettlementRuntime, SettlementRuntimeError } from "@/lib/live-settlement/runtime";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
-const requestSchema = z.object({
-  amount_ngn: z.string().regex(/^\d+(?:\.\d{1,2})?$/, "amount_ngn must be a decimal NGN amount"),
-  idempotency_key: z.string().trim().min(16).max(128),
-});
+type PreflightResponse = {
+  status?: string;
+  policy_id?: string;
+  provider_reference?: string;
+  authorization_url?: string;
+  settlement_required_whz?: string | null;
+  error?: string;
+};
 
-function parseNgnToKobo(value: string): number {
+function parseNgnToKobo(value: unknown): number {
+  if (typeof value !== "string" || !/^\d+(?:\.\d{1,2})?$/.test(value)) {
+    throw new Error("invalid_amount");
+  }
   const [whole, fraction = ""] = value.split(".");
-  const kobo = Number((fraction + "00").slice(0, 2));
   const naira = Number(whole);
-
-  if (!Number.isSafeInteger(naira) || !Number.isSafeInteger(kobo)) {
-    throw new Error("amount_out_of_range");
-  }
-
+  const kobo = Number((fraction + "00").slice(0, 2));
   const total = naira * 100 + kobo;
-  if (!Number.isSafeInteger(total) || total <= 0) {
+  if (!Number.isSafeInteger(naira) || !Number.isSafeInteger(kobo) || !Number.isSafeInteger(total) || total <= 0) {
     throw new Error("amount_out_of_range");
   }
-
   return total;
 }
 
@@ -35,13 +36,13 @@ function maxAmountKobo(): number {
   return Number.isSafeInteger(configured) && configured > 0 ? configured : 100000000;
 }
 
-function deterministicCorrelation(userId: string, idempotencyKey: string): string {
-  const digest = createHash("sha256").update(`${userId}:${idempotencyKey}`).digest("hex");
-  return `da-ngn-${digest.slice(0, 32)}`;
+function correlationId(userId: string, idempotencyKey: string): string {
+  const digest = createHash("sha256").update(userId + ":" + idempotencyKey).digest("hex");
+  return "da-ngn-" + digest.slice(0, 32);
 }
 
-function deterministicProviderReference(correlationId: string): string {
-  return `DA-NGN-${correlationId.replace(/[^a-zA-Z0-9]/g, "").slice(0, 30)}`;
+function providerReference(correlation: string): string {
+  return "DA-NGN-" + correlation.replace(/[^a-zA-Z0-9]/g, "").slice(0, 30);
 }
 
 export async function POST(request: Request) {
@@ -54,17 +55,17 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: identity.error }, { status: identity.status });
   }
 
-  const parsed = requestSchema.safeParse(await request.json().catch(() => null));
-  if (!parsed.success) {
-    return NextResponse.json(
-      { ok: false, error: "invalid_request", details: parsed.error.flatten().fieldErrors },
-      { status: 400 },
-    );
+  const body = await request.json().catch(() => null);
+  const amountInput = body && typeof body === "object" ? (body as Record<string, unknown>).amount_ngn : undefined;
+  const idempotency = body && typeof body === "object" ? (body as Record<string, unknown>).idempotency_key : undefined;
+
+  if (typeof idempotency !== "string" || idempotency.trim().length < 16 || idempotency.trim().length > 128) {
+    return NextResponse.json({ ok: false, error: "invalid_idempotency_key" }, { status: 400 });
   }
 
   let amountKobo: number;
   try {
-    amountKobo = parseNgnToKobo(parsed.data.amount_ngn);
+    amountKobo = parseNgnToKobo(amountInput);
   } catch {
     return NextResponse.json({ ok: false, error: "amount_out_of_range" }, { status: 400 });
   }
@@ -73,14 +74,14 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "amount_exceeds_live_policy_limit" }, { status: 403 });
   }
 
-  const correlationId = deterministicCorrelation(identity.identity.user_id, parsed.data.idempotency_key);
-  const providerReference = deterministicProviderReference(correlationId);
+  const correlation = correlationId(identity.identity.user_id, idempotency.trim());
+  const reference = providerReference(correlation);
 
-  let preflight: Record<string, string | boolean | null | undefined>;
+  let preflight: PreflightResponse;
   try {
     preflight = await postSettlementRuntime("/internal/settlement/preflight", {
-      correlation_id: correlationId,
-      idempotency_key: parsed.data.idempotency_key,
+      correlation_id: correlation,
+      idempotency_key: idempotency.trim(),
       user_id: identity.identity.user_id,
       jurisdiction: "NGA",
       verification_level: identity.identity.verification_level,
@@ -89,31 +90,26 @@ export async function POST(request: Request) {
       amount_minor: amountKobo,
       currency: "NGN",
       external_provider: "paystack",
-      external_reference: providerReference,
-    });
+      external_reference: reference,
+    }) as PreflightResponse;
   } catch (error) {
     const status = error instanceof SettlementRuntimeError ? error.status : 503;
     return NextResponse.json(
-      { ok: false, error: error instanceof Error ? error.message : "private_runtime_unavailable", correlation_id: correlationId },
+      { ok: false, error: error instanceof Error ? error.message : "private_runtime_unavailable", correlation_id: correlation },
       { status },
     );
   }
 
-  if (preflight?.status === "GOVERNANCE_APPROVAL_REQUIRED") {
+  if (preflight.status === "GOVERNANCE_APPROVAL_REQUIRED") {
     return NextResponse.json(
-      {
-        ok: false,
-        error: "governance_approval_required",
-        correlation_id: correlationId,
-        policy_id: preflight.policy_id,
-      },
+      { ok: false, error: "governance_approval_required", correlation_id: correlation, policy_id: preflight.policy_id },
       { status: 409 },
     );
   }
 
-  if (preflight?.status !== "AUTHORIZED_TO_INITIATE") {
+  if (preflight.status !== "AUTHORIZED_TO_INITIATE") {
     return NextResponse.json(
-      { ok: false, error: preflight?.error || "live_payment_not_authorized", correlation_id: correlationId },
+      { ok: false, error: preflight.error || "live_payment_not_authorized", correlation_id: correlation },
       { status: 403 },
     );
   }
@@ -124,7 +120,7 @@ export async function POST(request: Request) {
       status: "PAYMENT_PENDING",
       corridor: "NGN",
       provider: "paystack",
-      correlation_id: correlationId,
+      correlation_id: correlation,
       reference: preflight.provider_reference,
       authorization_url: preflight.authorization_url,
       settlement_required_whz: preflight.settlement_required_whz ?? null,
@@ -132,51 +128,42 @@ export async function POST(request: Request) {
     });
   }
 
-  let initialized: Awaited<ReturnType<typeof initializePaystackTransaction>>;
-
   try {
-    initialized = await initializePaystackTransaction({
+    const initialized = await initializePaystackTransaction({
       email: identity.identity.email,
       amountKobo,
-      reference: providerReference,
+      reference,
       metadata: {
         corridor: "NGN",
-        correlation_id: correlationId,
+        correlation_id: correlation,
         user_id: identity.identity.user_id,
-        idempotency_key: parsed.data.idempotency_key,
+        idempotency_key: idempotency.trim(),
         settlement_policy_id: String(preflight.policy_id || ""),
       },
     });
-  } catch (error) {
-    return NextResponse.json(
-      { ok: false, error: error instanceof Error ? error.message : "payment_provider_unavailable", correlation_id: correlationId },
-      { status: 502 },
-    );
-  }
 
-  try {
     await postSettlementRuntime("/internal/settlement/provider-initialized", {
-      correlation_id: correlationId,
+      correlation_id: correlation,
       user_id: identity.identity.user_id,
       provider: "paystack",
       provider_reference: initialized.reference,
       authorization_url: initialized.authorization_url,
     });
-  } catch {
+
+    return NextResponse.json({
+      ok: true,
+      status: "PAYMENT_PENDING",
+      corridor: "NGN",
+      provider: "paystack",
+      correlation_id: correlation,
+      reference: initialized.reference,
+      authorization_url: initialized.authorization_url,
+      settlement_required_whz: preflight.settlement_required_whz ?? null,
+    });
+  } catch (error) {
     return NextResponse.json(
-      { ok: false, error: "private_runtime_persistence_failed", correlation_id: correlationId, reference: initialized.reference },
-      { status: 502 },
+      { ok: false, error: error instanceof Error ? error.message : "payment_provider_unavailable", correlation_id: correlation },
+      { status: error instanceof SettlementRuntimeError ? error.status : 502 },
     );
   }
-
-  return NextResponse.json({
-    ok: true,
-    status: "PAYMENT_PENDING",
-    corridor: "NGN",
-    provider: "paystack",
-    correlation_id: correlationId,
-    reference: initialized.reference,
-    authorization_url: initialized.authorization_url,
-    settlement_required_whz: preflight.settlement_required_whz ?? null,
-  });
 }
