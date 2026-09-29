@@ -84,11 +84,11 @@ export async function POST(request: Request) {
       correlation_id: result?.correlation_id,
       canonical_receipt: result?.canonical_receipt || null,
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       {
         ok: false,
-        error: error instanceof Error ? error.message : "private_runtime_finalization_failed",
+        error: "private_runtime_finalization_failed",
         reference,
       },
       { status: 503 },
