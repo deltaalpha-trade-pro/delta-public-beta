@@ -35,7 +35,7 @@ export function EcosystemMark({ title = "Whalez-AI Ecosystem", ...props }: MarkP
   )
 }
 
-export function WhalezchainMark({ title = "Whalezchain" }: MarkProps) {
+export function WhalezchainMark({ title = "Whalezchain", ...props }: MarkProps) {
   const titleId = React.useId()
 
   return (
@@ -58,7 +58,7 @@ export function WhalezchainMark({ title = "Whalezchain" }: MarkProps) {
   )
 }
 
-export function DeltaAlphaMark({ title = "DeltaAlpha-TradePro" }: MarkProps) {
+export function DeltaAlphaMark({ title = "DeltaAlpha-TradePro", ...props }: MarkProps) {
   const titleId = React.useId()
 
   return (
