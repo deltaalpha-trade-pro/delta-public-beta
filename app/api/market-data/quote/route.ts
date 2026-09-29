@@ -21,11 +21,24 @@ export async function GET(request: Request) {
   try {
     const sourceId = url.searchParams.get("source_id")?.trim() || undefined;
     const data = await getMarketQuote(symbol, sourceId);
+    const marketData =
+      data && typeof data === "object"
+        ? (data as Record<string, unknown>)
+        : {};
+    const quotes = Array.isArray(marketData.quotes) ? marketData.quotes : [];
+    const live = quotes.some(
+      (item) =>
+        item &&
+        typeof item === "object" &&
+        (item as Record<string, unknown>).stale === false &&
+        String((item as Record<string, unknown>).status || "").toUpperCase() === "LIVE",
+    );
+
     return NextResponse.json(
       {
         success: true,
-        marketData: data,
-        live: true,
+        marketData,
+        live,
         simulationOnly: false,
       },
       { status: 200 },
