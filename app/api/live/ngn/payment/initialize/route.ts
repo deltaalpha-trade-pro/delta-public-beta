@@ -76,7 +76,7 @@ export async function POST(request: Request) {
   const correlationId = deterministicCorrelation(identity.identity.user_id, parsed.data.idempotency_key);
   const providerReference = deterministicProviderReference(correlationId);
 
-  let preflight: any;
+  let preflight: Record<string, string | boolean | null | undefined>;
   try {
     preflight = await postSettlementRuntime("/internal/settlement/preflight", {
       correlation_id: correlationId,
