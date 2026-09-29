@@ -1,3 +1,4 @@
+import Image from "next/image"
 import * as React from "react"
 
 export type MarkProps = React.SVGProps<SVGSVGElement> & {
@@ -90,13 +91,13 @@ export type AssetMarkProps = React.ImgHTMLAttributes<HTMLImageElement> & {
 }
 
 export function WhzMark({ title = "WHZ", alt = title, ...props }: AssetMarkProps) {
-  return <img src="/whz-icon.svg" alt={alt} title={title} {...props} />
+  return <Image src="/whz-icon.svg" alt={alt} title={title} width={64} height={64} {...props} />
 }
 
 export function PtnMark({ title = "PTN", alt = title, ...props }: AssetMarkProps) {
-  return <img src="/ptn-icon.svg" alt={alt} title={title} {...props} />
+  return <Image src="/ptn-icon.svg" alt={alt} title={title} width={64} height={64} {...props} />
 }
 
 export function PrnMark({ title = "PRN", alt = title, ...props }: AssetMarkProps) {
-  return <img src="/prn-icon.svg" alt={alt} title={title} {...props} />
+  return <Image src="/prn-icon.svg" alt={alt} title={title} width={64} height={64} {...props} />
 }
