@@ -5,6 +5,7 @@ import { Footer } from "@/components/footer"
 import { TradingPanel } from "@/components/terminal/trading-panel"
 import { BankingStateBar } from "@/components/terminal/banking-state-bar"
 import { SettlementGate } from "@/components/terminal/settlement-gate"
+import { LiveMarketData } from "@/components/terminal/live-market-data"
 import { Badge } from "@/components/ui/badge"
 import { Terminal, Shield } from "lucide-react"
 
@@ -36,7 +37,12 @@ export default function TerminalPage() {
             <BankingStateBar />
           </div>
 
-          {/* Main Terminal Layout */}
+          {/* Live Market Observation */}
+          <div className="mb-4">
+            <LiveMarketData />
+          </div>
+
+          {/* Main Terminal Layout */>
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
             {/* Trading Panel - 3 columns */}
             <div className="lg:col-span-3">
@@ -52,9 +58,10 @@ export default function TerminalPage() {
           {/* Simulation Boundary Notice */}
           <div className="mt-4 p-4 rounded-lg bg-secondary/50 border border-border">
             <p className="text-xs text-muted-foreground text-center">
-              <strong className="text-foreground">Public beta simulation:</strong> Market data, order entry, WHZ bond,
-              exposure, escrow, and settlement outcomes shown here are synthetic. No live trading, broker execution,
-              custody, or settlement execution is enabled.
+              <strong className="text-foreground">Execution boundary:</strong> Market quotes above are live observations
+              from configured external sources when available. Order entry, WHZ bond simulation, exposure, escrow,
+              and settlement outcomes remain simulation-only. No live trade execution, custody, or settlement execution
+              is enabled in this public beta.
             </p>
           </div>
         </div>
