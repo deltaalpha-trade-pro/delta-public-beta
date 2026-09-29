@@ -1,1 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-labelledby="title"><title id="title">PRN — Plutoranium Receipt Note</title><path d="M36 14h108v152l-12-8-12 8-12-8-12 8-12-8-12 8-12-8-12 8V14Z" fill="#0B1020" stroke="#6EE7F5" stroke-width="5" stroke-linejoin="round"/><path d="M54 52h72M54 72h72M54 92h50" stroke="#F8FAFC" stroke-width="7" stroke-linecap="round"/><circle cx="122" cy="119" r="17" fill="none" stroke="#6EE7F5" stroke-width="5"/><path d="m114 119 6 6 11-13" fill="none" stroke="#F8FAFC" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><text x="90" y="145" text-anchor="middle" fill="#F8FAFC" font-family="Inter,system-ui,sans-serif" font-size="19" font-weight="800" letter-spacing="4">PRN</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">PRN</title><desc id="desc">PRN receipt and settlement-state identity mark.</desc>
+  <rect x="12" y="12" width="232" height="232" rx="58" fill="#0B1020"/>
+  <path d="M69 52h118v152l-18-14-18 14-18-14-18 14-18-14-28 18V52Z" fill="none" stroke="#A78BFA" stroke-width="11" stroke-linejoin="round"/>
+  <path d="M92 92h72M92 124h72M92 156h43" stroke="#F8FAFC" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="168" cy="160" r="17" fill="#0B1020" stroke="#6EE7F5" stroke-width="7"/>
+  <path d="m160 160 6 6 11-14" fill="none" stroke="#6EE7F5" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
