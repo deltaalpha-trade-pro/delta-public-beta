@@ -5,10 +5,14 @@ on:
   push:
     branches: [main]
 
+concurrency:
+  group: policy-guards-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   scope-guard:
     name: Policy Guards / scope-guard
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - uses: actions/checkout@v4
         with:
@@ -20,7 +24,7 @@ jobs:
 
   gitignore-exact:
     name: Policy Guards / gitignore-exact
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - uses: actions/checkout@v4
       - name: Gitignore exact-line check
@@ -28,7 +32,7 @@ jobs:
 
   ban-qe:
     name: Policy Guards / ban-qe
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - uses: actions/checkout@v4
       - name: Ban regex escape literals
@@ -36,7 +40,7 @@ jobs:
 
   policy-tests:
     name: Policy Guards / policy-tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - uses: actions/checkout@v4
       - name: Run fixtures
@@ -44,7 +48,7 @@ jobs:
 
   termux-smoke:
     name: Termux Smoke (non-blocking)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     continue-on-error: true
     steps:
       - uses: actions/checkout@v4
