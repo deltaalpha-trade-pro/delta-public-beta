@@ -4,7 +4,7 @@ import Link from "next/link"
 import { useState } from "react"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { EcosystemMark } from "@/components/brand-marks"
+import Image from "next/image"
 
 const publicLinks = [
   { href: "/#communications", label: "Communications" },
@@ -26,9 +26,9 @@ export function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-3" onClick={() => setIsOpen(false)}>
-            <EcosystemMark className="h-8 w-8 text-primary" />
+            <Image src="/brand/whalez-ai-ecosystem.svg" alt="Whalez-AI Ecosystem" width={38} height={38} className="h-9 w-9 rounded-xl object-contain" />
             <div className="leading-tight">
-              <span className="block text-sm font-semibold tracking-[0.24em] text-foreground">WHALEZ-AI</span>
+              <span className="block text-[13px] font-semibold tracking-[0.24em] text-foreground">WHALEZ-AI</span>
               <span className="block text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
                 DeltaAlpha-TradePro
               </span>
