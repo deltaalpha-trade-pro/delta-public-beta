@@ -195,8 +195,8 @@ export async function POST(request: Request) {
       external_provider: "paystack",
       external_reference: reference,
     });
-  } catch (error) {
-    return liveError(error instanceof Error ? error.message : "private_runtime_unavailable", 503, correlation);
+  } catch {
+    return liveError("private_runtime_unavailable", 503, correlation);
   }
 
   if (preflight.status === "GOVERNANCE_APPROVAL_REQUIRED") {
@@ -253,7 +253,7 @@ export async function POST(request: Request) {
       authorization_url: initialized.authorization_url,
       settlement_required_whz: preflight.settlement_required_whz ?? null,
     });
-  } catch (error) {
-    return liveError(error instanceof Error ? error.message : "payment_provider_unavailable", 502, correlation);
+  } catch {
+    return liveError("payment_provider_unavailable", 502, correlation);
   }
 }
