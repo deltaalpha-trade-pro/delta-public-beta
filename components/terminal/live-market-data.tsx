@@ -80,7 +80,10 @@ export function LiveMarketData() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2">
         {rows.map(({ symbol, quote }) => {
-          const primary = quote?.quotes?.[0]
+          const primary =
+            quote?.quotes?.find(
+              (item) => !item.stale && item.status.toUpperCase() === "LIVE",
+            ) ?? quote?.quotes?.[0]
           const stale = primary?.stale ?? false
           const unavailable = !primary
 
