@@ -66,7 +66,7 @@ export function getIntegrationStatus() {
       telegramWebhook: truthy(telegramSecretToken),
       whatsapp: truthy(whatsappNumber),
       metaPixel: truthy(metaPixelId),
-      metaWebhook: truthy(metaWebhookVerifyToken) || truthy(metaAppSecret),
+      metaWebhook: truthy(metaWebhookVerifyToken) && truthy(metaAppSecret),
       facebook: truthy(facebookUrl),
       instagram: truthy(instagramUrl),
       mailRelay: truthy(mailIngestUrl),
@@ -180,7 +180,7 @@ export async function relayEvent(event: RelayEvent) {
       return {
         name: targets[index]?.name ?? `target-${index + 1}`,
         status: "failed" as const,
-        error: result.reason instanceof Error ? result.reason.message : String(result.reason),
+        error: "relay_target_failed",
       }
     }),
   }
