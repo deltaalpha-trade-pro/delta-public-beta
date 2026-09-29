@@ -1,18 +1,10 @@
-<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <style>
-    @media (prefers-color-scheme: light) {
-      .bg { fill: #0f172a; }
-      .fg { fill: #f8fafc; }
-      .stroke { stroke: #f8fafc; }
-    }
-    @media (prefers-color-scheme: dark) {
-      .bg { fill: #f8fafc; }
-      .fg { fill: #0f172a; }
-      .stroke { stroke: #0f172a; }
-    }
-  </style>
-  <rect class="bg" width="180" height="180" rx="38" />
-  <rect x="40" y="40" width="100" height="100" rx="30" class="fg" opacity="0.12" />
-  <path d="M63 90c0-15 12-27 27-27h0c15 0 27 12 27 27s-12 27-27 27h0c-15 0-27-12-27-27Z" fill="none" class="stroke" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
-  <path d="M75 90c0-8 6-14 14-14h2c8 0 14 6 14 14s-6 14-14 14h-2c-8 0-14-6-14-14Z" class="fg" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-labelledby="title desc">
+  <title id="title">WhalezChain</title>
+  <desc id="desc">WhalezChain native state and provenance mark.</desc>
+  <defs><linearGradient id="wc" x1="28" y1="36" x2="152" y2="148" gradientUnits="userSpaceOnUse"><stop stop-color="#67E8F9"/><stop offset="1" stop-color="#818CF8"/></linearGradient></defs>
+  <rect x="8" y="8" width="164" height="164" rx="42" fill="#0B1020"/>
+  <path d="M56 90c0-21 17-38 38-38h8c21 0 38 17 38 38s-17 38-38 38h-8c-21 0-38-17-38-38Z" fill="none" stroke="url(#wc)" stroke-width="10"/>
+  <path d="M70 90c0-10 8-18 18-18h13c10 0 18 8 18 18s-8 18-18 18H88c-10 0-18-8-18-18Z" fill="#F8FAFC" fill-opacity=".82"/>
+  <path d="M90 52v24M90 104v24M56 90h-12M146 90h-12" stroke="#F8FAFC" stroke-opacity=".7" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="90" cy="52" r="5" fill="#6EE7F5"/><circle cx="90" cy="128" r="5" fill="#A78BFA"/>
 </svg>
