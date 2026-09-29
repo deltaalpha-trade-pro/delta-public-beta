@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">DeltaAlpha-TradePro</title>
+  <desc id="desc">DeltaAlpha-TradePro product mark using delta geometry, market direction and operating balance.</desc>
+  <defs><linearGradient id="dat" x1="56" y1="204" x2="204" y2="52" gradientUnits="userSpaceOnUse">
+    <stop stop-color="#38BDF8"/><stop offset=".52" stop-color="#60A5FA"/><stop offset="1" stop-color="#A78BFA"/>
+  </linearGradient></defs>
+  <rect x="12" y="12" width="232" height="232" rx="58" fill="#0B1020"/>
+  <path d="M128 42 208 206H48L128 42Z" fill="none" stroke="url(#dat)" stroke-width="14" stroke-linejoin="round"/>
+  <path d="M88 173h80M78 140h100M92 107h72" stroke="#F8FAFC" stroke-opacity=".9" stroke-width="10" stroke-linecap="round"/>
+  <path d="M128 76v97" stroke="#F8FAFC" stroke-width="9" stroke-linecap="round"/>
+  <path d="m111 94 17-18 17 18" fill="none" stroke="#6EE7F5" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
