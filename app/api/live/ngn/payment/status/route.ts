@@ -12,7 +12,7 @@ const requestSchema = z.object({
 
 export async function POST(request: Request) {
   const identity = await getLiveIdentity();
-  if (!identity.ok) {
+  if (identity.ok === false) {
     return NextResponse.json({ ok: false, error: identity.error }, { status: identity.status });
   }
 
