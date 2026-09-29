@@ -1,0 +1,37 @@
+name: Diagnostic Next Build
+
+on:
+  push:
+    branches:
+      - "diagnostic/ngn-deps-from-ready-20260929"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Run Next build and capture output
+        id: build
+        shell: bash
+        run: |
+          set +e
+          npm run build > build.log 2>&1
+          status=$?
+          cat build.log
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+          exit $status
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: next-build-log
+          path: build.log
