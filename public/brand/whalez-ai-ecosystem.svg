@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">Whalez-AI Ecosystem</title>
+  <desc id="desc">Master Whalez-AI Ecosystem mark: a whale crest with an intelligent network core.</desc>
+  <defs><linearGradient id="wai" x1="52" y1="44" x2="206" y2="206" gradientUnits="userSpaceOnUse">
+    <stop stop-color="#6EE7F5"/><stop offset=".52" stop-color="#60A5FA"/><stop offset="1" stop-color="#A78BFA"/>
+  </linearGradient></defs>
+  <rect x="12" y="12" width="232" height="232" rx="58" fill="#0B1020"/>
+  <circle cx="128" cy="124" r="91" fill="none" stroke="#F8FAFC" stroke-opacity=".12" stroke-width="3"/>
+  <path d="M57 152c18-36 57-60 99-53 22 4 39 15 56 34-20 2-35 11-47 27-13 17-33 25-57 25-21 0-39-9-51-33Z" fill="url(#wai)"/>
+  <path d="M87 109c11-19 31-29 54-29 23 0 45 12 56 32" fill="none" stroke="#F8FAFC" stroke-opacity=".92" stroke-width="11" stroke-linecap="round"/>
+  <circle cx="87" cy="109" r="10" fill="#F8FAFC"/><circle cx="141" cy="80" r="10" fill="#F8FAFC"/><circle cx="197" cy="112" r="10" fill="#F8FAFC"/>
+  <circle cx="141" cy="157" r="24" fill="#0B1020" fill-opacity=".78" stroke="#F8FAFC" stroke-opacity=".88" stroke-width="5"/>
+  <circle cx="141" cy="157" r="9" fill="#6EE7F5"/>
+  <path d="M141 133v-43M141 181v24M117 157H93M165 157h24" stroke="#6EE7F5" stroke-opacity=".5" stroke-width="3" stroke-linecap="round"/>
+</svg>
