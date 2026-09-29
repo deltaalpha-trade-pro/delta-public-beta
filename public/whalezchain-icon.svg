@@ -1,10 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-labelledby="title desc">
-  <title id="title">WhalezChain</title>
-  <desc id="desc">WhalezChain native state and provenance mark.</desc>
-  <defs><linearGradient id="wc" x1="28" y1="36" x2="152" y2="148" gradientUnits="userSpaceOnUse"><stop stop-color="#67E8F9"/><stop offset="1" stop-color="#818CF8"/></linearGradient></defs>
-  <rect x="8" y="8" width="164" height="164" rx="42" fill="#0B1020"/>
-  <path d="M56 90c0-21 17-38 38-38h8c21 0 38 17 38 38s-17 38-38 38h-8c-21 0-38-17-38-38Z" fill="none" stroke="url(#wc)" stroke-width="10"/>
-  <path d="M70 90c0-10 8-18 18-18h13c10 0 18 8 18 18s-8 18-18 18H88c-10 0-18-8-18-18Z" fill="#F8FAFC" fill-opacity=".82"/>
-  <path d="M90 52v24M90 104v24M56 90h-12M146 90h-12" stroke="#F8FAFC" stroke-opacity=".7" stroke-width="4" stroke-linecap="round"/>
-  <circle cx="90" cy="52" r="5" fill="#6EE7F5"/><circle cx="90" cy="128" r="5" fill="#A78BFA"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">WhalezChain</title><desc id="desc">WhalezChain native state and provenance mark.</desc>
+  <defs><linearGradient id="wcn" x1="56" y1="56" x2="200" y2="200" gradientUnits="userSpaceOnUse">
+    <stop stop-color="#6EE7F5"/><stop offset=".55" stop-color="#60A5FA"/><stop offset="1" stop-color="#A78BFA"/>
+  </linearGradient></defs>
+  <rect x="12" y="12" width="232" height="232" rx="58" fill="#0B1020"/>
+  <rect x="55" y="55" width="146" height="146" rx="40" fill="none" stroke="url(#wcn)" stroke-width="12"/>
+  <path d="M88 128c0-23 18-42 42-42h22c23 0 41 19 41 42s-18 42-41 42h-22c-24 0-42-19-42-42Z" fill="none" stroke="#F8FAFC" stroke-width="10"/>
+  <path d="M112 128c0-10 8-18 18-18h20c11 0 19 8 19 18s-8 18-19 18h-20c-10 0-18-8-18-18Z" fill="#F8FAFC" fill-opacity=".88"/>
+  <circle cx="64" cy="128" r="7" fill="#6EE7F5"/><circle cx="192" cy="128" r="7" fill="#A78BFA"/>
 </svg>
