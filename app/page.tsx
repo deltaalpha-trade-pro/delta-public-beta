@@ -2,6 +2,7 @@ import { Navigation } from "@/components/navigation"
 import { HeroSection } from "@/components/hero-section"
 import { WhatIsSection } from "@/components/what-is-section"
 import { DeltaAlphaPreview } from "@/components/deltaalpha-preview"
+import { BrandFamilySection } from "@/components/brand-family-section"
 import { EcosystemProductsSection } from "@/components/ecosystem-products-section"
 import { CommunicationsSection } from "@/components/communications-section"
 import { BetaNotice } from "@/components/beta-notice"
@@ -15,6 +16,7 @@ export default function HomePage() {
         <HeroSection />
         <WhatIsSection />
         <DeltaAlphaPreview />
+        <BrandFamilySection />
         <EcosystemProductsSection />
         <CommunicationsSection />
         <BetaNotice />
