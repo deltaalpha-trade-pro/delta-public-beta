@@ -1,19 +1,10 @@
-<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <style>
-    @media (prefers-color-scheme: light) {
-      .bg { fill: #0f172a; }
-      .fg { fill: #f8fafc; }
-      .stroke { stroke: #f8fafc; }
-    }
-    @media (prefers-color-scheme: dark) {
-      .bg { fill: #f8fafc; }
-      .fg { fill: #0f172a; }
-      .stroke { stroke: #0f172a; }
-    }
-  </style>
-  <rect class="bg" width="180" height="180" rx="38" />
-  <polygon points="90,32 138,124 42,124" fill="none" class="stroke" stroke-width="10" stroke-linejoin="round" />
-  <path d="M63 110h54M59 90h62M68 70h44" class="stroke" stroke-width="10" stroke-linecap="round" />
-  <path d="M90 52v64" class="stroke" stroke-width="10" stroke-linecap="round" />
-  <path d="M78 66l12-14 12 14" class="stroke" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-labelledby="title desc">
+  <title id="title">DeltaAlpha-TradePro</title>
+  <desc id="desc">DeltaAlpha public financial operating platform mark.</desc>
+  <defs><linearGradient id="da" x1="40" y1="142" x2="140" y2="34" gradientUnits="userSpaceOnUse"><stop stop-color="#38BDF8"/><stop offset=".5" stop-color="#60A5FA"/><stop offset="1" stop-color="#A78BFA"/></linearGradient></defs>
+  <rect x="8" y="8" width="164" height="164" rx="42" fill="#0B1020"/>
+  <path d="M90 30 145 144H35L90 30Z" fill="none" stroke="url(#da)" stroke-width="10" stroke-linejoin="round"/>
+  <path d="M63 120h54M69 101h42M76 82h28" stroke="#F8FAFC" stroke-width="8" stroke-linecap="round"/>
+  <path d="M90 54v66" stroke="#F8FAFC" stroke-width="7" stroke-linecap="round"/>
+  <path d="m78 66 12-12 12 12" fill="none" stroke="#6EE7F5" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
