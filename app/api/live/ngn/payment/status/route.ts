@@ -27,9 +27,9 @@ export async function POST(request: Request) {
       user_id: identity.identity.user_id,
     });
     return NextResponse.json(result);
-  } catch (error) {
+  } catch {
     return NextResponse.json(
-      { ok: false, error: error instanceof Error ? error.message : "private_runtime_unavailable" },
+      { ok: false, error: "private_runtime_unavailable" },
       { status: 503 },
     );
   }
