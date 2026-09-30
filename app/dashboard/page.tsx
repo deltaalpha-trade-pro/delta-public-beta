@@ -11,6 +11,9 @@ const modules = [
   { title: "Wallet", href: "/dashboard", copy: "Non-custodial balance visibility and movement history.", icon: Wallet },
   { title: "Bank", href: "/banking", copy: "Ledger review, account status, and settlement-aware coordination.", icon: Landmark },
   { title: "Escrow", href: "/escrow", copy: "WHZ settlement-bond modeling and release/refund coordination.", icon: Lock },
+  { title: "Portfolio", href: "/portfolio", copy: "Runtime-backed positions, exposure context, and source-of-truth status.", icon: Activity },
+  { title: "Account", href: "/account", copy: "Profile, verification, risk tier, jurisdiction, and account state.", icon: Wallet },
+  { title: "Security", href: "/settings/security", copy: "Authentication-authority security snapshot and access posture.", icon: Lock },
 ]
 
 export default function DashboardPage() {

@@ -1,0 +1,20 @@
+import { NextResponse } from "next/server";
+import { platformRequest } from "@/lib/platform/runtime";
+
+export async function POST(
+  request: Request,
+  context: { params: { sessionId: string } },
+) {
+  try {
+    const body = await request.json().catch(() => ({}));
+    const sessionId = encodeURIComponent(context.params.sessionId);
+    const response = await platformRequest(`/v1/platform/coach/sessions/${sessionId}/messages`, {
+      method: "POST",
+      body: JSON.stringify(body),
+    });
+    const data = await response.json().catch(() => ({ ok: false }));
+    return NextResponse.json(data, { status: response.status });
+  } catch {
+    return NextResponse.json({ ok: false, error: "platform_unavailable" }, { status: 503 });
+  }
+}
