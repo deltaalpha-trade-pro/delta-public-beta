@@ -1,5 +1,5 @@
-import { DomainHub } from "@/components/platform/domain-hub"
+import { SettingsHub } from "@/components/platform/settings-hub"
 
 export default function SettingsPage() {
-  return <DomainHub mode="account" />
+  return <SettingsHub />
 }
