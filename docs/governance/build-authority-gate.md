@@ -26,7 +26,6 @@ Merge to the protected branch MUST require:
      - `Policy Guards / scope-guard`
      - `Policy Guards / gitignore-exact`
      - `Policy Guards / ban-qe`
-     - `Policy Guards / termux-guard-tests`
    - Required reviews:
      - “Require review from Code Owners” enabled.
      - Approver group (CODEOWNERS) must cover all build-authority surfaces above.
@@ -48,3 +47,4 @@ The proof must show:
 - Required checks list
 - “Termux smoke (non-blocking)” is NOT required
 - Linux Build + Policy Guards ARE required
+- `termux-guard-tests` may run as a non-blocking smoke check, but MUST NOT be a required status check

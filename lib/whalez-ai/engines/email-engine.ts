@@ -1,4 +1,4 @@
-import { config, type EmailEvent, type WhalesAiResponse } from "../config";
+import { config, type EmailEvent, type WhalezAiResponse } from "../config";
 
 /**
  * Email is disabled on the Delta Public Beta surface.
@@ -41,7 +41,7 @@ export function isEmailEnabled(): boolean {
   return false;
 }
 
-export async function processEmailEvent(_req: EmailEventRequest): Promise<WhalesAiResponse> {
+export async function processEmailEvent(_req: EmailEventRequest): Promise<WhalezAiResponse> {
   return {
     success: false,
     error: "Email disabled in this deployment (orchestrator-owned).",

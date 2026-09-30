@@ -1,8 +1,17 @@
-import { cookies } from "next/headers";
-import { ok, err, demoMode } from "../_util";
+import {
+  ok,
+  err,
+  demoMode,
+  getAccessCookie,
+  authBridgeConfigured,
+  authBridgeUnavailable,
+  runplaneAuthFetch,
+  runplaneCookie,
+  responseBody,
+} from "../_util";
 
 export async function GET() {
-  const access = cookies().get("access_token")?.value;
+  const access = getAccessCookie();
   if (!access) return err("unauthorized", 401);
 
   if (demoMode()) {
@@ -16,15 +25,13 @@ export async function GET() {
     });
   }
 
-  const api = process.env.NEXT_PUBLIC_API_URL;
-  if (!api) return err("NEXT_PUBLIC_API_URL not set", 500);
+  if (!authBridgeConfigured()) return authBridgeUnavailable();
 
-  const res = await fetch(`${api}/auth/me`, {
+  const res = await runplaneAuthFetch("/auth/me", {
     method: "GET",
-    headers: { "Content-Type": "application/json" },
-    credentials: "include",
+    headers: { Cookie: runplaneCookie(access) },
   });
 
-  const data = await res.json().catch(() => ({}));
+  const data = await responseBody(res);
   return ok(data, res.status);
 }

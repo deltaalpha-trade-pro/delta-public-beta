@@ -1,33 +1,56 @@
-import { ok, err, demoMode, setAccessCookie } from "../_util";
+import {
+  ok,
+  err,
+  demoMode,
+  setAccessCookie,
+  authBridgeConfigured,
+  authBridgeUnavailable,
+  runplaneAuthFetch,
+  formBody,
+  responseBody,
+} from "../_util";
 
 export async function POST(req: Request) {
   const { email, password } = await req.json().catch(() => ({}));
+  const normalizedEmail = String(email || "").toLowerCase().trim();
+  const normalizedPassword = String(password || "");
 
-  if (!email || !password) return err("Missing email or password", 400);
+  if (!normalizedEmail || !normalizedPassword) return err("Missing email or password", 400);
 
-  // DEMO MODE: accept any signup and issue cookie.
   if (demoMode()) {
-    setAccessCookie(`demo:${String(email).toLowerCase()}`);
+    setAccessCookie(`demo:${normalizedEmail}`);
     return ok({
       user_id: crypto.randomUUID(),
-      email: String(email).toLowerCase(),
+      email: normalizedEmail,
       risk_tier: "R0",
       verification_level: "V0",
       mode: "demo",
     });
   }
 
-  // Production mode: forward to backend.
-  const api = process.env.NEXT_PUBLIC_API_URL;
-  if (!api) return err("NEXT_PUBLIC_API_URL not set", 500);
+  if (!authBridgeConfigured()) return authBridgeUnavailable();
 
-  const res = await fetch(`${api}/auth/signup`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password }),
-    credentials: "include",
-  });
+  let res: Response;
+  try {
+    res = await runplaneAuthFetch("/auth/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: formBody({ email: normalizedEmail, password: normalizedPassword }),
+    });
+  } catch {
+    return err("Authentication service is temporarily unavailable. Please try again shortly.", 502);
+  }
 
-  const data = await res.json().catch(() => ({}));
-  return ok(data, res.status);
+  const data = await responseBody(res);
+  if (res.status >= 400) return ok(data, res.status);
+
+  return ok(
+    {
+      ...(typeof data === "object" && data !== null ? data : {}),
+      email: normalizedEmail,
+      registered: true,
+      mode: "runplane-auth",
+    },
+    201,
+  );
 }
