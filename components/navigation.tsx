@@ -9,6 +9,8 @@ import Image from "next/image"
 const publicLinks = [
   { href: "/#communications", label: "Communications" },
   { href: "/#product-surface", label: "Products" },
+  { href: "/investment", label: "Investment" },
+  { href: "/escrow", label: "Escrow" },
 ]
 
 const accessLinks = [
