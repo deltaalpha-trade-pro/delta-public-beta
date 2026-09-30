@@ -26,4 +26,5 @@ export { getAvailableAssets } from "./engines/simulation-engine"
 
 // Export types and config for internal use only
 export { config } from "./config"
+export { WHALEZ_AI_AGENTS, getWhalezAIAgent, publicWhalezAIAgentIdentity } from "./agent-registry"
 export type { WhalezAiRequest, WhalezAiResponse, SimulationAsset, CandleData } from "./config"

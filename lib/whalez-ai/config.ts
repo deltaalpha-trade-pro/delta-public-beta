@@ -13,24 +13,9 @@ export const config = {
   orchestrator: "Whalez-AI",
   system: "deltapublicbetamain",
 
-  // Internal tools with unique codenames and scoped authority
-  tools: {
-    alpha: {
-      codename: "ALPHA-SENTINEL",
-      scope: "analytics",
-      authority: ["read:metrics", "write:logs"],
-    },
-    beta: {
-      codename: "BETA-VALIDATOR",
-      scope: "validation",
-      authority: ["read:data", "validate:schemas"],
-    },
-    gamma: {
-      codename: "GAMMA-ARBITER",
-      scope: "decision",
-      authority: ["read:context", "compute:decisions"],
-    },
-  },
+  // Public runtime exposes capability semantics, not private model/provider identities.
+  // Model adapters and private agent bindings belong behind the control-plane boundary.
+  tools: {},
 
   // Engines - accept instructions ONLY from Layer 3
   engines: {
@@ -53,7 +38,7 @@ export const config = {
     requireInternalHeaders: true,
     validateOrigin: true,
     publicBehavior: "simulation-only",
-    internalBehavior: "full-execution",
+    internalBehavior: "governed-and-authorized",
   },
 
   // Email engine configuration
