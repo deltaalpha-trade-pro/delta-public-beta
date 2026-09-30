@@ -8,7 +8,7 @@ import type { Metadata } from "next"
 export const metadata: Metadata = {
   title: "DeltaAlpha-TradePro | WHALEZ-AI",
   description:
-    "Public intelligence and analysis interface of the WHALEZ-AI ecosystem. Access market insights, signals visualization, and strategy analysis tools.",
+    "Public intelligence and analysis interface of the WHALEZ-AI ecosystem. Access market observations, portfolio context, risk framing, and strategy-analysis tools.",
 }
 
 const features = [
@@ -22,7 +22,7 @@ const features = [
     icon: Zap,
     title: "Signal Processing",
     description:
-      "AI-generated signals based on quantitative analysis, pattern recognition, and multi-factor modeling—delivered with context and confidence indicators.",
+      "Structured observations derived from quantitative inputs and market context, delivered without public trade instructions or execution authority.",
   },
   {
     icon: Eye,
@@ -133,7 +133,7 @@ export default function DeltaAlphaPage() {
                       3
                     </div>
                     <div>
-                      <h3 className="font-medium text-foreground">Signal Generation</h3>
+                      <h3 className="font-medium text-foreground">Observation Synthesis</h3>
                       <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
                         Insights are synthesized into actionable signals with confidence levels and contextual
                         information.
@@ -163,7 +163,7 @@ export default function DeltaAlphaPage() {
                   <ul className="mt-4 space-y-2">
                     <li className="text-sm text-muted-foreground flex items-start gap-2">
                       <span className="text-primary mt-1.5">•</span>
-                      Access to core analysis dashboards and signal feeds
+                      Access to core analysis dashboards and market-observation feeds
                     </li>
                     <li className="text-sm text-muted-foreground flex items-start gap-2">
                       <span className="text-primary mt-1.5">•</span>
