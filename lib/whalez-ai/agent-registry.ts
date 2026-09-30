@@ -1,4 +1,4 @@
-import type { WhalezAICapabilityAuthority } from "./identity"
+export type WhalezAICapabilityAuthority = "observe" | "analyze" | "recommend" | "validate" | "prepare" | "execute-with-approval"
 
 export type WhalezAIAgent = {
   id: string
