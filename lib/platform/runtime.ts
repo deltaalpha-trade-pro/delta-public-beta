@@ -1,4 +1,4 @@
-import { createHmac, randomBytes } from "node:crypto";
+import { createHash, createHmac, randomBytes } from "node:crypto";
 import { cookies } from "next/headers";
 
 type Identity = {
@@ -46,8 +46,9 @@ async function liveIdentity(): Promise<Identity | null> {
 
   if ((process.env.AUTH_DEMO_MODE || "").toLowerCase() === "true") {
     const email = cookie.startsWith("demo:") ? cookie.slice(5) : "user@demo";
+    const sub = `demo-user:${createHash("sha256").update(email).digest("hex").slice(0, 24)}`;
     return {
-      sub: "demo-user",
+      sub,
       email,
       verification_level: "V0",
       risk_tier: "R0",
