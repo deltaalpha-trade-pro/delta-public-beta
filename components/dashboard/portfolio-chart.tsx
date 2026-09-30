@@ -1,68 +1,67 @@
 "use client"
 
-import {
-  Area,
-  AreaChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts"
-
+import { useEffect, useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
-const data = [
-  { date: "Jan", value: 10000 },
-  { date: "Feb", value: 12500 },
-  { date: "Mar", value: 11800 },
-  { date: "Apr", value: 15200 },
-  { date: "May", value: 14800 },
-  { date: "Jun", value: 18500 },
-  { date: "Jul", value: 17200 },
-  { date: "Aug", value: 21000 },
-  { date: "Sep", value: 19800 },
-  { date: "Oct", value: 24500 },
-  { date: "Nov", value: 23200 },
-  { date: "Dec", value: 28750 },
-]
+type PortfolioResponse = {
+  portfolio?: {
+    name?: string
+    reference_currency?: string
+    total_reference_value?: string
+    status?: string
+  } | null
+  source_of_truth?: string
+}
 
 export function PortfolioChart() {
+  const [data, setData] = useState<PortfolioResponse | null>(null)
+  const [error, setError] = useState(false)
+
+  useEffect(() => {
+    fetch("/api/platform/portfolio", { cache: "no-store" })
+      .then(async (response) => {
+        if (!response.ok) throw new Error("portfolio_unavailable")
+        return response.json()
+      })
+      .then((value) => setData(value))
+      .catch(() => setError(true))
+  }, [])
+
+  const portfolio = data?.portfolio
+  const value = portfolio?.total_reference_value
+  const currency = portfolio?.reference_currency || "USD"
+
   return (
     <Card className="bg-card border-border">
       <CardHeader>
-        <CardTitle className="text-foreground">Portfolio Performance</CardTitle>
+        <CardTitle className="text-foreground">Portfolio State</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="h-[300px]">
-          <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={data}>
-              <defs>
-                <linearGradient id="portfolioGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#4a90d9" stopOpacity={0.4} />
-                  <stop offset="100%" stopColor="#4a90d9" stopOpacity={0} />
-                </linearGradient>
-              </defs>
-              <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fill: "#6b7280", fontSize: 12 }} />
-              <YAxis
-                axisLine={false}
-                tickLine={false}
-                tick={{ fill: "#6b7280", fontSize: 12 }}
-                tickFormatter={(value) => `$${(Number(value) / 1000).toFixed(0)}k`}
-              />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: "#0a0a0f",
-                  border: "1px solid #1f2937",
-                  borderRadius: "8px",
-                  color: "#f3f4f6",
-                }}
-                formatter={(value) => [`$${Number(value).toLocaleString()}`, "Portfolio Value"]}
-              />
-              <Area type="monotone" dataKey="value" stroke="#4a90d9" strokeWidth={2} fill="url(#portfolioGradient)" />
-            </AreaChart>
-          </ResponsiveContainer>
-        </div>
+        {error ? (
+          <div className="rounded-xl border border-amber-300/20 bg-amber-300/5 p-6 text-sm text-muted-foreground">
+            Portfolio service unavailable. No synthetic performance series is displayed.
+          </div>
+        ) : portfolio ? (
+          <div className="grid gap-4 sm:grid-cols-3">
+            <Metric label="Reference value" value={value && value !== "0" ? `${currency} ${Number(value).toLocaleString()}` : "Not connected"} />
+            <Metric label="State" value={portfolio.status || "UNKNOWN"} />
+            <Metric label="Source" value={data?.source_of_truth || "Provider / WhalezChain"} />
+          </div>
+        ) : (
+          <div className="rounded-xl border border-dashed border-white/10 p-6 text-sm text-muted-foreground">
+            Loading canonical portfolio state…
+          </div>
+        )}
       </CardContent>
     </Card>
+  )
+}
+
+function Metric({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-xl bg-black/20 p-4">
+      <p className="text-xs text-muted-foreground">{label}</p>
+      <p className="mt-2 text-sm font-medium text-foreground">{value}</p>
+    </div>
   )
 }
