@@ -6,10 +6,11 @@ import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 
 const modules = [
-  { title: "Trading", copy: "Market intelligence, signal review, and chart context.", icon: BarChart3 },
-  { title: "Investment", copy: "Portfolio modeling, exposure views, and thesis tracking.", icon: Activity },
-  { title: "Wallet", copy: "Non-custodial balance visibility and movement history.", icon: Wallet },
-  { title: "Bank", copy: "Ledger review, account status, and settlement-aware coordination.", icon: Landmark },
+  { title: "Trading", href: "/trading", copy: "Market intelligence, signal review, and chart context.", icon: BarChart3 },
+  { title: "Investment", href: "/investment", copy: "Portfolio modeling, exposure views, and thesis tracking.", icon: Activity },
+  { title: "Wallet", href: "/dashboard", copy: "Non-custodial balance visibility and movement history.", icon: Wallet },
+  { title: "Bank", href: "/banking", copy: "Ledger review, account status, and settlement-aware coordination.", icon: Landmark },
+  { title: "Escrow", href: "/escrow", copy: "WHZ settlement-bond modeling and release/refund coordination.", icon: Lock },
 ]
 
 export default function DashboardPage() {
@@ -46,11 +47,11 @@ export default function DashboardPage() {
                 {modules.map((module) => {
                   const Icon = module.icon
                   return (
-                    <div key={module.title} className="glass-card rounded-2xl p-6">
+                    <Link key={module.title} href={module.href} className="glass-card rounded-2xl p-6 transition hover:-translate-y-0.5 hover:border-primary/30">
                       <Icon className="h-7 w-7 text-primary" />
                       <h2 className="mt-5 text-lg font-semibold text-foreground">{module.title}</h2>
                       <p className="mt-3 text-sm leading-6 text-muted-foreground">{module.copy}</p>
-                    </div>
+                    </Link>
                   )
                 })}
               </div>
