@@ -11,12 +11,16 @@ const publicLinks = [
   { href: "/#product-surface", label: "Products" },
   { href: "/investment", label: "Investment" },
   { href: "/escrow", label: "Escrow" },
+  { href: "/portfolio", label: "Portfolio" },
+  { href: "/signals", label: "Signals" },
 ]
 
 const accessLinks = [
   { href: "/login", label: "Login" },
   { href: "/signup", label: "Sign up" },
   { href: "/dashboard", label: "Dashboard" },
+  { href: "/account", label: "Account" },
+  { href: "/settings/security", label: "Security" },
 ]
 
 export function Navigation() {
