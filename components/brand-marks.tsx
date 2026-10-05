@@ -40,7 +40,7 @@ export function WhalezchainMark({ title = "Whalezchain", ...props }: MarkProps) 
   const titleId = React.useId()
 
   return (
-    <svg viewBox="0 0 64 64" fill="none" role="img" aria-labelledby={titleId}>
+    <svg viewBox="0 0 64 64" fill="none" role="img" aria-labelledby={titleId} {...props}>
       <title id={titleId}>{title}</title>
       <rect x="10" y="10" width="44" height="44" rx="14" stroke="currentColor" strokeOpacity="0.18" strokeWidth="2" />
       <path
@@ -63,7 +63,7 @@ export function DeltaAlphaMark({ title = "DeltaAlpha-TradePro", ...props }: Mark
   const titleId = React.useId()
 
   return (
-    <svg viewBox="0 0 64 64" fill="none" role="img" aria-labelledby={titleId}>
+    <svg viewBox="0 0 64 64" fill="none" role="img" aria-labelledby={titleId} {...props}>
       <title id={titleId}>{title}</title>
       <polygon
         points="32,11 54,52 10,52"
@@ -85,8 +85,7 @@ export function DeltaAlphaMark({ title = "DeltaAlpha-TradePro", ...props }: Mark
   )
 }
 
-
-export type AssetMarkProps = React.ImgHTMLAttributes<HTMLImageElement> & {
+export type AssetMarkProps = Omit<React.ImgHTMLAttributes<HTMLImageElement>, "src" | "width" | "height"> & {
   title?: string
 }
 
