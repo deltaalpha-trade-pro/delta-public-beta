@@ -8,6 +8,7 @@ import Image from "next/image"
 
 const publicLinks = [
   { href: "/deltaalpha", label: "DeltaAlpha" },
+  { href: "/coaching", label: "AI Coach" },
   { href: "/trading", label: "Trading" },
   { href: "/investment", label: "Investment" },
   { href: "/escrow", label: "Escrow" },
@@ -18,6 +19,8 @@ const accessLinks = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/banking", label: "Banking" },
   { href: "/settlement", label: "Settlement" },
+  { href: "/whalezchain", label: "WhalezChain" },
+  { href: "/support", label: "Support" },
   { href: "/account", label: "Account" },
   { href: "/login", label: "Login" },
   { href: "/signup", label: "Sign up" },
@@ -25,7 +28,6 @@ const accessLinks = [
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
-
   const close = () => setIsOpen(false)
 
   return (
@@ -41,47 +43,27 @@ export function Navigation() {
             </div>
           </Link>
 
-          <div className="hidden md:flex items-center gap-5">
-            {publicLinks.map((item) => (
-              <Link key={item.href} href={item.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                {item.label}
-              </Link>
-            ))}
-            <Link href="/dashboard">
-              <Button variant="outline" size="sm" className="w-fit bg-white/5 border-white/15 backdrop-blur-xl">Open Dashboard</Button>
-            </Link>
+          <div className="hidden xl:flex items-center gap-4">
+            {publicLinks.map((item) => <Link key={item.href} href={item.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">{item.label}</Link>)}
+            <Link href="/dashboard"><Button variant="outline" size="sm" className="w-fit bg-white/5 border-white/15 backdrop-blur-xl">Open Dashboard</Button></Link>
           </div>
 
-          <button
-            type="button"
-            aria-label="Toggle navigation menu"
-            aria-expanded={isOpen}
-            onClick={() => setIsOpen((value) => !value)}
-            className="md:hidden rounded-xl border border-white/10 bg-white/5 p-2 text-foreground backdrop-blur-xl"
-          >
+          <button type="button" aria-label="Toggle navigation menu" aria-expanded={isOpen} onClick={() => setIsOpen((value) => !value)} className="xl:hidden rounded-xl border border-white/10 bg-white/5 p-2 text-foreground backdrop-blur-xl">
             {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </div>
 
       {isOpen ? (
-        <div className="md:hidden border-t border-white/10 bg-background/90 px-4 py-5 backdrop-blur-2xl">
+        <div className="xl:hidden border-t border-white/10 bg-background/90 px-4 py-5 backdrop-blur-2xl">
           <div className="glass-panel rounded-2xl p-4 shadow-2xl">
             <div className="grid gap-2">
               <p className="px-3 text-xs uppercase tracking-[0.24em] text-primary">Products</p>
-              {publicLinks.map((item) => (
-                <Link key={item.href} href={item.href} onClick={close} className="rounded-xl px-3 py-3 text-sm text-muted-foreground hover:bg-white/5 hover:text-foreground">
-                  {item.label}
-                </Link>
-              ))}
+              {publicLinks.map((item) => <Link key={item.href} href={item.href} onClick={close} className="rounded-xl px-3 py-3 text-sm text-muted-foreground hover:bg-white/5 hover:text-foreground">{item.label}</Link>)}
             </div>
             <div className="mt-5 grid gap-2 border-t border-white/10 pt-4">
               <p className="px-3 text-xs uppercase tracking-[0.24em] text-primary">Workspace</p>
-              {accessLinks.map((item) => (
-                <Link key={item.href} href={item.href} onClick={close} className="rounded-xl px-3 py-3 text-sm text-muted-foreground hover:bg-white/5 hover:text-foreground">
-                  {item.label}
-                </Link>
-              ))}
+              {accessLinks.map((item) => <Link key={item.href} href={item.href} onClick={close} className="rounded-xl px-3 py-3 text-sm text-muted-foreground hover:bg-white/5 hover:text-foreground">{item.label}</Link>)}
             </div>
           </div>
         </div>
