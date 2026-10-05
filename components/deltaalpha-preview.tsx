@@ -1,6 +1,14 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, BarChart3, Brain, Eye, ShieldCheck } from "lucide-react"
+import type { LucideIcon } from "lucide-react"
+
+const capabilityItems: Array<[LucideIcon, string]> = [
+  [Brain, "AI coaching and financial learning"],
+  [BarChart3, "Market intelligence, signals, and portfolio modeling"],
+  [Eye, "Trading, investment, escrow, and settlement simulations"],
+  [ShieldCheck, "Native WHZ, PTN, PRN relationships with clear economic boundaries"],
+]
 
 export function DeltaAlphaPreview() {
   return (
@@ -16,15 +24,12 @@ export function DeltaAlphaPreview() {
             </p>
 
             <ul className="mt-8 space-y-4">
-              {[
-                [Brain, "AI coaching and financial learning"],
-                [BarChart3, "Market intelligence, signals, and portfolio modeling"],
-                [Eye, "Trading, investment, escrow, and settlement simulations"],
-                [ShieldCheck, "Native WHZ, PTN, PRN relationships with clear economic boundaries"],
-              ].map(([Icon, text]) => {
-                const ItemIcon = Icon as typeof Brain
-                return <li key={String(text)} className="flex items-start gap-3"><ItemIcon className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" /><span className="text-sm leading-6 text-muted-foreground">{text}</span></li>
-              })}
+              {capabilityItems.map(([Icon, text]) => (
+                <li key={text} className="flex items-start gap-3">
+                  <Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
+                  <span className="text-sm leading-6 text-muted-foreground">{text}</span>
+                </li>
+              ))}
             </ul>
 
             <div className="mt-8 flex flex-wrap gap-3">
