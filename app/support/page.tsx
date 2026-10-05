@@ -1,13 +1,40 @@
-import { HeartHandshake, ShieldCheck } from "lucide-react"
+import { HeartHandshake, ShieldCheck, Copy } from "lucide-react"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
-const channels = [
-  { name: "Project support", detail: "Official contribution information will be published here only after Founder Authority verification." },
-  { name: "Network and ecosystem work", detail: "Support may help fund engineering, infrastructure, research, security, documentation, and community development." },
-  { name: "Verification first", detail: "No wallet address is displayed until the exact network, asset, and destination are explicitly approved for public publication." },
+const donationRoutes = [
+  {
+    asset: "BTC",
+    network: "Bitcoin",
+    address: "3N6WZqKwgG1zVAXAugPrMtugdFqxRrUKYY",
+    note: "Send BTC only on the Bitcoin network.",
+  },
+  {
+    asset: "ETH",
+    network: "Ethereum",
+    address: "0x421C49DbafC7B94f193c71C919A14e801A1318A7",
+    note: "Send ETH only on the Ethereum network.",
+  },
+  {
+    asset: "USDT",
+    network: "Ethereum · ERC-20",
+    address: "0x421C49DbafC7B94f193c71C919A14e801A1318A7",
+    note: "Send USDT using Ethereum ERC-20.",
+  },
+  {
+    asset: "USDT",
+    network: "BNB Smart Chain · BEP-20",
+    address: "0xf1313d753F84cF17E69d25052F6f56f1338f04F6",
+    note: "Send USDT using BNB Smart Chain BEP-20.",
+  },
+  {
+    asset: "USDT",
+    network: "TRON · TRC-20",
+    address: "TRQsWSVaHKXeNWpCokiFdAD3bUrBc851Rt",
+    note: "Send USDT using TRON TRC-20.",
+  },
 ]
 
 export default function SupportPage() {
@@ -22,18 +49,29 @@ export default function SupportPage() {
             </Badge>
             <h1 className="mt-5 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">Support the build</h1>
             <p className="mt-5 text-base leading-8 text-muted-foreground sm:text-lg">
-              The Whalez-AI Ecosystem is being built as a long-term public project. Support information belongs in one
-              controlled place and is published only after the destination has been verified.
+              Support the Whalez-AI Ecosystem&apos;s engineering, infrastructure, research, security, documentation,
+              and community development.
             </p>
           </div>
 
           <Card className="mt-10">
-            <CardHeader><CardTitle>Contribution information</CardTitle></CardHeader>
+            <CardHeader>
+              <CardTitle>Crypto donation addresses</CardTitle>
+            </CardHeader>
             <CardContent className="space-y-4">
-              {channels.map((channel) => (
-                <div key={channel.name} className="rounded-xl border border-border bg-background/70 p-4">
-                  <div className="text-sm font-semibold text-foreground">{channel.name}</div>
-                  <p className="mt-2 text-sm leading-7 text-muted-foreground">{channel.detail}</p>
+              {donationRoutes.map((route) => (
+                <div key={route.network} className="rounded-xl border border-border bg-background/70 p-4">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div>
+                      <div className="text-sm font-semibold text-foreground">{route.asset}</div>
+                      <div className="mt-1 text-xs text-muted-foreground">{route.network}</div>
+                    </div>
+                    <Copy className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+                  </div>
+                  <div className="mt-3 break-all rounded-lg border border-border bg-muted/30 p-3 font-mono text-xs text-foreground">
+                    {route.address}
+                  </div>
+                  <p className="mt-2 text-xs leading-6 text-muted-foreground">{route.note}</p>
                 </div>
               ))}
             </CardContent>
@@ -42,12 +80,12 @@ export default function SupportPage() {
           <div className="mt-6 rounded-2xl border border-primary/20 bg-primary/5 p-6">
             <div className="flex items-center gap-3">
               <ShieldCheck className="h-5 w-5 text-primary" />
-              <h2 className="text-lg font-semibold text-foreground">Why addresses are intentionally gated</h2>
+              <h2 className="text-lg font-semibold text-foreground">Network safety</h2>
             </div>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">
-              Cryptocurrency addresses are network-specific and irreversible. The public site will never invent or infer a
-              Bitcoin, Ethereum, or USDT destination. The verified address set will be added once the Founder Authority
-              confirms the exact destinations and networks.
+              Crypto transfers are irreversible. Always verify the asset and network before sending. Never send BTC to an
+              Ethereum address, or send ERC-20, BEP-20, or TRC-20 USDT through the wrong network. The Whalez-AI Ecosystem
+              does not promise returns or financial outcomes for contributions.
             </p>
           </div>
         </div>
