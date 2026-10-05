@@ -13,9 +13,25 @@ export const config = {
   orchestrator: "Whalez-AI",
   system: "deltapublicbetamain",
 
-  // Public runtime exposes capability semantics, not private model/provider identities.
-  // Model adapters and private agent bindings belong behind the control-plane boundary.
-  tools: {},
+  // Capability metadata used by the Layer 2 tool coordinator.
+  // This exposes roles/scopes, not private model or provider identities.
+  tools: {
+    alpha: {
+      codename: "ALPHA-SENTINEL",
+      scope: "Analytics & Monitoring",
+      authority: ["read:metrics", "write:logs"],
+    },
+    beta: {
+      codename: "BETA-VALIDATOR",
+      scope: "Data Validation",
+      authority: ["read:data", "validate:schemas"],
+    },
+    gamma: {
+      codename: "GAMMA-ARBITER",
+      scope: "AI-Driven Decision Support",
+      authority: ["read:context", "compute:decisions"],
+    },
+  },
 
   // Engines - accept instructions ONLY from Layer 3
   engines: {
