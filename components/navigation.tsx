@@ -7,47 +7,48 @@ import { Button } from "@/components/ui/button"
 import Image from "next/image"
 
 const publicLinks = [
-  { href: "/#communications", label: "Communications" },
-  { href: "/#product-surface", label: "Products" },
+  { href: "/deltaalpha", label: "DeltaAlpha" },
+  { href: "/trading", label: "Trading" },
   { href: "/investment", label: "Investment" },
   { href: "/escrow", label: "Escrow" },
+  { href: "/terminal", label: "Terminal" },
 ]
 
 const accessLinks = [
+  { href: "/dashboard", label: "Dashboard" },
+  { href: "/banking", label: "Banking" },
+  { href: "/settlement", label: "Settlement" },
+  { href: "/account", label: "Account" },
   { href: "/login", label: "Login" },
   { href: "/signup", label: "Sign up" },
-  { href: "/dashboard", label: "Dashboard" },
 ]
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
+
+  const close = () => setIsOpen(false)
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-background/70 backdrop-blur-2xl supports-[backdrop-filter]:bg-background/45">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/70 to-transparent" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center gap-3" onClick={() => setIsOpen(false)}>
+          <Link href="/" className="flex items-center gap-3" onClick={close}>
             <Image src="/brand/whalez-ai-ecosystem.svg" alt="Whalez-AI Ecosystem" width={38} height={38} className="h-9 w-9 rounded-xl object-contain" />
             <div className="leading-tight">
               <span className="block text-[13px] font-semibold tracking-[0.24em] text-foreground">WHALEZ-AI</span>
-              <span className="block text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
-                DeltaAlpha-TradePro
-              </span>
+              <span className="block text-[11px] uppercase tracking-[0.22em] text-muted-foreground">DeltaAlpha-TradePro</span>
             </div>
           </Link>
 
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-5">
             {publicLinks.map((item) => (
-              <Link key={item.href} href={item.href} className="text-sm text-muted-foreground hover:text-foreground">
+              <Link key={item.href} href={item.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 {item.label}
               </Link>
             ))}
-
-            <Link href="/beta-access">
-              <Button variant="outline" size="sm" className="w-fit bg-white/5 border-white/15 backdrop-blur-xl">
-                Request Access
-              </Button>
+            <Link href="/dashboard">
+              <Button variant="outline" size="sm" className="w-fit bg-white/5 border-white/15 backdrop-blur-xl">Open Dashboard</Button>
             </Link>
           </div>
 
@@ -67,28 +68,17 @@ export function Navigation() {
         <div className="md:hidden border-t border-white/10 bg-background/90 px-4 py-5 backdrop-blur-2xl">
           <div className="glass-panel rounded-2xl p-4 shadow-2xl">
             <div className="grid gap-2">
-              <p className="px-3 text-xs uppercase tracking-[0.24em] text-primary">Public</p>
+              <p className="px-3 text-xs uppercase tracking-[0.24em] text-primary">Products</p>
               {publicLinks.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setIsOpen(false)}
-                  className="rounded-xl px-3 py-3 text-sm text-muted-foreground hover:bg-white/5 hover:text-foreground"
-                >
+                <Link key={item.href} href={item.href} onClick={close} className="rounded-xl px-3 py-3 text-sm text-muted-foreground hover:bg-white/5 hover:text-foreground">
                   {item.label}
                 </Link>
               ))}
             </div>
-
             <div className="mt-5 grid gap-2 border-t border-white/10 pt-4">
-              <p className="px-3 text-xs uppercase tracking-[0.24em] text-primary">Access</p>
+              <p className="px-3 text-xs uppercase tracking-[0.24em] text-primary">Workspace</p>
               {accessLinks.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setIsOpen(false)}
-                  className="rounded-xl px-3 py-3 text-sm text-muted-foreground hover:bg-white/5 hover:text-foreground"
-                >
+                <Link key={item.href} href={item.href} onClick={close} className="rounded-xl px-3 py-3 text-sm text-muted-foreground hover:bg-white/5 hover:text-foreground">
                   {item.label}
                 </Link>
               ))}
