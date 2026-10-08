@@ -40,7 +40,7 @@ function LoginForm() {
   return (
     <AuthCard
       title="Log in"
-      subtitle="Access your governed dashboard."
+      subtitle="Sign in to your DeltaAlpha account."
       footer={
         <span>
           New here?{" "}
@@ -56,6 +56,7 @@ function LoginForm() {
           <input
             type="email"
             required
+            autoComplete="email"
             className="mt-1 w-full rounded-md bg-zinc-900 border border-zinc-800 px-3 py-2 outline-none focus:border-zinc-600"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -68,6 +69,7 @@ function LoginForm() {
           <input
             type="password"
             required
+            autoComplete="current-password"
             className="mt-1 w-full rounded-md bg-zinc-900 border border-zinc-800 px-3 py-2 outline-none focus:border-zinc-600"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -85,15 +87,12 @@ function LoginForm() {
           disabled={busy}
           className="w-full rounded-md bg-blue-600 hover:bg-blue-500 disabled:opacity-60 px-3 py-2 font-medium"
         >
-          {busy ? "Signing in..." : "Login"}
+          {busy ? "Signing in..." : "Log in"}
         </button>
 
-        <div className="text-xs text-zinc-500 flex justify-between">
-          <span>Demo mode accepts any email + password.</span>
-          <Link className="underline hover:text-zinc-200" href="/">
-            Public
-          </Link>
-        </div>
+        <p className="text-xs text-zinc-500">
+          Use the email and password you registered. Simulation access still requires an authenticated account.
+        </p>
       </form>
     </AuthCard>
   );
