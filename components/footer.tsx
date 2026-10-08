@@ -28,7 +28,7 @@ export function Footer() {
           <div>
             <h4 className="mb-4 text-sm font-medium text-foreground">Access</h4>
             <ul className="space-y-3 text-sm text-muted-foreground">
-              <li><Link href="/beta-access" className="hover:text-foreground transition-colors">Controlled Live Access</Link></li>
+              <li><Link href="/signup" className="hover:text-foreground transition-colors">Create Account</Link></li>
               <li><Link href="/dashboard" className="hover:text-foreground transition-colors">Dashboard</Link></li>
               <li><Link href="/banking" className="hover:text-foreground transition-colors">Banking</Link></li>
               <li><Link href="/support" className="hover:text-foreground transition-colors">Support</Link></li>
