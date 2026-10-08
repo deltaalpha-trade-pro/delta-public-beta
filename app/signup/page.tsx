@@ -24,7 +24,9 @@ function SignupForm() {
       if (!res.ok) {
         throw new Error(await readAuthError(res, "Unable to create your account. Please try again."));
       }
-      router.push(next);
+      // Registration is not authentication. Continue to login instead of
+      // redirecting to a protected page without a verified session.
+      router.push(`/login?registered=1&next=${encodeURIComponent(next)}`);
     } catch (e: any) {
       const message = typeof e?.message === "string" ? e.message.trim() : "";
       setErr(
@@ -40,7 +42,7 @@ function SignupForm() {
   return (
     <AuthCard
       title="Create your DeltaAlpha account"
-      subtitle="Public beta access — governed by Whalez policies."
+      subtitle="Create your account to access permitted simulation features and your account profile."
       footer={
         <span>
           Already have an account?{" "}
@@ -56,6 +58,7 @@ function SignupForm() {
           <input
             type="email"
             required
+            autoComplete="email"
             className="mt-1 w-full rounded-md bg-zinc-900 border border-zinc-800 px-3 py-2 outline-none focus:border-zinc-600"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -68,16 +71,18 @@ function SignupForm() {
           <input
             type="password"
             required
+            minLength={8}
+            autoComplete="new-password"
             className="mt-1 w-full rounded-md bg-zinc-900 border border-zinc-800 px-3 py-2 outline-none focus:border-zinc-600"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="••••••••"
+            placeholder="At least 8 characters"
           />
           <p className="mt-1 text-xs text-zinc-500">Use at least 8 characters.</p>
         </div>
 
         {err ? (
-          <div className="rounded-md border border-red-900 bg-red-950/40 px-3 py-2 text-sm text-red-200">
+          <div role="alert" className="rounded-md border border-red-900 bg-red-950/40 px-3 py-2 text-sm text-red-200">
             {err}
           </div>
         ) : null}
@@ -86,11 +91,11 @@ function SignupForm() {
           disabled={busy}
           className="w-full rounded-md bg-blue-600 hover:bg-blue-500 disabled:opacity-60 px-3 py-2 font-medium"
         >
-          {busy ? "Creating..." : "Sign up"}
+          {busy ? "Creating..." : "Create account"}
         </button>
 
         <p className="text-xs text-zinc-500">
-          By creating an account you agree to the Terms. Access and execution remain subject to the controlled beta.
+          Creating an account does not verify your identity or authorize real-money activity. Those permissions are handled separately.
         </p>
       </form>
     </AuthCard>
