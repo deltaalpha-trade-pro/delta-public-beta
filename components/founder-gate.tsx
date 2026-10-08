@@ -30,7 +30,7 @@ export function FounderGate({ variant }: { variant: "public" | "internal" }) {
               </h1>
               <p className="mt-6 max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg">
                 This surface intentionally exposes the route for navigation and review. It does not activate private authority,
-                live execution, custody, settlement, or internal system control from the public beta deployment.
+                live execution, custody, settlement, or internal system control from the public Controlled Live deployment.
               </p>
 
               <div className="mt-8 grid gap-4 md:grid-cols-3">
@@ -54,7 +54,7 @@ export function FounderGate({ variant }: { variant: "public" | "internal" }) {
                 </Link>
                 <Link href="/beta-access">
                   <Button variant="outline" className="min-h-11 rounded-xl border-white/15 bg-white/5 backdrop-blur-xl">
-                    Request beta access
+                    Request Controlled Live access
                   </Button>
                 </Link>
               </div>
