@@ -1,7 +1,6 @@
 import {
   clearAccessCookie,
   ok,
-  demoMode,
   getAccessCookie,
   authBridgeConfigured,
   authBridgeUnavailable,
@@ -11,15 +10,18 @@ import {
 } from "../_util";
 
 export async function POST() {
-  if (demoMode()) {
+  const access = getAccessCookie();
+  if (!access) {
     clearAccessCookie();
-    return ok({ ok: true, mode: "demo" });
+    return ok({ ok: true });
   }
 
-  if (!authBridgeConfigured()) return authBridgeUnavailable();
+  if (!authBridgeConfigured()) {
+    clearAccessCookie();
+    return authBridgeUnavailable();
+  }
 
-  const access = getAccessCookie();
-  if (access) {
+  try {
     const res = await runplaneAuthFetch("/auth/logout", {
       method: "POST",
       headers: { Cookie: runplaneCookie(access) },
@@ -27,8 +29,8 @@ export async function POST() {
     const data = await responseBody(res);
     clearAccessCookie();
     return ok({ ...(typeof data === "object" && data !== null ? data : {}), ok: res.ok }, res.status);
+  } catch {
+    clearAccessCookie();
+    return err("Authentication service is temporarily unavailable. Please try again shortly.", 502);
   }
-
-  clearAccessCookie();
-  return ok({ ok: true, mode: "runplane-auth" });
 }
