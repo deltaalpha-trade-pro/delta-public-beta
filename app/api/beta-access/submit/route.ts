@@ -57,7 +57,7 @@ export async function POST(request: Request) {
             ok: false,
             error:
               body?.error ||
-              "Beta access is temporarily unavailable. Please try again.",
+              "Controlled Live access is temporarily unavailable. Please try again.",
           },
           { status: 502 },
         )
@@ -79,7 +79,7 @@ export async function POST(request: Request) {
     const message =
       error instanceof DOMException && error.name === "AbortError"
         ? "Beta access is temporarily unavailable. Please try again."
-        : "Unable to submit the beta access request right now."
+        : "Unable to submit the Controlled Live access request right now."
 
     return NextResponse.json(
       { ok: false, error: message },
