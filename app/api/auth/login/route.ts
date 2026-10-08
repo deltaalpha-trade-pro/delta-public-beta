@@ -1,14 +1,13 @@
 import {
   ok,
   err,
-  demoMode,
-  setAccessCookie,
   authBridgeConfigured,
   authBridgeUnavailable,
   runplaneAuthFetch,
   formBody,
   extractRunplaneSession,
   responseBody,
+  setAccessCookie,
 } from "../_util";
 
 export async function POST(req: Request) {
@@ -16,17 +15,6 @@ export async function POST(req: Request) {
   const normalizedEmail = String(email || "").toLowerCase().trim();
   const normalizedPassword = String(password || "");
   if (!normalizedEmail || !normalizedPassword) return err("Missing email or password", 400);
-
-  if (demoMode()) {
-    setAccessCookie(`demo:${normalizedEmail}`);
-    return ok({
-      user_id: crypto.randomUUID(),
-      email: normalizedEmail,
-      risk_tier: "R0",
-      verification_level: "V0",
-      mode: "demo",
-    });
-  }
 
   if (!authBridgeConfigured()) return authBridgeUnavailable();
 
