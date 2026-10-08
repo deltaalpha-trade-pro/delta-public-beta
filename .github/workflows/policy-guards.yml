@@ -13,7 +13,7 @@ concurrency:
 jobs:
   scope-guard:
     name: Policy Guards / scope-guard
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
         with:
@@ -25,7 +25,7 @@ jobs:
 
   gitignore-exact:
     name: Policy Guards / gitignore-exact
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - name: Gitignore exact-line check
@@ -33,7 +33,7 @@ jobs:
 
   ban-qe:
     name: Policy Guards / ban-qe
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - name: Ban regex escape literals
@@ -41,7 +41,7 @@ jobs:
 
   policy-tests:
     name: Policy Guards / policy-tests
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - name: Run fixtures
@@ -49,7 +49,7 @@ jobs:
 
   termux-smoke:
     name: Termux Smoke (non-blocking)
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-24.04
     continue-on-error: true
     steps:
       - uses: actions/checkout@v4
