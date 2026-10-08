@@ -23,7 +23,7 @@ export default function AccountPage() {
                 <div className="rounded-xl border border-border bg-background/70 p-4"><div className="text-xs text-muted-foreground">Escrow Policy</div><div className="mt-2 text-sm font-medium text-foreground">Governed matrix</div></div>
               </div>
               <div className="mt-6 rounded-xl border border-primary/20 bg-primary/5 p-4">
-                <div className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-primary" /><Badge variant="outline">Controlled beta</Badge></div>
+                <div className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-primary" /><Badge variant="outline">Controlled Live</Badge></div>
                 <p className="mt-3 text-sm leading-7 text-muted-foreground">Verification upgrades, risk-tier changes, and escrow ratio changes are intended to be policy-bound and recorded through the ecosystem's governed state rather than changed by client-side UI.</p>
               </div>
             </CardContent>
