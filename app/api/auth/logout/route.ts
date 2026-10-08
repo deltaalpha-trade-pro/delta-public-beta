@@ -1,7 +1,6 @@
 import {
   clearAccessCookie,
   ok,
-  demoMode,
   getAccessCookie,
   authBridgeConfigured,
   authBridgeUnavailable,
@@ -11,11 +10,6 @@ import {
 } from "../_util";
 
 export async function POST() {
-  if (demoMode()) {
-    clearAccessCookie();
-    return ok({ ok: true, mode: "demo" });
-  }
-
   if (!authBridgeConfigured()) return authBridgeUnavailable();
 
   const access = getAccessCookie();
