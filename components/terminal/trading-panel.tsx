@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { TrendingUp, TrendingDown, BarChart3, ArrowUpRight, ArrowDownRight, Clock } from "lucide-react"
 
 export function TradingPanel() {
@@ -14,11 +13,11 @@ export function TradingPanel() {
   const [side, setSide] = useState<"buy" | "sell">("buy")
   const [timeframe, setTimeframe] = useState("1h")
 
-  // Simulated market data
+  // Synthetic practice instruments only. Native WHZ/PTN/PRN are not market pairs here.
   const instruments = [
-    { symbol: "BTC/PRN", price: 42850.0, change: 2.4, volume: "1.2M" },
-    { symbol: "ETH/PRN", price: 2280.5, change: -0.8, volume: "890K" },
-    { symbol: "PTN/PRN", price: 1.0001, change: 0.01, volume: "45M" },
+    { symbol: "BTC/USD", quoteCurrency: "USD", price: 42850.0, change: 2.4, volume: "1.2M" },
+    { symbol: "ETH/USD", quoteCurrency: "USD", price: 2280.5, change: -0.8, volume: "890K" },
+    { symbol: "BTC/USDT", quoteCurrency: "USDT", price: 42850.0, change: 2.4, volume: "1.2M" },
   ]
 
   const [selectedInstrument, setSelectedInstrument] = useState(instruments[0])
@@ -38,7 +37,6 @@ export function TradingPanel() {
 
   return (
     <div className="space-y-4">
-      {/* Instrument Selector */}
       <Card className="bg-card border-border">
         <CardContent className="p-3">
           <div className="flex flex-wrap gap-2">
@@ -53,7 +51,7 @@ export function TradingPanel() {
                 }`}
               >
                 <span className="font-medium text-sm">{inst.symbol}</span>
-                <span className="font-mono text-sm">{inst.price.toLocaleString()}</span>
+                <span className="font-mono text-sm">{inst.price.toLocaleString()} {inst.quoteCurrency}</span>
                 <span className={`flex items-center text-xs ${inst.change >= 0 ? "text-emerald-400" : "text-red-400"}`}>
                   {inst.change >= 0 ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
                   {Math.abs(inst.change)}%
@@ -61,11 +59,11 @@ export function TradingPanel() {
               </button>
             ))}
           </div>
+          <p className="mt-2 px-1 text-xs text-muted-foreground">Illustrative simulation data — not live market quotes or executable prices.</p>
         </CardContent>
       </Card>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {/* Price Chart Placeholder */}
         <Card className="bg-card border-border md:col-span-2">
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
@@ -89,24 +87,21 @@ export function TradingPanel() {
             </div>
           </CardHeader>
           <CardContent>
-            {/* Chart visualization */}
             <div className="h-64 bg-secondary/30 rounded-lg flex items-center justify-center border border-border/50">
               <div className="text-center">
                 <BarChart3 className="w-12 h-12 text-muted-foreground/30 mx-auto mb-2" />
                 <p className="text-sm text-muted-foreground">Simulated Price Chart · {timeframe}</p>
-                <p className="text-xs text-muted-foreground/70 mt-1">{selectedInstrument.price.toLocaleString()} PRN</p>
+                <p className="text-xs text-muted-foreground/70 mt-1">{selectedInstrument.price.toLocaleString()} {selectedInstrument.quoteCurrency}</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* Simulated Order Book */}
         <Card className="bg-card border-border">
           <CardHeader className="pb-2">
             <CardTitle className="text-foreground text-base">Demo Order Book</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            {/* Asks */}
             <div className="space-y-1">
               {asks.map((ask, i) => (
                 <div key={i} className="grid grid-cols-3 text-xs">
@@ -116,17 +111,11 @@ export function TradingPanel() {
                 </div>
               ))}
             </div>
-
-            {/* Spread */}
             <div className="py-2 border-y border-border">
               <div className="text-center">
-                <span className="text-lg font-mono font-bold text-foreground">
-                  {selectedInstrument.price.toLocaleString()}
-                </span>
+                <span className="text-lg font-mono font-bold text-foreground">{selectedInstrument.price.toLocaleString()} {selectedInstrument.quoteCurrency}</span>
               </div>
             </div>
-
-            {/* Bids */}
             <div className="space-y-1">
               {bids.map((bid, i) => (
                 <div key={i} className="grid grid-cols-3 text-xs">
@@ -140,7 +129,6 @@ export function TradingPanel() {
         </Card>
       </div>
 
-      {/* Demo Order Entry */}
       <Card className="bg-card border-border">
         <CardHeader className="pb-2">
           <CardTitle className="text-foreground text-base flex items-center gap-2">
@@ -153,78 +141,28 @@ export function TradingPanel() {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Order Type & Side */}
             <div className="space-y-4">
               <Tabs value={orderType} onValueChange={(v) => setOrderType(v as "market" | "limit")}>
                 <TabsList className="w-full bg-secondary">
-                  <TabsTrigger value="market" className="flex-1">
-                    Market
-                  </TabsTrigger>
-                  <TabsTrigger value="limit" className="flex-1">
-                    Limit
-                  </TabsTrigger>
+                  <TabsTrigger value="market" className="flex-1">Market</TabsTrigger>
+                  <TabsTrigger value="limit" className="flex-1">Limit</TabsTrigger>
                 </TabsList>
               </Tabs>
-
               <div className="grid grid-cols-2 gap-2">
-                <Button
-                  variant={side === "buy" ? "default" : "outline"}
-                  className={side === "buy" ? "bg-emerald-600 hover:bg-emerald-700" : ""}
-                  onClick={() => setSide("buy")}
-                >
-                  <TrendingUp className="w-4 h-4 mr-2" />
-                  Demo Buy
-                </Button>
-                <Button
-                  variant={side === "sell" ? "default" : "outline"}
-                  className={side === "sell" ? "bg-red-600 hover:bg-red-700" : ""}
-                  onClick={() => setSide("sell")}
-                >
-                  <TrendingDown className="w-4 h-4 mr-2" />
-                  Demo Sell
-                </Button>
+                <Button onClick={() => setSide("buy")} variant={side === "buy" ? "default" : "outline"} className="flex-1">Buy</Button>
+                <Button onClick={() => setSide("sell")} variant={side === "sell" ? "default" : "outline"} className="flex-1">Sell</Button>
               </div>
-
-              <div className="space-y-3">
-                <div>
-                  <Label className="text-xs text-muted-foreground">Demo Amount</Label>
-                  <Input placeholder="0.00" className="font-mono bg-secondary border-border" />
-                </div>
-                {orderType === "limit" && (
-                  <div>
-                    <Label className="text-xs text-muted-foreground">Demo Limit Price</Label>
-                    <Input placeholder="0.00" className="font-mono bg-secondary border-border" />
-                  </div>
-                )}
+              <div className="space-y-2">
+                <Label htmlFor="order-amount">Amount</Label>
+                <Input id="order-amount" type="number" min="0" step="any" placeholder="0.00" />
               </div>
+              <Button className="w-full" disabled>Place simulated order — backend integration pending</Button>
+              <p className="text-xs text-muted-foreground">Orders are not sent to an exchange or settlement provider from this public terminal.</p>
             </div>
-
-            {/* Order Summary */}
-            <div className="p-4 bg-secondary/50 rounded-lg border border-border space-y-3">
-              <h4 className="text-sm font-medium text-foreground">Demo Order Preview</h4>
-              <div className="space-y-2 text-xs">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Instrument</span>
-                  <span className="text-foreground font-mono">{selectedInstrument.symbol}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Side</span>
-                  <span className={side === "buy" ? "text-emerald-400" : "text-red-400"}>{side.toUpperCase()}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Type</span>
-                  <span className="text-foreground">{orderType.toUpperCase()}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Est. Price</span>
-                  <span className="text-foreground font-mono">{selectedInstrument.price.toLocaleString()}</span>
-                </div>
-              </div>
-              <div className="pt-3 border-t border-border">
-                <p className="text-[10px] text-muted-foreground">
-                  Synthetic demo order only. No broker execution, custody, live settlement, or live trading is enabled.
-                </p>
-              </div>
+            <div className="rounded-xl border border-border bg-secondary/30 p-4 text-sm">
+              <p className="font-medium text-foreground">Selected practice mode</p>
+              <p className="mt-2 text-muted-foreground">{side === "buy" ? "Buy" : "Sell"} · {orderType === "market" ? "Market" : "Limit"} · {selectedInstrument.symbol}</p>
+              <p className="mt-3 text-xs text-muted-foreground">This is a simulated order ticket. It does not create a real trade.</p>
             </div>
           </div>
         </CardContent>
