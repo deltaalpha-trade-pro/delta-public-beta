@@ -29,8 +29,7 @@ function SignupForm() {
       const data = await res.json().catch(() => ({}));
       const verificationConfirmed =
         data && typeof data === "object" &&
-        ((data as Record<string, unknown>).verification_email_sent === true ||
-         (data as Record<string, unknown>).email_verification_required === true);
+        (data as Record<string, unknown>).verification_email_sent === true;
       if (verificationConfirmed) {
         setNotice("Your registration was received. Check your email for the verification instructions before logging in.");
       } else {
