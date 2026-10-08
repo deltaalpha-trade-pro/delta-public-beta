@@ -1,7 +1,6 @@
 import {
   ok,
   err,
-  demoMode,
   getAccessCookie,
   authBridgeConfigured,
   authBridgeUnavailable,
@@ -13,17 +12,6 @@ import {
 export async function GET() {
   const access = getAccessCookie();
   if (!access) return err("unauthorized", 401);
-
-  if (demoMode()) {
-    const email = access.startsWith("demo:") ? access.slice(5) : "user@demo";
-    return ok({
-      user_id: "demo-user",
-      email,
-      risk_tier: "R0",
-      verification_level: "V0",
-      mode: "demo",
-    });
-  }
 
   if (!authBridgeConfigured()) return authBridgeUnavailable();
 
