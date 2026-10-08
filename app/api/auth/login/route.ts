@@ -7,6 +7,7 @@ import {
   runplaneAuthFetch,
   formBody,
   extractRunplaneSession,
+  runplaneCookie,
   responseBody,
 } from "../_util";
 
@@ -30,15 +31,39 @@ export async function POST(req: Request) {
   }
 
   const session = extractRunplaneSession(res);
-  if (res.status >= 400 || !session) {
+
+  if (res.status >= 400) {
     const data = await responseBody(res);
-    return ok(data, res.status >= 400 ? res.status : 502);
+    if (
+      data &&
+      typeof data === "object" &&
+      (data as any).detail === "email_verification_required"
+    ) {
+      return err("Please verify your email before signing in.", 403);
+    }
+    return ok(data, res.status);
+  }
+
+  if (!session) {
+    return err("Authentication session could not be established.", 502);
+  }
+
+  const me = await runplaneAuthFetch("/auth/me", {
+    method: "GET",
+    headers: { Cookie: runplaneCookie(session) },
+  });
+  const meData = await responseBody(me);
+
+  if (!me.ok) {
+    return err("Authentication session could not be verified.", 502);
   }
 
   setAccessCookie(session);
   return ok({
     email: normalizedEmail,
     authenticated: true,
+    sessionVerified: true,
+    user: meData,
     mode: "runplane-auth",
   });
 }

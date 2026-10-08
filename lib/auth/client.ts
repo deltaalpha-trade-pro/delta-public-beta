@@ -3,6 +3,9 @@ export type AuthMe = {
   email: string;
   risk_tier: "R0" | "R1" | "R2" | "R3";
   verification_level: "V0" | "V1" | "V2" | "V3";
+  email_verified: boolean;
+  account_status?: string;
+  scopes?: string[];
 };
 
 const SAFE_ERROR_MAX_LENGTH = 240;
@@ -41,6 +44,22 @@ export async function authMe(): Promise<AuthMe | null> {
   } catch {
     return null;
   }
+}
+
+export async function verifyEmail(values: { email?: string; code?: string; token?: string }) {
+  return fetch("/api/auth/verify", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(values),
+  });
+}
+
+export async function resendVerification(email: string) {
+  return fetch("/api/auth/resend", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email }),
+  });
 }
 
 export async function login(email: string, password: string) {

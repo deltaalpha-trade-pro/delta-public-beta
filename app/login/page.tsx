@@ -15,6 +15,7 @@ function LoginForm() {
   const sp = useSearchParams();
   const next = sp.get("next") || "/dashboard";
   const registered = sp.get("registered") === "1";
+  const verified = sp.get("verified") === "1";
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -54,7 +55,12 @@ function LoginForm() {
       <form onSubmit={onSubmit} className="space-y-4">
         {registered ? (
           <div role="status" className="rounded-md border border-emerald-900 bg-emerald-950/30 px-3 py-2 text-sm text-emerald-100">
-            Your registration request was received. Follow any email-verification instructions sent by the account service before signing in.
+            Your registration request was received. Complete email verification before signing in.
+          </div>
+        ) : null}
+        {verified ? (
+          <div role="status" className="rounded-md border border-emerald-900 bg-emerald-950/30 px-3 py-2 text-sm text-emerald-100">
+            Email verified. You can now sign in with the same credentials you registered.
           </div>
         ) : null}
         <div>
@@ -66,6 +72,14 @@ function LoginForm() {
           <input type="password" required autoComplete="current-password" className="mt-1 w-full rounded-md bg-zinc-900 border border-zinc-800 px-3 py-2 outline-none focus:border-zinc-600" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" />
         </div>
         {err ? <div role="alert" className="rounded-md border border-red-900 bg-red-950/40 px-3 py-2 text-sm text-red-200">{err}</div> : null}
+        {err === "Please verify your email before signing in." ? (
+          <Link
+            className="text-xs underline text-zinc-300 hover:text-white"
+            href={"/verify?email=" + encodeURIComponent(email.trim()) + "&next=" + encodeURIComponent(next)}
+          >
+            Verify this email address
+          </Link>
+        ) : null}
         <button disabled={busy} className="w-full rounded-md bg-blue-600 hover:bg-blue-500 disabled:opacity-60 px-3 py-2 font-medium">
           {busy ? "Signing in..." : "Log in"}
         </button>

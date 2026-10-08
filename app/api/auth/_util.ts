@@ -81,6 +81,57 @@ export function formBody(values: Record<string, string>): string {
   return new URLSearchParams(values).toString();
 }
 
+export async function authenticatedUser() {
+  const access = getAccessCookie();
+  if (!access) {
+    return {
+      ok: false as const,
+      status: 401,
+      detail: "unauthorized",
+    };
+  }
+
+  if (!authBridgeConfigured()) {
+    return {
+      ok: false as const,
+      status: 503,
+      detail: "Authentication service is temporarily unavailable. Please try again shortly.",
+    };
+  }
+
+  try {
+    const res = await runplaneAuthFetch("/auth/me", {
+      method: "GET",
+      headers: { Cookie: runplaneCookie(access) },
+    });
+    const data = await responseBody(res);
+
+    if (!res.ok) {
+      return {
+        ok: false as const,
+        status: res.status,
+        detail:
+          data && typeof data === "object" && typeof (data as any).detail === "string"
+            ? (data as any).detail
+            : "unauthorized",
+      };
+    }
+
+    return {
+      ok: true as const,
+      status: 200,
+      user: data,
+      token: access,
+    };
+  } catch {
+    return {
+      ok: false as const,
+      status: 502,
+      detail: "Authentication service is temporarily unavailable. Please try again shortly.",
+    };
+  }
+}
+
 export function extractRunplaneSession(response: Response): string | null {
   const header = response.headers.get("set-cookie") || "";
   const match = header.match(/(?:^|,\s*)(?:__Host_rp|rp)=([^;]+)/i);

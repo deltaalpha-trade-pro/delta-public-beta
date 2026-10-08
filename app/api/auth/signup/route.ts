@@ -14,7 +14,7 @@ export async function POST(req: Request) {
   const normalizedPassword = String(password || "");
 
   if (!normalizedEmail || !normalizedPassword) return err("Missing email or password", 400);
-  if (normalizedPassword.length < 8) return err("Use a password with at least 8 characters.", 400);
+  if (normalizedPassword.length < 10) return err("Use a password with at least 10 characters.", 400);
   if (!authBridgeConfigured()) return authBridgeUnavailable();
 
   let res: Response;
@@ -36,6 +36,10 @@ export async function POST(req: Request) {
       ...(typeof data === "object" && data !== null ? data : {}),
       email: normalizedEmail,
       registered: true,
+      verification_required:
+        data && typeof data === "object" && "verification_required" in data
+          ? (data as any).verification_required !== false
+          : true,
       mode: "runplane-auth",
     },
     201,

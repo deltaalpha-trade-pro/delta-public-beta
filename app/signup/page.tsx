@@ -24,7 +24,12 @@ function SignupForm() {
       if (!res.ok) {
         throw new Error(await readAuthError(res, "Unable to create your account. Please try again."));
       }
-      router.push(`/login?registered=1&next=${encodeURIComponent(next)}`);
+      const result = await res.clone().json().catch(() => ({}));
+      if (result && result.verification_required === false) {
+        router.push(`/login?registered=1&next=${encodeURIComponent(next)}`);
+      } else {
+        router.push(`/verify?email=${encodeURIComponent(email.trim())}&next=${encodeURIComponent(next)}`);
+      }
     } catch (e: any) {
       const message = typeof e?.message === "string" ? e.message.trim() : "";
       setErr(
@@ -57,8 +62,8 @@ function SignupForm() {
         </div>
         <div>
           <label className="text-xs text-zinc-400">Password</label>
-          <input type="password" required minLength={8} autoComplete="new-password" className="mt-1 w-full rounded-md bg-zinc-900 border border-zinc-800 px-3 py-2 outline-none focus:border-zinc-600" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="At least 8 characters" />
-          <p className="mt-1 text-xs text-zinc-500">Use at least 8 characters.</p>
+          <input type="password" required minLength={10} autoComplete="new-password" className="mt-1 w-full rounded-md bg-zinc-900 border border-zinc-800 px-3 py-2 outline-none focus:border-zinc-600" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="At least 10 characters" />
+          <p className="mt-1 text-xs text-zinc-500">Use at least 10 characters.</p>
         </div>
         {err ? <div role="alert" className="rounded-md border border-red-900 bg-red-950/40 px-3 py-2 text-sm text-red-200">{err}</div> : null}
         <button disabled={busy} className="w-full rounded-md bg-blue-600 hover:bg-blue-500 disabled:opacity-60 px-3 py-2 font-medium">
