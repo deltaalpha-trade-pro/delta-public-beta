@@ -18,10 +18,10 @@ export function EcosystemProductsSection() {
     <section className="border-y border-border bg-card py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl">
-          <span className="text-sm font-medium uppercase tracking-[0.22em] text-primary">Public beta</span>
+          <span className="text-sm font-medium uppercase tracking-[0.22em] text-primary">Controlled Live</span>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">The ecosystem you can actually see</h2>
           <p className="mt-4 text-base leading-8 text-muted-foreground">
-            The public site is being shaped to show the architecture as a living product: capabilities have real routes,
+            The public site is launched as a living product: capabilities have real routes,
             simulations where appropriate, and clear boundaries where external authority is not yet activated.
           </p>
         </div>
