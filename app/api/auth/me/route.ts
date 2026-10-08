@@ -1,30 +1,29 @@
-import { cookies } from "next/headers";
-import { ok, err, demoMode } from "../_util";
+import {
+  ok,
+  err,
+  getAccessCookie,
+  authBridgeConfigured,
+  authBridgeUnavailable,
+  runplaneAuthFetch,
+  runplaneCookie,
+  responseBody,
+} from "../_util";
 
 export async function GET() {
-  const access = cookies().get("access_token")?.value;
+  const access = getAccessCookie();
   if (!access) return err("unauthorized", 401);
+  if (!authBridgeConfigured()) return authBridgeUnavailable();
 
-  if (demoMode()) {
-    const email = access.startsWith("demo:") ? access.slice(5) : "user@demo";
-    return ok({
-      user_id: "demo-user",
-      email,
-      risk_tier: "R0",
-      verification_level: "V0",
-      mode: "demo",
+  let res: Response;
+  try {
+    res = await runplaneAuthFetch("/auth/me", {
+      method: "GET",
+      headers: { Cookie: runplaneCookie(access) },
     });
+  } catch {
+    return err("Authentication service is temporarily unavailable. Please try again shortly.", 502);
   }
 
-  const api = process.env.NEXT_PUBLIC_API_URL;
-  if (!api) return err("NEXT_PUBLIC_API_URL not set", 500);
-
-  const res = await fetch(`${api}/auth/me`, {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-    credentials: "include",
-  });
-
-  const data = await res.json().catch(() => ({}));
+  const data = await responseBody(res);
   return ok(data, res.status);
 }

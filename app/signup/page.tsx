@@ -4,7 +4,7 @@ import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { AuthCard } from "@/components/auth/auth-card";
-import { signup } from "@/lib/auth/client";
+import { signup, readAuthError } from "@/lib/auth/client";
 
 function SignupForm() {
   const [email, setEmail] = useState("");
@@ -22,12 +22,16 @@ function SignupForm() {
     try {
       const res = await signup(email.trim(), password);
       if (!res.ok) {
-        const j = await res.json().catch(() => ({}));
-        throw new Error(j?.detail || "Signup failed");
+        throw new Error(await readAuthError(res, "Unable to create your account. Please try again."));
       }
-      router.push(next);
+      router.push(`/login?registered=1&next=${encodeURIComponent(next)}`);
     } catch (e: any) {
-      setErr(e?.message || "Signup failed");
+      const message = typeof e?.message === "string" ? e.message.trim() : "";
+      setErr(
+        message && message.length <= 240 && !/<!doctype|<html|<head|<body|<script|<style|cloudflare/i.test(message)
+          ? message
+          : "Unable to create your account right now. Please try again shortly.",
+      );
     } finally {
       setBusy(false);
     }
@@ -36,7 +40,7 @@ function SignupForm() {
   return (
     <AuthCard
       title="Create your DeltaAlpha account"
-      subtitle="Public node onboarding — governed by Whalez policies."
+      subtitle="Create your account to access permitted simulation features and complete verification when required."
       footer={
         <span>
           Already have an account?{" "}
@@ -49,56 +53,23 @@ function SignupForm() {
       <form onSubmit={onSubmit} className="space-y-4">
         <div>
           <label className="text-xs text-zinc-400">Email</label>
-          <input
-            type="email"
-            required
-            className="mt-1 w-full rounded-md bg-zinc-900 border border-zinc-800 px-3 py-2 outline-none focus:border-zinc-600"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="name@domain.com"
-          />
+          <input type="email" required autoComplete="email" className="mt-1 w-full rounded-md bg-zinc-900 border border-zinc-800 px-3 py-2 outline-none focus:border-zinc-600" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="name@domain.com" />
         </div>
-
         <div>
           <label className="text-xs text-zinc-400">Password</label>
-          <input
-            type="password"
-            required
-            className="mt-1 w-full rounded-md bg-zinc-900 border border-zinc-800 px-3 py-2 outline-none focus:border-zinc-600"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="••••••••"
-          />
-          <p className="mt-1 text-xs text-zinc-500">
-            Minimum 8 chars recommended. MFA will be added in the next milestone.
-          </p>
+          <input type="password" required minLength={8} autoComplete="new-password" className="mt-1 w-full rounded-md bg-zinc-900 border border-zinc-800 px-3 py-2 outline-none focus:border-zinc-600" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="At least 8 characters" />
+          <p className="mt-1 text-xs text-zinc-500">Use at least 8 characters.</p>
         </div>
-
-        {err ? (
-          <div className="rounded-md border border-red-900 bg-red-950/40 px-3 py-2 text-sm text-red-200">
-            {err}
-          </div>
-        ) : null}
-
-        <button
-          disabled={busy}
-          className="w-full rounded-md bg-blue-600 hover:bg-blue-500 disabled:opacity-60 px-3 py-2 font-medium"
-        >
-          {busy ? "Creating..." : "Sign up"}
+        {err ? <div role="alert" className="rounded-md border border-red-900 bg-red-950/40 px-3 py-2 text-sm text-red-200">{err}</div> : null}
+        <button disabled={busy} className="w-full rounded-md bg-blue-600 hover:bg-blue-500 disabled:opacity-60 px-3 py-2 font-medium">
+          {busy ? "Creating..." : "Create account"}
         </button>
-
-        <p className="text-xs text-zinc-500">
-          By creating an account you agree to the Terms. Execution remains gated by governance & legal triggers.
-        </p>
+        <p className="text-xs text-zinc-500">Your account and any verification requirements are managed by the connected account service. Simulation access does not authorize real-money transactions.</p>
       </form>
     </AuthCard>
   );
 }
 
 export default function SignupPage() {
-  return (
-    <Suspense fallback={null}>
-      <SignupForm />
-    </Suspense>
-  );
+  return <Suspense fallback={null}><SignupForm /></Suspense>;
 }

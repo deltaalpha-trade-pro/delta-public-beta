@@ -5,19 +5,19 @@ export default function CookiesPage() {
     <LegalPage
       label="Cookies"
       title="Cookie Notice"
-      description="Cookie and local storage notice for the DeltaAlpha-TradePro public beta."
+      description="Cookie and local storage notice for the DeltaAlpha-TradePro Controlled Live surface."
       sections={[
         {
           title: "Essential storage",
           body: [
-            "The site may use cookies or local storage for essential functions such as session handling, security, form state, preferences, and beta access flows.",
+            "The site may use cookies or local storage for essential functions such as session handling, security, form state, preferences, and Controlled Live access flows.",
             "If authentication is enabled, auth-related cookies should be treated as security-sensitive and should not be shared or copied.",
           ],
         },
         {
           title: "Analytics and performance",
           body: [
-            "The public beta may use analytics or performance tooling to understand reliability, route usage, errors, and user experience. This supports launch readiness and does not enable private authority.",
+            "The Controlled Live public surface may use analytics or performance tooling to understand reliability, route usage, errors, and user experience. This supports launch readiness and does not enable private authority.",
           ],
         },
         {

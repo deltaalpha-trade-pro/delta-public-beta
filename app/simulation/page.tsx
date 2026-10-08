@@ -13,7 +13,6 @@ export default function SimulationPage() {
       <Navigation />
       <main className="pt-24 pb-16 min-h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
             <div>
               <div className="flex items-center gap-3 mb-2">
@@ -28,30 +27,27 @@ export default function SimulationPage() {
             </div>
             <Badge variant="outline" className="bg-amber-500/10 text-amber-400 border-amber-500/30 w-fit">
               <Shield className="w-3 h-3 mr-1" />
-              Simulation Only
+              Simulation Capability
             </Badge>
           </div>
 
-          {/* Beta Scope Notice */}
           <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/20 mb-8">
             <div className="flex items-start gap-3">
               <AlertTriangle className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
               <div>
-                <p className="text-sm font-medium text-amber-400 mb-1">Beta Scope</p>
+                <p className="text-sm font-medium text-amber-400 mb-1">Controlled Live Boundary</p>
                 <p className="text-xs text-amber-400/80">
-                  This is a simulation-only beta demonstrating system integrity under stress. No speculative pricing, no
-                  yield, no token trading. Emphasis on settlement correctness and account state.
+                  This is a simulation capability inside the Controlled Live public surface. It demonstrates system integrity under stress and does not
+                  create or imply external pricing, yield, custody, public liquidity, or live token trading.
                 </p>
               </div>
             </div>
           </div>
 
-          {/* FX Simulation Trading Chart */}
           <div className="mb-6">
             <TradingChart />
           </div>
 
-          {/* Simulations Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
             <WhzFeeBurnSimulation />
             <PtnPrnGraduation />
@@ -61,12 +57,11 @@ export default function SimulationPage() {
             <BridgeAgentValidation />
           </div>
 
-          {/* Disclaimer */}
           <div className="p-4 rounded-lg bg-secondary/50 border border-border">
             <p className="text-xs text-muted-foreground text-center">
-              These simulations demonstrate the intended behavior of the WHALEZ-AI ledger system. PTN, PRN, and WHZ are
-              internal accounting primitives, not tradable assets. The goal is to demonstrate system integrity under
-              stress, not user growth or monetization.
+              These simulations demonstrate intended WHALEZ-AI ledger behavior. WHZ, PTN, and PRN retain their canonical native ecosystem
+              identities and platform roles; this simulation does not establish market price, external liquidity, custody, or public trading.
+              The goal is to demonstrate system integrity and controlled capability behavior.
             </p>
           </div>
         </div>

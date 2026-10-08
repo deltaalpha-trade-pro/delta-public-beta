@@ -1,62 +1,53 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, LineChart, Zap, Eye } from "lucide-react"
+import { ArrowRight, BarChart3, Brain, Eye, ShieldCheck } from "lucide-react"
+import type { LucideIcon } from "lucide-react"
+
+const capabilityItems: Array<[LucideIcon, string]> = [
+  [Brain, "AI coaching and financial learning"],
+  [BarChart3, "Market intelligence, signals, and portfolio modeling"],
+  [Eye, "Trading, investment, escrow, and settlement simulations"],
+  [ShieldCheck, "Native WHZ, PTN, PRN relationships with clear economic boundaries"],
+]
 
 export function DeltaAlphaPreview() {
   return (
     <section className="py-24 md:py-32">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
-            <span className="text-sm text-accent font-medium tracking-wide uppercase">Public Interface</span>
-            <h2 className="mt-3 text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground text-balance">
-              DeltaAlpha-TradePro
-            </h2>
-            <p className="mt-4 text-muted-foreground leading-relaxed text-pretty">
-              The public-facing intelligence and analysis interface of the WHALEZ-AI ecosystem. DeltaAlpha-TradePro
-              provides access to market insights, signals visualization, and strategy analysis tools.
+            <span className="text-sm font-medium uppercase tracking-[0.22em] text-primary">Public operating platform</span>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">DeltaAlpha-TradePro is the operating doorway</h2>
+            <p className="mt-4 text-base leading-8 text-muted-foreground">
+              It is where the participant meets Whalez-AI: learn, understand, observe, simulate, invest, trade, coordinate,
+              settle, and eventually participate in qualified financial operations as the surrounding infrastructure becomes ready.
             </p>
 
             <ul className="mt-8 space-y-4">
-              <li className="flex items-start gap-3">
-                <LineChart className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-muted-foreground">Real-time market insights and data visualization</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <Zap className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-muted-foreground">Signal processing and pattern recognition outputs</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <Eye className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-muted-foreground">Strategy analysis and performance modeling</span>
-              </li>
+              {capabilityItems.map(([Icon, text]) => (
+                <li key={text} className="flex items-start gap-3">
+                  <Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
+                  <span className="text-sm leading-6 text-muted-foreground">{text}</span>
+                </li>
+              ))}
             </ul>
 
-            <Button className="mt-8 min-h-[44px]" asChild>
-              <Link href="/deltaalpha">
-                Explore DeltaAlpha
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Link>
-            </Button>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button asChild><Link href="/deltaalpha">Explore the full DeltaAlpha story <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
+              <Button variant="outline" asChild><Link href="/whalezchain">Understand WhalezChain</Link></Button>
+            </div>
           </div>
 
           <div className="relative">
-            <div className="aspect-[4/3] rounded-lg border border-border bg-secondary/50 overflow-hidden">
-              <div className="p-4 border-b border-border">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-muted" />
-                  <div className="w-3 h-3 rounded-full bg-muted" />
-                  <div className="w-3 h-3 rounded-full bg-muted" />
-                </div>
-              </div>
-              <div className="p-6 space-y-4">
-                <div className="h-4 bg-muted rounded w-3/4" />
-                <div className="h-32 bg-muted/50 rounded" />
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="h-16 bg-muted/30 rounded" />
-                  <div className="h-16 bg-muted/30 rounded" />
-                  <div className="h-16 bg-muted/30 rounded" />
-                </div>
+            <div className="rounded-2xl border border-border bg-card/70 p-5 shadow-sm">
+              <div className="grid gap-3 sm:grid-cols-2">
+                {["AI Coach", "Live Market Observation", "Investment Intelligence", "Trading Simulation", "Escrow & Settlement", "WhalezChain Assets"].map((label, index) => (
+                  <div key={label} className={`rounded-xl border border-border bg-background/70 p-5 ${index === 0 ? "border-primary/30 bg-primary/5" : ""}`}>
+                    <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">Capability</div>
+                    <div className="mt-2 text-sm font-semibold text-foreground">{label}</div>
+                    <div className="mt-3 h-1.5 rounded-full bg-secondary"><div className={index < 3 ? "h-1.5 w-3/4 rounded-full bg-primary" : "h-1.5 w-1/2 rounded-full bg-primary/60"} /></div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

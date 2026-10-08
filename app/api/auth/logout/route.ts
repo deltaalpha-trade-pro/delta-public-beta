@@ -1,17 +1,37 @@
-import { clearAccessCookie, ok, demoMode, err } from "../_util";
+import {
+  clearAccessCookie,
+  ok,
+  err,
+  getAccessCookie,
+  authBridgeConfigured,
+  authBridgeUnavailable,
+  runplaneAuthFetch,
+  runplaneCookie,
+  responseBody,
+} from "../_util";
 
 export async function POST() {
-  if (demoMode()) {
+  const access = getAccessCookie();
+  if (!access) {
     clearAccessCookie();
-    return ok({ ok: true, mode: "demo" });
+    return ok({ ok: true });
   }
 
-  const api = process.env.NEXT_PUBLIC_API_URL;
-  if (!api) return err("NEXT_PUBLIC_API_URL not set", 500);
+  if (!authBridgeConfigured()) {
+    clearAccessCookie();
+    return authBridgeUnavailable();
+  }
 
-  const res = await fetch(`${api}/auth/logout`, { method: "POST", credentials: "include" });
-  const data = await res.json().catch(() => ({}));
-  // Clear local access cookie as well (backend may also clear refresh cookie)
-  clearAccessCookie();
-  return ok(data, res.status);
+  try {
+    const res = await runplaneAuthFetch("/auth/logout", {
+      method: "POST",
+      headers: { Cookie: runplaneCookie(access) },
+    });
+    const data = await responseBody(res);
+    clearAccessCookie();
+    return ok({ ...(typeof data === "object" && data !== null ? data : {}), ok: res.ok }, res.status);
+  } catch {
+    clearAccessCookie();
+    return err("Authentication service is temporarily unavailable. Please try again shortly.", 502);
+  }
 }

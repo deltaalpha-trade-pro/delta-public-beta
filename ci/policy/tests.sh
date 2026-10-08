@@ -2,16 +2,16 @@
 set -euo pipefail
 
 echo "TEST: gitignore exact-line: PASS"
-bash ci/policy/check_gitignore_exact.sh ci/policy/fixtures/gitignore/pass.gitignore
+bash ci/policy/check_gitignore_exact.sh ci/policy/fixtures/gitignore/pass.gitignore ci/policy/gitignore.required.lines
 
 echo "TEST: gitignore exact-line: FAIL (substring)"
-if bash ci/policy/check_gitignore_exact.sh ci/policy/fixtures/gitignore/fail_substring.gitignore; then
+if bash ci/policy/check_gitignore_exact.sh ci/policy/fixtures/gitignore/fail_substring.gitignore ci/policy/gitignore.required.lines; then
   echo "EXPECTED_FAIL_BUT_PASSED" >&2
   exit 1
 fi
 
 echo "TEST: gitignore exact-line: FAIL (whitespace)"
-if bash ci/policy/check_gitignore_exact.sh ci/policy/fixtures/gitignore/fail_whitespace.gitignore; then
+if bash ci/policy/check_gitignore_exact.sh ci/policy/fixtures/gitignore/fail_whitespace.gitignore ci/policy/gitignore.required.lines; then
   echo "EXPECTED_FAIL_BUT_PASSED" >&2
   exit 1
 fi

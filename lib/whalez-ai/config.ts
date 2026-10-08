@@ -13,21 +13,22 @@ export const config = {
   orchestrator: "Whalez-AI",
   system: "deltapublicbetamain",
 
-  // Internal tools with unique codenames and scoped authority
+  // Capability metadata used by the Layer 2 tool coordinator.
+  // This exposes roles/scopes, not private model or provider identities.
   tools: {
     alpha: {
       codename: "ALPHA-SENTINEL",
-      scope: "analytics",
+      scope: "Analytics & Monitoring",
       authority: ["read:metrics", "write:logs"],
     },
     beta: {
       codename: "BETA-VALIDATOR",
-      scope: "validation",
+      scope: "Data Validation",
       authority: ["read:data", "validate:schemas"],
     },
     gamma: {
       codename: "GAMMA-ARBITER",
-      scope: "decision",
+      scope: "AI-Driven Decision Support",
       authority: ["read:context", "compute:decisions"],
     },
   },
@@ -53,7 +54,7 @@ export const config = {
     requireInternalHeaders: true,
     validateOrigin: true,
     publicBehavior: "simulation-only",
-    internalBehavior: "full-execution",
+    internalBehavior: "governed-and-authorized",
   },
 
   // Email engine configuration
@@ -84,7 +85,7 @@ export const config = {
 // Request classification types
 export type RequestClassification = "public" | "internal-verified" | "internal-pending" | "rejected"
 
-export type WhalesAiRequest = {
+export type WhalezAiRequest = {
   task: string
   data?: any
   internalHeaders?: Record<string, string>
@@ -94,7 +95,7 @@ export type WhalesAiRequest = {
   invocationSource?: string
 }
 
-export type WhalesAiResponse = {
+export type WhalezAiResponse = {
   success: boolean
   data?: any
   handledBy?: string

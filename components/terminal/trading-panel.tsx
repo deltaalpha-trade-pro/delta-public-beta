@@ -12,31 +12,35 @@ import { TrendingUp, TrendingDown, BarChart3, ArrowUpRight, ArrowDownRight, Cloc
 export function TradingPanel() {
   const [orderType, setOrderType] = useState<"market" | "limit">("market")
   const [side, setSide] = useState<"buy" | "sell">("buy")
+  const [timeframe, setTimeframe] = useState("1h")
 
-  // Simulated market data
+  // Explicitly illustrative simulation instruments; these are not live market quotes.
   const instruments = [
-    { symbol: "BTC/PRN", price: 42850.0, change: 2.4, volume: "1.2M" },
-    { symbol: "ETH/PRN", price: 2280.5, change: -0.8, volume: "890K" },
-    { symbol: "PTN/PRN", price: 1.0001, change: 0.01, volume: "45M" },
+    { symbol: "BTC/USD", quoteCurrency: "USD", price: 42850.0, change: 2.4, volume: "1.2M" },
+    { symbol: "ETH/USD", quoteCurrency: "USD", price: 2280.5, change: -0.8, volume: "890K" },
+    { symbol: "BTC/USDT", quoteCurrency: "USDT", price: 42900.0, change: 0.6, volume: "980K" },
   ]
 
   const [selectedInstrument, setSelectedInstrument] = useState(instruments[0])
 
-  // Simulated order book
+  // Illustrative order-book levels scale with the selected instrument.
   const asks = [
-    { price: 42855.0, size: 0.85, total: 36426.75 },
-    { price: 42852.5, size: 1.2, total: 51423.0 },
-    { price: 42851.0, size: 0.45, total: 19282.95 },
+    { price: selectedInstrument.price * 1.00012, size: 0.85, total: selectedInstrument.price * 1.00012 * 0.85 },
+    { price: selectedInstrument.price * 1.00006, size: 1.2, total: selectedInstrument.price * 1.00006 * 1.2 },
+    { price: selectedInstrument.price * 1.00002, size: 0.45, total: selectedInstrument.price * 1.00002 * 0.45 },
   ]
 
   const bids = [
-    { price: 42848.0, size: 0.92, total: 39420.16 },
-    { price: 42845.5, size: 1.55, total: 66410.53 },
-    { price: 42842.0, size: 0.78, total: 33416.76 },
+    { price: selectedInstrument.price * 0.99995, size: 0.92, total: selectedInstrument.price * 0.99995 * 0.92 },
+    { price: selectedInstrument.price * 0.99990, size: 1.55, total: selectedInstrument.price * 0.99990 * 1.55 },
+    { price: selectedInstrument.price * 0.99985, size: 0.78, total: selectedInstrument.price * 0.99985 * 0.78 },
   ]
 
   return (
     <div className="space-y-4">
+      <div role="note" className="rounded-lg border border-amber-500/30 bg-amber-500/5 px-4 py-3 text-xs text-muted-foreground">
+        <span className="font-semibold text-foreground">SIMULATION ONLY</span> · All displayed prices, changes, volumes, and order-book levels are illustrative sample data, not live market quotes or executable market prices.
+      </div>
       {/* Instrument Selector */}
       <Card className="bg-card border-border">
         <CardContent className="p-3">
@@ -76,7 +80,10 @@ export function TradingPanel() {
                 {["1m", "5m", "1h", "1d"].map((tf) => (
                   <button
                     key={tf}
-                    className="px-2 py-1 text-xs text-muted-foreground hover:text-foreground rounded bg-secondary/50 hover:bg-secondary"
+                    type="button"
+                    onClick={() => setTimeframe(tf)}
+                    aria-pressed={timeframe === tf}
+                    className={`px-2 py-1 text-xs rounded transition ${timeframe === tf ? "bg-primary/15 text-primary" : "text-muted-foreground hover:text-foreground bg-secondary/50 hover:bg-secondary"}`}
                   >
                     {tf}
                   </button>
@@ -89,17 +96,17 @@ export function TradingPanel() {
             <div className="h-64 bg-secondary/30 rounded-lg flex items-center justify-center border border-border/50">
               <div className="text-center">
                 <BarChart3 className="w-12 h-12 text-muted-foreground/30 mx-auto mb-2" />
-                <p className="text-sm text-muted-foreground">Price Chart</p>
-                <p className="text-xs text-muted-foreground/70 mt-1">{selectedInstrument.price.toLocaleString()} PRN</p>
+                <p className="text-sm text-muted-foreground">Simulated Price Chart · {timeframe}</p>
+                <p className="text-xs text-muted-foreground/70 mt-1">{selectedInstrument.price.toLocaleString()} {selectedInstrument.quoteCurrency} · illustrative</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* Order Book */}
+        {/* Simulated Order Book */}
         <Card className="bg-card border-border">
           <CardHeader className="pb-2">
-            <CardTitle className="text-foreground text-base">Order Book</CardTitle>
+            <CardTitle className="text-foreground text-base">Demo Order Book</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             {/* Asks */}
@@ -117,7 +124,7 @@ export function TradingPanel() {
             <div className="py-2 border-y border-border">
               <div className="text-center">
                 <span className="text-lg font-mono font-bold text-foreground">
-                  {selectedInstrument.price.toLocaleString()}
+                  {selectedInstrument.price.toLocaleString()} {selectedInstrument.quoteCurrency}
                 </span>
               </div>
             </div>
@@ -136,14 +143,14 @@ export function TradingPanel() {
         </Card>
       </div>
 
-      {/* Order Entry */}
+      {/* Demo Order Entry */}
       <Card className="bg-card border-border">
         <CardHeader className="pb-2">
           <CardTitle className="text-foreground text-base flex items-center gap-2">
-            Order Entry
+            Demo Order Entry
             <Badge variant="outline" className="text-[10px] bg-secondary text-muted-foreground">
               <Clock className="w-2.5 h-2.5 mr-1" />
-              Settlement Speed Governed by WHZ Bond
+              Synthetic settlement simulation
             </Badge>
           </CardTitle>
         </CardHeader>
@@ -169,7 +176,7 @@ export function TradingPanel() {
                   onClick={() => setSide("buy")}
                 >
                   <TrendingUp className="w-4 h-4 mr-2" />
-                  Buy
+                  Demo Buy
                 </Button>
                 <Button
                   variant={side === "sell" ? "default" : "outline"}
@@ -177,18 +184,18 @@ export function TradingPanel() {
                   onClick={() => setSide("sell")}
                 >
                   <TrendingDown className="w-4 h-4 mr-2" />
-                  Sell
+                  Demo Sell
                 </Button>
               </div>
 
               <div className="space-y-3">
                 <div>
-                  <Label className="text-xs text-muted-foreground">Amount</Label>
+                  <Label className="text-xs text-muted-foreground">Demo Amount</Label>
                   <Input placeholder="0.00" className="font-mono bg-secondary border-border" />
                 </div>
                 {orderType === "limit" && (
                   <div>
-                    <Label className="text-xs text-muted-foreground">Limit Price</Label>
+                    <Label className="text-xs text-muted-foreground">Demo Limit Price</Label>
                     <Input placeholder="0.00" className="font-mono bg-secondary border-border" />
                   </div>
                 )}
@@ -197,7 +204,7 @@ export function TradingPanel() {
 
             {/* Order Summary */}
             <div className="p-4 bg-secondary/50 rounded-lg border border-border space-y-3">
-              <h4 className="text-sm font-medium text-foreground">Order Preview</h4>
+              <h4 className="text-sm font-medium text-foreground">Demo Order Preview</h4>
               <div className="space-y-2 text-xs">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Instrument</span>
@@ -213,12 +220,12 @@ export function TradingPanel() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Est. Price</span>
-                  <span className="text-foreground font-mono">{selectedInstrument.price.toLocaleString()}</span>
+                  <span className="text-foreground font-mono">{selectedInstrument.price.toLocaleString()} {selectedInstrument.quoteCurrency}</span>
                 </div>
               </div>
               <div className="pt-3 border-t border-border">
                 <p className="text-[10px] text-muted-foreground">
-                  Trade execution allowed. Settlement speed determined by Settlement Authority.
+                  Synthetic demo order only. No broker execution, custody, live settlement, or live trading is enabled.
                 </p>
               </div>
             </div>

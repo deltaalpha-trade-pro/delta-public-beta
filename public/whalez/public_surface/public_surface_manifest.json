@@ -1,6 +1,8 @@
 {
   "surface": "delta-public-beta",
   "mode": "public",
+  "lifecycle": "controlled_live",
+  "display_name": "Controlled Live",
   "doctrine": {
     "no_raw_cognition": true,
     "no_actionable_signals": true,
@@ -17,13 +19,13 @@
   },
   "tokens": {
     "PTN": {
-      "label": "Tokenized Events"
+      "label": "Plutonium"
     },
     "PRN": {
-      "label": "Governance Records"
+      "label": "Plutoranium"
     },
     "WHZ": {
-      "label": "Financial Value"
+      "label": "Whalez-Mint"
     }
   }
 }

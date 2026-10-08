@@ -1,4 +1,4 @@
-import { config, type WhalesAiRequest, type WhalesAiResponse } from "../config"
+import { config, type WhalezAiRequest, type WhalezAiResponse } from "../config"
 import { layer1 } from "./layer1"
 import { toolAlpha } from "../tools/tool-alpha"
 import { toolBeta } from "../tools/tool-beta"
@@ -10,7 +10,7 @@ import { toolGamma } from "../tools/tool-gamma"
  *
  * STREAM 2: Tools report upward to Whalez-AI, never sideways
  */
-export async function layer2(request: WhalesAiRequest): Promise<WhalesAiResponse> {
+export async function layer2(request: WhalezAiRequest): Promise<WhalezAiResponse> {
   // Only accept requests from Layer 3 with verified classification
   if (request.classification !== "internal-verified") {
     return {

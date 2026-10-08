@@ -4,20 +4,20 @@ export default function LegalIndexPage() {
   return (
     <LegalPage
       label="Legal Center"
-      title="Legal and Public Beta Notices"
-      description="Centralized public notices for the DeltaAlpha-TradePro public beta surface of the WHALEZ-AI ecosystem."
+      title="Legal and Controlled Live Notices"
+      description="Centralized public notices for the DeltaAlpha-TradePro Controlled Live surface of the WHALEZ-AI ecosystem."
       sections={[
         {
-          title: "Public beta boundary",
+          title: "Controlled Live boundary",
           body: [
-            "DeltaAlpha-TradePro is a public beta gateway for informational financial intelligence, ecosystem previews, and staged product communication. It is not a live trading, custody, banking, brokerage, exchange, settlement, or advisory service.",
+            "DeltaAlpha-TradePro is a Controlled Live public gateway for real participants to access available ecosystem capabilities. Financial execution, custody, brokerage, exchange, and settlement remain capability-specific and separately gated.",
             "Private founder and internal routes are not public services and should not be exposed from the public domain.",
           ],
         },
         {
           title: "Required notices",
           body: [
-            "Review the Terms, Privacy Notice, Risk Disclosure, Public Beta Disclaimer, and Cookie Notice before using the public beta. These notices are part of the launch-readiness posture and will evolve as the service matures.",
+            "Review the Terms, Privacy Notice, Risk Disclosure, Controlled Live Boundary, and Cookie Notice before using the public surface. These notices define the launch-state boundaries and will evolve as capabilities mature.",
           ],
         },
       ]}

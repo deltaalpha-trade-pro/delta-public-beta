@@ -34,9 +34,9 @@ export function LegalPage({
               <p className="mt-6 max-w-3xl text-base leading-8 text-muted-foreground sm:text-lg">{description}</p>
 
               <div className="mt-10 rounded-2xl border border-amber-300/20 bg-amber-300/5 p-5 text-sm leading-7 text-amber-100/85">
-                This page is provided for public beta transparency and does not replace legal, financial, tax, compliance,
-                investment, or regulatory advice. The public beta is informational only and does not enable live trading,
-                custody, broker execution, settlement execution, or private founder authority.
+                This page is provided for Controlled Live transparency and does not replace legal, financial, tax, compliance, investment,
+                or regulatory advice. Capability availability is governed by the current eligibility, provider, authorization, and launch state;
+                private founder authority is never exposed from the public domain.
               </div>
             </div>
 
@@ -60,7 +60,7 @@ export function LegalPage({
                   ["Terms", "/terms"],
                   ["Privacy", "/privacy"],
                   ["Risk Disclosure", "/risk-disclosure"],
-                  ["Beta Disclaimer", "/beta-disclaimer"],
+                  ["Controlled Live Boundary", "/beta-disclaimer"],
                   ["Cookies", "/cookies"],
                 ].map(([name, href]) => (
                   <Link

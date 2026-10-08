@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">WHZ</title><desc id="desc">WHZ native asset identity mark.</desc>
+  <defs><linearGradient id="whz" x1="56" y1="56" x2="200" y2="200"><stop stop-color="#6EE7F5"/><stop offset="1" stop-color="#60A5FA"/></linearGradient></defs>
+  <rect x="12" y="12" width="232" height="232" rx="58" fill="#0B1020"/>
+  <circle cx="128" cy="128" r="80" fill="none" stroke="url(#whz)" stroke-width="12"/>
+  <circle cx="128" cy="128" r="51" fill="none" stroke="#F8FAFC" stroke-opacity=".85" stroke-width="8"/>
+  <path d="M84 145c13-24 37-38 64-36 11 1 22 6 31 14-11 2-20 7-27 15-8 10-19 14-33 14-14 0-26-3-35-7Z" fill="#F8FAFC" fill-opacity=".9"/>
+  <circle cx="128" cy="112" r="9" fill="#6EE7F5"/>
+</svg>

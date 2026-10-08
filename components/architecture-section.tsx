@@ -58,7 +58,7 @@ export function ArchitectureSection() {
 
         <p className="mt-12 text-xs text-muted-foreground text-center max-w-2xl mx-auto">
           All architectural descriptions are illustrative and represent the intended system design. Specific
-          implementations may vary during the beta development phase.
+          implementations may continue to evolve during the Controlled Live launch phase.
         </p>
       </div>
     </section>
