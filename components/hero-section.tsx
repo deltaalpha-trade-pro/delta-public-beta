@@ -11,7 +11,7 @@ export function HeroSection() {
         <div className="mx-auto max-w-5xl text-center">
           <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-border bg-secondary/50 px-3 py-1">
             <Shield className="h-3 w-3 text-primary" />
-            <span className="text-xs text-muted-foreground">Controlled public beta · real work in progress</span>
+            <span className="text-xs text-muted-foreground">Controlled Live · staged public launch</span>
           </div>
 
           <h1 className="text-4xl font-semibold tracking-tight text-foreground text-balance sm:text-5xl md:text-6xl lg:text-7xl">WHALEZ-AI</h1>
