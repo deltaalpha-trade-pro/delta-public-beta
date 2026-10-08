@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { TrendingUp, TrendingDown } from "lucide-react"
 
@@ -12,15 +13,26 @@ interface TokenBalanceCardProps {
   color: string
 }
 
-export function TokenBalanceCard({ token, symbol, balance, value, change, color }: TokenBalanceCardProps) {
+const assetIcons: Record<string, { src: string; alt: string }> = {
+  WHZ: { src: "/whz-icon.svg", alt: "WHZ · Whalez-Mint" },
+  PTN: { src: "/ptn-icon.svg", alt: "PTN · Plutonium" },
+  PRN: { src: "/prn-icon.svg", alt: "PRN · Plutoranium" },
+}
+
+export function TokenBalanceCard({ token, symbol, balance, value, change }: TokenBalanceCardProps) {
   const isPositive = change >= 0
+  const icon = assetIcons[symbol.toUpperCase()]
 
   return (
     <Card className="bg-card border-border">
       <CardHeader className="pb-2">
         <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
-          <span className="w-3 h-3 rounded-full" style={{ backgroundColor: color }} />
-          {token}
+          {icon ? (
+            <Image src={icon.src} alt={icon.alt} width={28} height={28} className="h-7 w-7 rounded-lg object-contain" />
+          ) : (
+            <span className="w-3 h-3 rounded-full" aria-hidden="true" />
+          )}
+          <span>{token}</span>
         </CardTitle>
       </CardHeader>
       <CardContent>
