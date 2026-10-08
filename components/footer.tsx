@@ -28,7 +28,7 @@ export function Footer() {
           <div>
             <h4 className="mb-4 text-sm font-medium text-foreground">Access</h4>
             <ul className="space-y-3 text-sm text-muted-foreground">
-              <li><Link href="/beta-access" className="hover:text-foreground transition-colors">Beta Access</Link></li>
+              <li><Link href="/beta-access" className="hover:text-foreground transition-colors">Controlled Live Access</Link></li>
               <li><Link href="/dashboard" className="hover:text-foreground transition-colors">Dashboard</Link></li>
               <li><Link href="/banking" className="hover:text-foreground transition-colors">Banking</Link></li>
               <li><Link href="/support" className="hover:text-foreground transition-colors">Support</Link></li>
@@ -44,14 +44,14 @@ export function Footer() {
               <li><Link href="/terms" className="hover:text-foreground transition-colors">Terms</Link></li>
               <li><Link href="/privacy" className="hover:text-foreground transition-colors">Privacy</Link></li>
               <li><Link href="/risk-disclosure" className="hover:text-foreground transition-colors">Risk Disclosure</Link></li>
-              <li><Link href="/beta-disclaimer" className="hover:text-foreground transition-colors">Beta Disclaimer</Link></li>
+              <li><Link href="/beta-disclaimer" className="hover:text-foreground transition-colors">Controlled Live Boundary</Link></li>
               <li><Link href="/cookies" className="hover:text-foreground transition-colors">Cookies</Link></li>
             </ul>
           </div>
         </div>
 
         <div className="mt-12 border-t border-white/10 pt-8">
-          <p className="text-center text-sm text-muted-foreground">© WHALEZ-AI. Public beta only. No live trading, custody, broker execution, settlement execution, or private authority.</p>
+          <p className="text-center text-sm text-muted-foreground">© WHALEZ-AI. Controlled Live public launch. Financial capabilities remain individually gated; no private authority is exposed from the public domain.</p>
         </div>
       </div>
     </footer>
