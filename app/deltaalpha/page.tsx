@@ -7,7 +7,7 @@ import type { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "DeltaAlpha-TradePro | WHALEZ-AI",
-  description: "The public financial operating surface of the WHALEZ-AI ecosystem: coaching, market intelligence, investment, trading, digital finance, escrow, settlement, and native asset context.",
+  description: "The Controlled Live public financial operating surface of the WHALEZ-AI ecosystem: coaching, market intelligence, investment, trading, digital finance, escrow, settlement, and native asset context.",
 }
 
 const features = [
@@ -33,7 +33,7 @@ export default function DeltaAlphaPage() {
         <section className="py-24 md:py-32">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl">
-              <span className="text-sm font-medium uppercase tracking-[0.22em] text-primary">Public financial operating surface</span>
+              <span className="text-sm font-medium uppercase tracking-[0.22em] text-primary">Controlled Live public financial operating surface</span>
               <h1 className="mt-3 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl md:text-6xl">DeltaAlpha-TradePro</h1>
               <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">
                 DeltaAlpha-TradePro is the public doorway into the Whalez-AI Ecosystem: an intelligent financial operating
@@ -54,9 +54,9 @@ export default function DeltaAlphaPage() {
             <div className="max-w-4xl">
               <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">What DeltaAlpha provides</h2>
               <p className="mt-4 text-base leading-7 text-muted-foreground">
-                DeltaAlpha is not designed around a single trade. It is a connected set of capabilities that can grow from
-                education and simulated participation toward qualified financial operations when the legal, partner,
-                jurisdiction, identity, and infrastructure conditions are satisfied.
+                DeltaAlpha is a connected set of capabilities that can grow toward qualified financial operations when the legal, partner,
+                jurisdiction, identity, and infrastructure conditions are satisfied. Controlled Live means the public operating surface is launched;
+                it does not mean every capability is enabled for every participant.
               </p>
             </div>
             <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
@@ -113,16 +113,16 @@ export default function DeltaAlphaPage() {
                     Escrow coordinates the obligation. Settlement verifies the provider event and governed state transition.
                     WhalezChain is the native provenance/finality rail. No public screen should imply that these layers are the same thing.
                   </p>
-                  <Link href="/settlement" className="mt-5 inline-flex items-center text-sm font-medium text-primary">See settlement simulation →</Link>
+                  <Link href="/settlement" className="mt-5 inline-flex items-center text-sm font-medium text-primary">See settlement capability →</Link>
                 </div>
                 <div className="rounded-2xl border border-border bg-card p-6">
-                  <h3 className="text-lg font-semibold text-foreground">What is real in the beta</h3>
+                  <h3 className="text-lg font-semibold text-foreground">What is real in Controlled Live</h3>
                   <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                    The public release can show routed product surfaces, simulation engines, ecosystem-native asset concepts,
-                    and read-only market-data plumbing. Live execution, custody, regulated brokerage, and public asset liquidity
-                    are not implied merely because a page exists.
+                    Controlled Live exposes the routed public product surfaces, live market-data observation where configured, authenticated account flows,
+                    governed workflow shells, and verified ecosystem-native state available to each participant. Live execution, custody, regulated brokerage,
+                    and public asset liquidity remain capability-specific and are not implied merely because a page exists.
                   </p>
-                  <Link href="/beta-disclaimer" className="mt-5 inline-flex items-center text-sm font-medium text-primary">Read the beta boundary →</Link>
+                  <Link href="/beta-disclaimer" className="mt-5 inline-flex items-center text-sm font-medium text-primary">Read the Controlled Live boundary →</Link>
                 </div>
               </div>
             </div>
