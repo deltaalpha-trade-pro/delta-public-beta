@@ -44,7 +44,7 @@ export async function layer3(request: WhalezAiRequest): Promise<WhalezAiResponse
       data: {
         mode: "SIMULATION_ONLY",
         reason: "PUBLIC_MODE_ENFORCED",
-        message: "Execution is disabled in Delta Public Beta",
+        message: "Execution is disabled on the Controlled Live public surface",
         system: "deltapublicbetamain",
         explanation: getEducationalExplanation(request.task),
       },
@@ -325,7 +325,7 @@ function getEducationalExplanation(task: string): string {
     decision:
       "Decision engines evaluate risk context and compute recommendations based on historical patterns, market conditions, and compliance requirements.",
     email:
-      "Email automation handles notifications for beta access, simulation updates, and system notices. All emails are templated and audited.",
+      "Email automation handles notifications for Controlled Live access, simulation updates, and system notices. All emails are templated and audited.",
     simulation:
       "Simulation engines generate realistic market data and track positions without live trading. This demonstrates system behavior under stress without financial risk.",
     trading:
