@@ -1,6 +1,7 @@
 import {
   clearAccessCookie,
   ok,
+  err,
   getAccessCookie,
   authBridgeConfigured,
   authBridgeUnavailable,
