@@ -14,6 +14,7 @@ function LoginForm() {
   const router = useRouter();
   const sp = useSearchParams();
   const next = sp.get("next") || "/dashboard";
+  const registered = sp.get("registered") === "1";
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -40,7 +41,7 @@ function LoginForm() {
   return (
     <AuthCard
       title="Log in"
-      subtitle="Access your governed dashboard."
+      subtitle="Access your account and permitted platform features."
       footer={
         <span>
           New here?{" "}
@@ -51,11 +52,18 @@ function LoginForm() {
       }
     >
       <form onSubmit={onSubmit} className="space-y-4">
+        {registered ? (
+          <div role="status" className="rounded-md border border-blue-900 bg-blue-950/30 px-3 py-2 text-sm text-blue-100">
+            Your account request was accepted. Check your inbox for the next account-verification step. Real-money features remain unavailable until the required verification and eligibility checks are complete.
+          </div>
+        ) : null}
+
         <div>
           <label className="text-xs text-zinc-400">Email</label>
           <input
             type="email"
             required
+            autoComplete="email"
             className="mt-1 w-full rounded-md bg-zinc-900 border border-zinc-800 px-3 py-2 outline-none focus:border-zinc-600"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -68,15 +76,16 @@ function LoginForm() {
           <input
             type="password"
             required
+            autoComplete="current-password"
             className="mt-1 w-full rounded-md bg-zinc-900 border border-zinc-800 px-3 py-2 outline-none focus:border-zinc-600"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="••••••••"
+            placeholder="Your password"
           />
         </div>
 
         {err ? (
-          <div className="rounded-md border border-red-900 bg-red-950/40 px-3 py-2 text-sm text-red-200">
+          <div role="alert" className="rounded-md border border-red-900 bg-red-950/40 px-3 py-2 text-sm text-red-200">
             {err}
           </div>
         ) : null}
@@ -85,15 +94,8 @@ function LoginForm() {
           disabled={busy}
           className="w-full rounded-md bg-blue-600 hover:bg-blue-500 disabled:opacity-60 px-3 py-2 font-medium"
         >
-          {busy ? "Signing in..." : "Login"}
+          {busy ? "Signing in..." : "Log in"}
         </button>
-
-        <div className="text-xs text-zinc-500 flex justify-between">
-          <span>Demo mode accepts any email + password.</span>
-          <Link className="underline hover:text-zinc-200" href="/">
-            Public
-          </Link>
-        </div>
       </form>
     </AuthCard>
   );
