@@ -11,7 +11,8 @@ import { TrendingUp, TrendingDown, BarChart3, ArrowUpRight, ArrowDownRight, Cloc
 
 export function TradingPanel() {
   const [orderType, setOrderType] = useState<"market" | "limit">("market")
-  const [side, setSide] = useState<"buy" | "sell">("buy")\n  const [timeframe, setTimeframe] = useState("1h")
+  const [side, setSide] = useState<"buy" | "sell">("buy")
+  const [timeframe, setTimeframe] = useState("1h")
 
   // Simulated market data
   const instruments = [
@@ -76,7 +77,10 @@ export function TradingPanel() {
                 {["1m", "5m", "1h", "1d"].map((tf) => (
                   <button
                     key={tf}
-                    className="px-2 py-1 text-xs text-muted-foreground hover:text-foreground rounded bg-secondary/50 hover:bg-secondary"
+                    type="button"
+                    onClick={() => setTimeframe(tf)}
+                    aria-pressed={timeframe === tf}
+                    className={`px-2 py-1 text-xs rounded transition ${timeframe === tf ? "bg-primary/15 text-primary" : "text-muted-foreground hover:text-foreground bg-secondary/50 hover:bg-secondary"}`}
                   >
                     {tf}
                   </button>
