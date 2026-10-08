@@ -1,7 +1,6 @@
 import {
   ok,
   err,
-  demoMode,
   getAccessCookie,
   authBridgeConfigured,
   authBridgeUnavailable,
@@ -11,8 +10,6 @@ import {
 } from "../_util";
 
 export async function POST() {
-  if (demoMode()) return ok({ ok: true, mode: "demo" });
-
   if (!authBridgeConfigured()) return authBridgeUnavailable();
 
   const access = getAccessCookie();
