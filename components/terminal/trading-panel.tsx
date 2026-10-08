@@ -11,7 +11,7 @@ import { TrendingUp, TrendingDown, BarChart3, ArrowUpRight, ArrowDownRight, Cloc
 
 export function TradingPanel() {
   const [orderType, setOrderType] = useState<"market" | "limit">("market")
-  const [side, setSide] = useState<"buy" | "sell">("buy")
+  const [side, setSide] = useState<"buy" | "sell">("buy")\n  const [timeframe, setTimeframe] = useState("1h")
 
   // Simulated market data
   const instruments = [
@@ -89,7 +89,7 @@ export function TradingPanel() {
             <div className="h-64 bg-secondary/30 rounded-lg flex items-center justify-center border border-border/50">
               <div className="text-center">
                 <BarChart3 className="w-12 h-12 text-muted-foreground/30 mx-auto mb-2" />
-                <p className="text-sm text-muted-foreground">Simulated Price Chart</p>
+                <p className="text-sm text-muted-foreground">Simulated Price Chart · {timeframe}</p>
                 <p className="text-xs text-muted-foreground/70 mt-1">{selectedInstrument.price.toLocaleString()} PRN</p>
               </div>
             </div>
