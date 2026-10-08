@@ -57,7 +57,7 @@ export default function SettlementPage() {
               <CardHeader><CardTitle className="flex items-center gap-2"><Shield className="h-5 w-5 text-primary" /> WHZ settlement relationship</CardTitle></CardHeader>
               <CardContent className="space-y-4 text-sm leading-7 text-muted-foreground">
                 <p>WHZ can function as an ecosystem settlement-bond concept that expresses policy eligibility for certain flows. It is not silently represented as insurance, a bank guarantee, regulatory capital, or deposit protection.</p>
-                <p>The public beta demonstrates the relationship through controlled simulation. Live settlement requires separate partner, legal, jurisdictional, identity, funded-capacity, runtime, and end-to-end evidence gates.</p>
+                <p>The Controlled Live public surface demonstrates the relationship through controlled simulation. Live settlement requires separate partner, legal, jurisdictional, identity, funded-capacity, runtime, and end-to-end evidence gates.</p>
                 <Link href="/whalezchain" className="inline-flex items-center text-primary hover:underline">Understand the native rail <ArrowRight className="ml-1 h-4 w-4" /></Link>
               </CardContent>
             </Card>
@@ -71,7 +71,7 @@ export default function SettlementPage() {
           </div>
 
           <div className="mt-8 rounded-xl border border-border bg-secondary/50 p-4">
-            <p className="text-center text-xs leading-6 text-muted-foreground"><strong className="text-foreground">Beta boundary:</strong> This page demonstrates architecture and simulation. No live settlement, custody, broker execution, or external funds movement is enabled by this public surface.</p>
+            <p className="text-center text-xs leading-6 text-muted-foreground"><strong className="text-foreground">Controlled Live boundary:</strong> This page demonstrates architecture and simulation. No live settlement, custody, broker execution, or external funds movement is enabled by this public surface.</p>
           </div>
 
           <div className="mt-8 flex flex-wrap gap-3">
