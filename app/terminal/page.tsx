@@ -29,7 +29,7 @@ export default function TerminalPage() {
             </div>
             <div className="flex flex-wrap items-center gap-2">
               <Badge variant="outline" className="bg-primary/10 text-primary border-primary/30 w-fit">
-                <Shield className="w-3 h-3 mr-1" /> Public Beta Simulation
+                <Shield className="w-3 h-3 mr-1" /> Controlled Live Simulation
               </Badge>
               <Link href="/investment/terminal"><Button variant="outline" size="sm">Investment Terminal</Button></Link>
               <Link href="/escrow/terminal"><Button variant="outline" size="sm">Escrow Terminal</Button></Link>
