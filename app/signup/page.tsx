@@ -40,7 +40,7 @@ function SignupForm() {
   return (
     <AuthCard
       title="Create your DeltaAlpha account"
-      subtitle="Public beta access — governed by Whalez policies."
+      subtitle="Create your account to access your DeltaAlpha profile and eligible platform features."
       footer={
         <span>
           Already have an account?{" "}
@@ -90,7 +90,7 @@ function SignupForm() {
         </button>
 
         <p className="text-xs text-zinc-500">
-          By creating an account you agree to the Terms. Access and execution remain subject to the controlled beta.
+          By creating an account you agree to the Terms. Email verification, identity checks, jurisdiction, and service eligibility may be required for specific features.
         </p>
       </form>
     </AuthCard>
