@@ -24,7 +24,7 @@ function SignupForm() {
       if (!res.ok) {
         throw new Error(await readAuthError(res, "Unable to create your account. Please try again."));
       }
-      router.push(next);
+      router.push(`/login?registered=1&next=${encodeURIComponent(next)}`);
     } catch (e: any) {
       const message = typeof e?.message === "string" ? e.message.trim() : "";
       setErr(
@@ -40,7 +40,7 @@ function SignupForm() {
   return (
     <AuthCard
       title="Create your DeltaAlpha account"
-      subtitle="Public beta access — governed by Whalez policies."
+      subtitle="Create your account to access permitted simulation features and complete verification when required."
       footer={
         <span>
           Already have an account?{" "}
@@ -53,54 +53,23 @@ function SignupForm() {
       <form onSubmit={onSubmit} className="space-y-4">
         <div>
           <label className="text-xs text-zinc-400">Email</label>
-          <input
-            type="email"
-            required
-            className="mt-1 w-full rounded-md bg-zinc-900 border border-zinc-800 px-3 py-2 outline-none focus:border-zinc-600"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="name@domain.com"
-          />
+          <input type="email" required autoComplete="email" className="mt-1 w-full rounded-md bg-zinc-900 border border-zinc-800 px-3 py-2 outline-none focus:border-zinc-600" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="name@domain.com" />
         </div>
-
         <div>
           <label className="text-xs text-zinc-400">Password</label>
-          <input
-            type="password"
-            required
-            className="mt-1 w-full rounded-md bg-zinc-900 border border-zinc-800 px-3 py-2 outline-none focus:border-zinc-600"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="••••••••"
-          />
+          <input type="password" required minLength={8} autoComplete="new-password" className="mt-1 w-full rounded-md bg-zinc-900 border border-zinc-800 px-3 py-2 outline-none focus:border-zinc-600" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="At least 8 characters" />
           <p className="mt-1 text-xs text-zinc-500">Use at least 8 characters.</p>
         </div>
-
-        {err ? (
-          <div className="rounded-md border border-red-900 bg-red-950/40 px-3 py-2 text-sm text-red-200">
-            {err}
-          </div>
-        ) : null}
-
-        <button
-          disabled={busy}
-          className="w-full rounded-md bg-blue-600 hover:bg-blue-500 disabled:opacity-60 px-3 py-2 font-medium"
-        >
-          {busy ? "Creating..." : "Sign up"}
+        {err ? <div role="alert" className="rounded-md border border-red-900 bg-red-950/40 px-3 py-2 text-sm text-red-200">{err}</div> : null}
+        <button disabled={busy} className="w-full rounded-md bg-blue-600 hover:bg-blue-500 disabled:opacity-60 px-3 py-2 font-medium">
+          {busy ? "Creating..." : "Create account"}
         </button>
-
-        <p className="text-xs text-zinc-500">
-          By creating an account you agree to the Terms. Access and execution remain subject to the controlled beta.
-        </p>
+        <p className="text-xs text-zinc-500">Your account and any verification requirements are managed by the connected account service. Simulation access does not authorize real-money transactions.</p>
       </form>
     </AuthCard>
   );
 }
 
 export default function SignupPage() {
-  return (
-    <Suspense fallback={null}>
-      <SignupForm />
-    </Suspense>
-  );
+  return <Suspense fallback={null}><SignupForm /></Suspense>;
 }
