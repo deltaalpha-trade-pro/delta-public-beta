@@ -1,8 +1,6 @@
 import {
   ok,
   err,
-  demoMode,
-  setAccessCookie,
   authBridgeConfigured,
   authBridgeUnavailable,
   runplaneAuthFetch,
@@ -16,18 +14,7 @@ export async function POST(req: Request) {
   const normalizedPassword = String(password || "");
 
   if (!normalizedEmail || !normalizedPassword) return err("Missing email or password", 400);
-
-  if (demoMode()) {
-    setAccessCookie(`demo:${normalizedEmail}`);
-    return ok({
-      user_id: crypto.randomUUID(),
-      email: normalizedEmail,
-      risk_tier: "R0",
-      verification_level: "V0",
-      mode: "demo",
-    });
-  }
-
+  if (normalizedPassword.length < 8) return err("Password must be at least 8 characters.", 400);
   if (!authBridgeConfigured()) return authBridgeUnavailable();
 
   let res: Response;
