@@ -1,8 +1,6 @@
 import {
   ok,
   err,
-  demoMode,
-  setAccessCookie,
   authBridgeConfigured,
   authBridgeUnavailable,
   runplaneAuthFetch,
@@ -16,18 +14,7 @@ export async function POST(req: Request) {
   const normalizedPassword = String(password || "");
 
   if (!normalizedEmail || !normalizedPassword) return err("Missing email or password", 400);
-
-  if (demoMode()) {
-    setAccessCookie(`demo:${normalizedEmail}`);
-    return ok({
-      user_id: crypto.randomUUID(),
-      email: normalizedEmail,
-      risk_tier: "R0",
-      verification_level: "V0",
-      mode: "demo",
-    });
-  }
-
+  if (normalizedPassword.length < 8) return err("Use a password with at least 8 characters.", 400);
   if (!authBridgeConfigured()) return authBridgeUnavailable();
 
   let res: Response;
@@ -38,7 +25,7 @@ export async function POST(req: Request) {
       body: formBody({ email: normalizedEmail, password: normalizedPassword }),
     });
   } catch {
-    return err("Authentication service is temporarily unavailable. Please try again shortly.", 502);
+    return err("Account registration is temporarily unavailable. Please try again shortly.", 502);
   }
 
   const data = await responseBody(res);
