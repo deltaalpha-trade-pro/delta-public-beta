@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 const modules = [
   { title: "Trading", href: "/trading", copy: "Market intelligence, signal review, and chart context.", icon: BarChart3 },
   { title: "Investment", href: "/investment", copy: "Portfolio modeling, exposure views, and thesis tracking.", icon: Activity },
-  { title: "Wallet", href: "/dashboard", copy: "Non-custodial balance visibility and movement history.", icon: Wallet },
+  { title: "Account & Wallet", href: "/account", copy: "Account profile and available account controls.", icon: Wallet },
   { title: "Bank", href: "/banking", copy: "Ledger review, account status, and settlement-aware coordination.", icon: Landmark },
   { title: "Escrow", href: "/escrow", copy: "WHZ settlement-bond modeling and release/refund coordination.", icon: Lock },
 ]
