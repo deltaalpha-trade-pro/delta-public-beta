@@ -12,26 +12,25 @@ export function BetaNotice() {
           </div>
 
           <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-foreground text-balance">
-            Beta Platform Notice
+            Controlled Live Launch
           </h2>
 
           <div className="mt-6 space-y-4 text-muted-foreground">
             <p className="leading-relaxed">
-              WHALEZ-AI and DeltaAlpha-TradePro are currently operating in a controlled beta environment. Access is
-              limited and features are under active development.
+              WHALEZ-AI and DeltaAlpha-TradePro are are now entering a Controlled Live launch state. Public access is available through governed, capability-specific entry points while
+              financial operations remain individually gated by identity, jurisdiction, provider, and execution requirements.
             </p>
             <p className="leading-relaxed">
-              This platform does not facilitate live trading execution. All outputs, signals, and analysis are provided
-              for informational and educational purposes only.
+              Controlled Live does not mean every financial capability is live. Live trading, custody, broker execution, settlement execution, and
+              private authority remain separately gated until their corresponding production requirements are satisfied.
             </p>
             <p className="leading-relaxed">
-              We are continuously refining our systems based on feedback and testing. Thank you for your patience and
-              participation.
+              The platform is now presented as a real operating surface with explicit capability boundaries, evidence states, and controlled access.
             </p>
           </div>
 
           <Button className="mt-8 min-h-[44px] bg-transparent" variant="outline" asChild>
-            <Link href="/beta-access">Request Beta Access</Link>
+            <Link href="/beta-access">Request Controlled Live Access</Link>
           </Button>
         </div>
       </div>
