@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { cookies } from "next/headers"
+import { authenticatedUser } from "@/app/api/auth/_util"
 import { z } from "zod"
 import { orchestrator, type SimulationAsset } from "@/lib/whalez-ai"
 
@@ -14,16 +14,27 @@ const orderSchema = z.object({
 })
 
 export async function POST(request: Request) {
-  const access = cookies().get("access_token")?.value
+  const auth = await authenticatedUser()
 
-  if (!access) {
+  if (!auth.ok) {
     return NextResponse.json(
       {
         success: false,
-        error: "unauthorized",
+        error: auth.detail,
         simulationOnly: true,
       },
-      { status: 401 },
+      { status: auth.status },
+    )
+  }
+
+  if ((auth.user as any)?.email_verified !== true) {
+    return NextResponse.json(
+      {
+        success: false,
+        error: "email_verification_required",
+        simulationOnly: true,
+      },
+      { status: 403 },
     )
   }
 
