@@ -14,30 +14,33 @@ export function TradingPanel() {
   const [side, setSide] = useState<"buy" | "sell">("buy")
   const [timeframe, setTimeframe] = useState("1h")
 
-  // Simulated market data
+  // Explicitly illustrative simulation instruments; these are not live market quotes.
   const instruments = [
-    { symbol: "BTC/PRN", price: 42850.0, change: 2.4, volume: "1.2M" },
-    { symbol: "ETH/PRN", price: 2280.5, change: -0.8, volume: "890K" },
-    { symbol: "PTN/PRN", price: 1.0001, change: 0.01, volume: "45M" },
+    { symbol: "BTC/USD", quoteCurrency: "USD", price: 42850.0, change: 2.4, volume: "1.2M" },
+    { symbol: "ETH/USD", quoteCurrency: "USD", price: 2280.5, change: -0.8, volume: "890K" },
+    { symbol: "BTC/USDT", quoteCurrency: "USDT", price: 42900.0, change: 0.6, volume: "980K" },
   ]
 
   const [selectedInstrument, setSelectedInstrument] = useState(instruments[0])
 
-  // Simulated order book
+  // Illustrative order-book levels scale with the selected instrument.
   const asks = [
-    { price: 42855.0, size: 0.85, total: 36426.75 },
-    { price: 42852.5, size: 1.2, total: 51423.0 },
-    { price: 42851.0, size: 0.45, total: 19282.95 },
+    { price: selectedInstrument.price * 1.00012, size: 0.85, total: selectedInstrument.price * 1.00012 * 0.85 },
+    { price: selectedInstrument.price * 1.00006, size: 1.2, total: selectedInstrument.price * 1.00006 * 1.2 },
+    { price: selectedInstrument.price * 1.00002, size: 0.45, total: selectedInstrument.price * 1.00002 * 0.45 },
   ]
 
   const bids = [
-    { price: 42848.0, size: 0.92, total: 39420.16 },
-    { price: 42845.5, size: 1.55, total: 66410.53 },
-    { price: 42842.0, size: 0.78, total: 33416.76 },
+    { price: selectedInstrument.price * 0.99995, size: 0.92, total: selectedInstrument.price * 0.99995 * 0.92 },
+    { price: selectedInstrument.price * 0.99990, size: 1.55, total: selectedInstrument.price * 0.99990 * 1.55 },
+    { price: selectedInstrument.price * 0.99985, size: 0.78, total: selectedInstrument.price * 0.99985 * 0.78 },
   ]
 
   return (
     <div className="space-y-4">
+      <div role="note" className="rounded-lg border border-amber-500/30 bg-amber-500/5 px-4 py-3 text-xs text-muted-foreground">
+        <span className="font-semibold text-foreground">SIMULATION ONLY</span> · All displayed prices, changes, volumes, and order-book levels are illustrative sample data, not live market quotes or executable market prices.
+      </div>
       {/* Instrument Selector */}
       <Card className="bg-card border-border">
         <CardContent className="p-3">
@@ -94,7 +97,7 @@ export function TradingPanel() {
               <div className="text-center">
                 <BarChart3 className="w-12 h-12 text-muted-foreground/30 mx-auto mb-2" />
                 <p className="text-sm text-muted-foreground">Simulated Price Chart · {timeframe}</p>
-                <p className="text-xs text-muted-foreground/70 mt-1">{selectedInstrument.price.toLocaleString()} PRN</p>
+                <p className="text-xs text-muted-foreground/70 mt-1">{selectedInstrument.price.toLocaleString()} {selectedInstrument.quoteCurrency} · illustrative</p>
               </div>
             </div>
           </CardContent>
@@ -121,7 +124,7 @@ export function TradingPanel() {
             <div className="py-2 border-y border-border">
               <div className="text-center">
                 <span className="text-lg font-mono font-bold text-foreground">
-                  {selectedInstrument.price.toLocaleString()}
+                  {selectedInstrument.price.toLocaleString()} {selectedInstrument.quoteCurrency}
                 </span>
               </div>
             </div>
@@ -217,7 +220,7 @@ export function TradingPanel() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Est. Price</span>
-                  <span className="text-foreground font-mono">{selectedInstrument.price.toLocaleString()}</span>
+                  <span className="text-foreground font-mono">{selectedInstrument.price.toLocaleString()} {selectedInstrument.quoteCurrency}</span>
                 </div>
               </div>
               <div className="pt-3 border-t border-border">
