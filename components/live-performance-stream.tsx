@@ -61,7 +61,7 @@ export function LivePerformanceStream() {
               {bars.map((height, index) => (
                 <div
                   key={index}
-                  className={`w-full max-w-3 rounded-full bg-primary/70 transition-[height] duration-100 ${playing ? "" : "h-4!"}`}
+                  className={`w-full max-w-3 rounded-full bg-primary/70 transition-[height] duration-100 ${playing ? "" : ""}`}
                   style={{ height: playing ? `${height}%` : "12%" }}
                 />
               ))}
