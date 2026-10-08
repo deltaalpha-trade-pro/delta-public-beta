@@ -6,7 +6,7 @@ const previewItems = [
   {
     icon: Wallet,
     title: "Account & Balance Views",
-    description: "User-facing views for account context, balances, and movement history as the beta surface evolves.",
+    description: "User-facing views for account context, balances, and movement history as the Controlled Live surface evolves.",
   },
   {
     icon: BarChart3,
@@ -20,7 +20,7 @@ const previewItems = [
   },
   {
     icon: ShieldCheck,
-    title: "Controlled Beta",
+    title: "Controlled Live",
     description: "No live banking, custody, broker execution, or settlement execution is enabled from this public surface.",
   },
 ]
@@ -38,11 +38,11 @@ export default function BankingPage() {
               </div>
               <div>
                 <h1 className="text-3xl font-bold text-foreground">Digital Finance Preview</h1>
-                <p className="text-muted-foreground">A public-beta view of planned account and portfolio experiences.</p>
+                <p className="text-muted-foreground">A public-Controlled Live view of planned account and portfolio experiences.</p>
               </div>
             </div>
             <p className="text-muted-foreground leading-relaxed">
-              This page intentionally shows capabilities rather than fabricated operational records. The public beta does
+              This page intentionally shows capabilities rather than fabricated operational records. The public Controlled Live does
               not present simulated balances, participant identities, live ledger entries, or settlement states as real
               account activity.
             </p>
@@ -60,7 +60,7 @@ export default function BankingPage() {
 
           <div className="mt-10 p-5 rounded-lg bg-secondary/50 border border-border">
             <p className="text-sm text-muted-foreground text-center">
-              Public beta preview only. No live account balances, custody, broker execution, settlement execution, or
+              Public Controlled Live preview only. No live account balances, custody, broker execution, settlement execution, or
               transferable asset activity is enabled here.
             </p>
           </div>
