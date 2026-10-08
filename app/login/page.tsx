@@ -89,7 +89,7 @@ function LoginForm() {
         </button>
 
         <div className="text-xs text-zinc-500 flex justify-between">
-          <span>Demo mode accepts any email + password.</span>
+          <span>Sign in with the email and password you registered. Simulation access is available after authentication when permitted.</span>
           <Link className="underline hover:text-zinc-200" href="/">
             Public
           </Link>
