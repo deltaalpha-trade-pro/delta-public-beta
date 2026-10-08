@@ -1,5 +1,7 @@
 import { Navigation } from "@/components/navigation"
 import { HeroSection } from "@/components/hero-section"
+import { WhalezAIPresence } from "@/components/whalez-ai-presence"
+import { LivePerformanceStream } from "@/components/live-performance-stream"
 import { WhatIsSection } from "@/components/what-is-section"
 import { DeltaAlphaPreview } from "@/components/deltaalpha-preview"
 import { BrandFamilySection } from "@/components/brand-family-section"
@@ -15,6 +17,8 @@ export default function HomePage() {
       <Navigation />
       <main>
         <HeroSection />
+        <WhalezAIPresence />
+        <LivePerformanceStream />
         <WhatIsSection />
         <DeltaAlphaPreview />
         <BrandFamilySection />
