@@ -1,8 +1,11 @@
-"use client"\n\nimport { useState } from "react"\nimport { HeartHandshake, ShieldCheck, Copy, Check } from "lucide-react"
+"use client"
+
+import { useState } from "react"
+import { HeartHandshake, ShieldCheck, Copy, Check } from "lucide-react"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"\nimport Image from "next/image"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 const donationRoutes = [
   {
@@ -37,7 +40,18 @@ const donationRoutes = [
   },
 ]
 
-export default function SupportPage() {\n  const [copied, setCopied] = useState<string | null>(null)\n\n  async function copyAddress(address: string, key: string) {\n    try {\n      await navigator.clipboard.writeText(address)\n      setCopied(key)\n      window.setTimeout(() => setCopied(null), 1600)\n    } catch {\n      setCopied(null)\n    }\n  }
+export default function SupportPage() {
+  const [copied, setCopied] = useState<string | null>(null)
+
+  async function copyAddress(address: string, key: string) {
+    try {
+      await navigator.clipboard.writeText(address)
+      setCopied(key)
+      window.setTimeout(() => setCopied(null), 1600)
+    } catch {
+      setCopied(null)
+    }
+  }
   return (
     <>
       <Navigation />
