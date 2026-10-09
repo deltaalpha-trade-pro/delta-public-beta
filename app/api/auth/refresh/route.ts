@@ -15,7 +15,7 @@ export async function POST() {
 
   if (!authBridgeConfigured()) return authBridgeUnavailable();
 
-  const access = getAccessCookie();
+  const access = await getAccessCookie();
   if (!access) return err("unauthorized", 401);
 
   // runplane-auth has a 12-hour JWT session but no refresh endpoint.
