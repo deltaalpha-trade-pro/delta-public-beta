@@ -32,7 +32,7 @@ export async function getLiveIdentity(): Promise<
     };
   }
 
-  const access = getAccessCookie();
+  const access = await getAccessCookie();
   if (!access) return { ok: false, status: 401, error: "unauthorized" };
   if (!authBridgeConfigured()) {
     return { ok: false, status: 503, error: "authentication_unavailable" };
