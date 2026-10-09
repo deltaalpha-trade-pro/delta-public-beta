@@ -1,0 +1,11 @@
+@media (prefers-reduced-motion: no-preference) {
+  .whalez-orbit-float {
+    animation: whalez-orbit-float 9s ease-in-out infinite;
+    transform-origin: 50% 50%;
+  }
+}
+
+@keyframes whalez-orbit-float {
+  0%, 100% { transform: translateY(0) rotate(-0.5deg); }
+  50% { transform: translateY(-9px) rotate(0.6deg); }
+}

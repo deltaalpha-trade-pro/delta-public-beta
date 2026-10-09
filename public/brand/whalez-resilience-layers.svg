@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 690" role="img" aria-labelledby="title desc">
+<title id="title">Whalez-AI resilience architecture overview</title>
+<desc id="desc">A public-safe abstraction of the private cloud reference image, showing connectivity, compute, storage, databases, identity and security, monitoring and automation, and backup and recovery. The labels are architecture categories, not proof of current deployment.</desc>
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#06101d"/><stop offset=".5" stop-color="#091d32"/><stop offset="1" stop-color="#06101b"/></linearGradient>
+ <linearGradient id="line" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#53efff"/><stop offset="1" stop-color="#548fff"/></linearGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#ffe2a1"/><stop offset="1" stop-color="#d69a43"/></linearGradient>
+ <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30 0H0V30" fill="none" stroke="#58adff" stroke-opacity=".055"/></pattern>
+ <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#5ebee6"/></marker>
+ <style>
+ text{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;fill:#eaf7ff}.muted{fill:#9db9d2}.title{font-size:30px;font-weight:850;letter-spacing:.04em}.sub{font-size:16px;letter-spacing:.07em}.label{font-size:20px;font-weight:800}.body{font-size:15px}.tag{font-size:13px;font-weight:700;letter-spacing:.06em}
+ .layer{fill:#0a1a2c;stroke:#245b83;stroke-width:1.4}.wire{fill:none;stroke:url(#line);stroke-width:2;stroke-dasharray:6 9;animation:flow 17s linear infinite}
+ @keyframes flow{to{stroke-dashoffset:-180}}@media(prefers-reduced-motion:reduce){.wire{animation:none}}
+ </style>
+</defs>
+<rect width="1500" height="690" rx="26" fill="url(#bg)"/><rect width="1500" height="690" rx="26" fill="url(#grid)"/>
+<circle cx="750" cy="310" r="420" fill="#1474a5" opacity=".055"/>
+<text x="54" y="58" class="sub" fill="#7ceaff">WHALEZ-AI ECOSYSTEM / RESILIENCE VIEW</text>
+<text x="54" y="103" class="title">RESILIENCE BY DESIGN</text>
+<text x="54" y="133" class="body muted">A layered reference inspired by the private-cloud blueprint — architecture categories, not a live deployment inventory.</text>
+<rect x="1202" y="66" width="245" height="42" rx="21" fill="#0b2c42" stroke="#2778a1"/><text x="1324" y="92" text-anchor="middle" class="tag" fill="#95efff">REFERENCE ARCHITECTURE</text>
+
+<!-- cloud provider / hybrid abstraction -->
+<rect x="300" y="166" width="900" height="72" rx="18" fill="#0c2340" stroke="#409dcc" stroke-width="1.5"/>
+<circle cx="346" cy="202" r="17" fill="#0f3b55" stroke="#65e5ff"/><path d="M334 203q2-11 12-11 9 0 12 8 8-2 9 6h-34Z" fill="#65e5ff"/>
+<text x="385" y="196" class="label">Hybrid connectivity &amp; service boundaries</text>
+<text x="385" y="220" class="body muted">Route, isolate and coordinate approved access between deployment environments.</text>
+
+<path class="wire" d="M750 238V266"/>
+<path class="wire" d="M145 266H1355"/>
+<path class="wire" d="M145 266V296M347 266V296M549 266V296M751 266V296M953 266V296M1155 266V296M1355 266V296"/>
+
+<g transform="translate(45 296)">
+ <rect class="layer" width="200" height="230" rx="18"/>
+ <rect width="200" height="6" rx="3" fill="#59e7ff"/>
+ <circle cx="100" cy="55" r="28" fill="#0e324c" stroke="#57dfff"/><path d="M82 55h36M100 37v36M86 42l28 28M114 42 86 70" stroke="#75eeff" stroke-width="2" stroke-linecap="round"/>
+ <text x="100" y="110" text-anchor="middle" class="label">Networking</text><text x="100" y="142" text-anchor="middle" class="body muted">Connectivity</text><text x="100" y="164" text-anchor="middle" class="body muted">Routing</text><text x="100" y="186" text-anchor="middle" class="body muted">Isolation</text><text x="100" y="211" text-anchor="middle" class="tag" fill="#6fe9ff">01</text>
+</g>
+<g transform="translate(247 296)">
+ <rect class="layer" width="200" height="230" rx="18"/><rect width="200" height="6" rx="3" fill="#7a9aff"/>
+ <circle cx="100" cy="55" r="28" fill="#131f48" stroke="#8da4ff"/><path d="M83 44h34v22H83zM89 36h22v8M91 66v10M109 66v10" fill="none" stroke="#a7b5ff" stroke-width="2"/>
+ <text x="100" y="110" text-anchor="middle" class="label">Compute</text><text x="100" y="142" text-anchor="middle" class="body muted">Virtual machines</text><text x="100" y="164" text-anchor="middle" class="body muted">Containers</text><text x="100" y="186" text-anchor="middle" class="body muted">Service workers</text><text x="100" y="211" text-anchor="middle" class="tag" fill="#b3bfff">02</text>
+</g>
+<g transform="translate(449 296)">
+ <rect class="layer" width="200" height="230" rx="18"/><rect width="200" height="6" rx="3" fill="#57dbbb"/>
+ <circle cx="100" cy="55" r="28" fill="#0d3839" stroke="#55e2c0"/><ellipse cx="100" cy="44" rx="17" ry="6" fill="none" stroke="#67f2ce" stroke-width="2"/><path d="M83 44v20c0 8 34 8 34 0V44M83 54c0 8 34 8 34 0" fill="none" stroke="#67f2ce" stroke-width="2"/>
+ <text x="100" y="110" text-anchor="middle" class="label">Storage</text><text x="100" y="142" text-anchor="middle" class="body muted">Object</text><text x="100" y="164" text-anchor="middle" class="body muted">Block</text><text x="100" y="186" text-anchor="middle" class="body muted">File systems</text><text x="100" y="211" text-anchor="middle" class="tag" fill="#6bf0cb">03</text>
+</g>
+<g transform="translate(651 296)">
+ <rect class="layer" width="200" height="230" rx="18"/><rect width="200" height="6" rx="3" fill="#d0a1ff"/>
+ <circle cx="100" cy="55" r="28" fill="#2a1b45" stroke="#caa5ff"/><ellipse cx="100" cy="43" rx="16" ry="6" fill="none" stroke="#d7b9ff" stroke-width="2"/><path d="M84 43v22c0 8 32 8 32 0V43M84 54c0 8 32 8 32 0" fill="none" stroke="#d7b9ff" stroke-width="2"/>
+ <text x="100" y="110" text-anchor="middle" class="label">Data</text><text x="100" y="142" text-anchor="middle" class="body muted">Relational</text><text x="100" y="164" text-anchor="middle" class="body muted">NoSQL</text><text x="100" y="186" text-anchor="middle" class="body muted">Caching</text><text x="100" y="211" text-anchor="middle" class="tag" fill="#d6b7ff">04</text>
+</g>
+<g transform="translate(853 296)">
+ <rect class="layer" width="200" height="230" rx="18"/><rect width="200" height="6" rx="3" fill="#ffd27b"/>
+ <circle cx="100" cy="55" r="28" fill="#3c2d17" stroke="#f7ce7f"/><path d="M100 34 118 42v14c0 13-10 19-18 23-8-4-18-10-18-23V42Z" fill="none" stroke="#ffdc93" stroke-width="2"/><path d="m91 55 6 6 13-14" fill="none" stroke="#ffdc93" stroke-width="2.5" stroke-linecap="round"/>
+ <text x="100" y="110" text-anchor="middle" class="label">Security</text><text x="100" y="142" text-anchor="middle" class="body muted">Identity &amp; access</text><text x="100" y="164" text-anchor="middle" class="body muted">Encryption</text><text x="100" y="186" text-anchor="middle" class="body muted">Threat defense</text><text x="100" y="211" text-anchor="middle" class="tag" fill="#ffe0a0">05</text>
+</g>
+<g transform="translate(1055 296)">
+ <rect class="layer" width="200" height="230" rx="18"/><rect width="200" height="6" rx="3" fill="#57c7ff"/>
+ <circle cx="100" cy="55" r="28" fill="#102d4c" stroke="#56cfff"/><path d="M82 68V50M94 68V39M106 68V45M118 68V33" stroke="#65dcff" stroke-width="4" stroke-linecap="round"/>
+ <text x="100" y="110" text-anchor="middle" class="label">Observability</text><text x="100" y="142" text-anchor="middle" class="body muted">Metrics &amp; logs</text><text x="100" y="164" text-anchor="middle" class="body muted">Automation</text><text x="100" y="186" text-anchor="middle" class="body muted">Deployment signals</text><text x="100" y="211" text-anchor="middle" class="tag" fill="#91e2ff">06</text>
+</g>
+<g transform="translate(1257 296)">
+ <rect class="layer" width="200" height="230" rx="18"/><rect width="200" height="6" rx="3" fill="url(#gold)"/>
+ <circle cx="100" cy="55" r="28" fill="#342615" stroke="#efc16f"/><path d="M81 45h38v23H81zM89 39h22M88 74h24" fill="none" stroke="#ffda91" stroke-width="2"/><path d="M91 56h18M100 48v16" stroke="#ffda91" stroke-width="2"/>
+ <text x="100" y="110" text-anchor="middle" class="label">Recovery</text><text x="100" y="142" text-anchor="middle" class="body muted">Backups</text><text x="100" y="164" text-anchor="middle" class="body muted">Replication</text><text x="100" y="186" text-anchor="middle" class="body muted">Restore testing</text><text x="100" y="211" text-anchor="middle" class="tag" fill="#ffdc96">07</text>
+</g>
+<rect x="170" y="560" width="1160" height="78" rx="18" fill="#081a2b" stroke="#2b6387"/>
+<text x="750" y="588" text-anchor="middle" class="label">REFERENCE ARCHITECTURE · PROVIDER / TOOL CHOICES REQUIRE VERIFICATION</text>
+<text x="750" y="614" text-anchor="middle" class="body muted">No cloud provider, resilience guarantee, security certification or production deployment is implied by this illustration.</text>
+</svg>
