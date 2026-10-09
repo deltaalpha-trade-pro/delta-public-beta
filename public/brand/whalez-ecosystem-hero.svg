@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 760" role="img" aria-labelledby="title desc">
+<title id="title">Whalez-AI ecosystem visual</title>
+<desc id="desc">A luminous whale at the center of an orbital constellation connecting intelligence, market observation, digital finance, settlement, trust, and native assets.</desc>
+<defs>
+ <radialGradient id="space"><stop stop-color="#0c3155" stop-opacity=".72"/><stop offset=".7" stop-color="#07152a" stop-opacity=".42"/><stop offset="1" stop-color="#050915" stop-opacity="0"/></radialGradient>
+ <linearGradient id="whale" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d8ffff"/><stop offset=".35" stop-color="#67efff"/><stop offset=".78" stop-color="#168bcb"/><stop offset="1" stop-color="#635bff"/></linearGradient>
+ <linearGradient id="ring" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#9d8bff" stop-opacity=".1"/><stop offset=".45" stop-color="#38efff" stop-opacity=".85"/><stop offset="1" stop-color="#54f4cf" stop-opacity=".12"/></linearGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0bf"/><stop offset="1" stop-color="#ce9135"/></linearGradient>
+ <filter id="glow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="10" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <filter id="soft" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="30"/></filter>
+ <style>
+  .constellation{fill:none;stroke:#61dfff;stroke-opacity:.45;stroke-width:1.4}
+  .orbit{fill:none;stroke:url(#ring);stroke-width:2.2;stroke-dasharray:5 10;animation:spin 42s linear infinite;transform-origin:460px 365px}
+  .float{animation:float 8s ease-in-out infinite}
+  .float2{animation:float 10s ease-in-out infinite reverse}
+  .pulse{animation:pulse 4s ease-in-out infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  @keyframes pulse{0%,100%{opacity:.55}50%{opacity:1}}
+  @media(prefers-reduced-motion:reduce){.orbit,.float,.float2,.pulse{animation:none}}
+ </style>
+</defs>
+<circle cx="460" cy="365" r="330" fill="url(#space)"/>
+<circle cx="460" cy="365" r="220" fill="#0ba9d8" opacity=".06" filter="url(#soft)"/>
+<ellipse class="orbit" cx="460" cy="365" rx="330" ry="145" transform="rotate(-22 460 365)"/>
+<ellipse class="orbit" cx="460" cy="365" rx="285" ry="215" transform="rotate(38 460 365)" style="animation-duration:54s;animation-direction:reverse"/>
+<ellipse cx="460" cy="365" rx="230" ry="280" fill="none" stroke="#5f9bff" stroke-opacity=".24" stroke-width="1.4" transform="rotate(15 460 365)"/>
+<ellipse cx="460" cy="365" rx="165" ry="220" fill="none" stroke="#a08fff" stroke-opacity=".3" stroke-width="1.3" transform="rotate(-37 460 365)"/>
+<path class="constellation" d="M128 209 250 273 332 190 462 226 563 158 695 234 799 204M108 485 228 426 339 536 467 504 594 568 721 470 820 513M211 111 297 165 385 102 486 145 591 86 710 133"/>
+<g fill="#8ceeff"><circle cx="128" cy="209" r="3"/><circle cx="250" cy="273" r="2.5"/><circle cx="332" cy="190" r="3"/><circle cx="563" cy="158" r="3"/><circle cx="695" cy="234" r="2.8"/><circle cx="799" cy="204" r="3"/><circle cx="108" cy="485" r="3"/><circle cx="228" cy="426" r="2.5"/><circle cx="594" cy="568" r="3"/><circle cx="721" cy="470" r="2.5"/><circle cx="820" cy="513" r="3"/></g>
+<g class="pulse" fill="#b2f8ff"><circle cx="88" cy="335" r="2"/><circle cx="176" cy="610" r="2"/><circle cx="740" cy="80" r="2"/><circle cx="820" cy="350" r="2"/><circle cx="350" cy="635" r="2"/><circle cx="610" cy="665" r="2"/></g>
+<!-- central luminous whale emblem -->
+<g class="float" transform="translate(460 360)" filter="url(#glow)">
+ <circle r="145" fill="#06182a" fill-opacity=".8" stroke="#69eaff" stroke-opacity=".62" stroke-width="2"/>
+ <circle r="127" fill="none" stroke="#6d8fff" stroke-opacity=".55" stroke-width="1.6" stroke-dasharray="3 10"/>
+ <circle r="105" fill="#0b2a43" stroke="#2b9acf" stroke-opacity=".8" stroke-width="1.5"/>
+ <path d="M-94 6C-81-29-41-43-7-24C23-7 49-10 78-34C84-6 62 23 31 32C-1 41-37 22-61 27C-78 31-93 24-94 6Z" fill="url(#whale)"/>
+ <path d="M-77 9C-60 22-45 39-40 54C-20 43-15 34-13 24" fill="url(#whale)"/>
+ <path d="M48-12C65-32 79-48 102-45C96-21 84-7 66 4" fill="url(#whale)"/>
+ <circle cx="-43" cy="-13" r="4.6" fill="#06182a"/>
+ <path d="M-28-3C-8 4 17 2 34-11" fill="none" stroke="#e4ffff" stroke-opacity=".85" stroke-width="2.2" stroke-linecap="round"/>
+ <path d="M-60 50Q-2 70 51 42" fill="none" stroke="#68efff" stroke-opacity=".7" stroke-width="2"/>
+</g>
+<!-- orbital capability nodes -->
+<g class="float2" transform="translate(168 224)">
+ <rect x="-72" y="-30" width="144" height="60" rx="18" fill="#071b30" stroke="#4cdcff" stroke-opacity=".8"/>
+ <circle cx="-48" cy="0" r="9" fill="#56e8ff" opacity=".9"/><text x="-29" y="-2" fill="#e6fbff" font-family="Inter,system-ui,sans-serif" font-size="12" font-weight="750">INTELLIGENCE</text><text x="-29" y="14" fill="#98b9d2" font-family="Inter,system-ui,sans-serif" font-size="10">One identity</text>
+</g>
+<g class="float" transform="translate(751 248)">
+ <rect x="-72" y="-30" width="144" height="60" rx="18" fill="#071b30" stroke="#8b80ff" stroke-opacity=".8"/>
+ <circle cx="-48" cy="0" r="9" fill="#a98cff"/><text x="-29" y="-2" fill="#f2e9ff" font-family="Inter,system-ui,sans-serif" font-size="12" font-weight="750">MARKETS</text><text x="-29" y="14" fill="#b7a8d9" font-family="Inter,system-ui,sans-serif" font-size="10">Observe · analyze</text>
+</g>
+<g class="float2" transform="translate(186 524)">
+ <rect x="-72" y="-30" width="144" height="60" rx="18" fill="#071b30" stroke="#42cfae" stroke-opacity=".8"/>
+ <circle cx="-48" cy="0" r="9" fill="#48e0b4"/><text x="-29" y="-2" fill="#e6fff6" font-family="Inter,system-ui,sans-serif" font-size="12" font-weight="750">TRUST</text><text x="-29" y="14" fill="#9ddac7" font-family="Inter,system-ui,sans-serif" font-size="10">Evidence · state</text>
+</g>
+<g class="float" transform="translate(745 526)">
+ <rect x="-72" y="-30" width="144" height="60" rx="18" fill="#071b30" stroke="#dfb767" stroke-opacity=".85"/>
+ <circle cx="-48" cy="0" r="9" fill="url(#gold)"/><text x="-29" y="-2" fill="#fff5d9" font-family="Inter,system-ui,sans-serif" font-size="12" font-weight="750">ASSETS</text><text x="-29" y="14" fill="#d6c29b" font-family="Inter,system-ui,sans-serif" font-size="10">WHZ · PTN · PRN</text>
+</g>
+<g class="float2" transform="translate(460 95)">
+ <rect x="-82" y="-25" width="164" height="50" rx="16" fill="#071b30" stroke="#62e8ff" stroke-opacity=".8"/>
+ <text x="0" y="-2" text-anchor="middle" fill="#e6fbff" font-family="Inter,system-ui,sans-serif" font-size="12" font-weight="800">WHALEZ-AI</text><text x="0" y="14" text-anchor="middle" fill="#a3cee7" font-family="Inter,system-ui,sans-serif" font-size="10">Apex intelligence</text>
+</g>
+<g class="float" transform="translate(459 640)">
+ <rect x="-93" y="-28" width="186" height="56" rx="18" fill="#071b30" stroke="#56b9ff" stroke-opacity=".8"/>
+ <text x="0" y="-3" text-anchor="middle" fill="#e6f7ff" font-family="Inter,system-ui,sans-serif" font-size="12" font-weight="800">WHALEZCHAIN</text><text x="0" y="15" text-anchor="middle" fill="#9bc4e4" font-family="Inter,system-ui,sans-serif" font-size="10">Native state · provenance</text>
+</g>
+<!-- asset constellation -->
+<g filter="url(#glow)">
+ <circle cx="82" cy="360" r="26" fill="#281f11" stroke="#e4b65c" stroke-width="2"/><text x="82" y="366" text-anchor="middle" fill="#ffe7a9" font-family="Inter,system-ui,sans-serif" font-size="13" font-weight="850">WHZ</text>
+ <circle cx="838" cy="385" r="26" fill="#0b2836" stroke="#48ddf2" stroke-width="2"/><text x="838" y="391" text-anchor="middle" fill="#a6f8ff" font-family="Inter,system-ui,sans-serif" font-size="12" font-weight="850">PTN</text>
+ <circle cx="626" cy="74" r="23" fill="#1d1934" stroke="#b99aff" stroke-width="2"/><text x="626" y="79" text-anchor="middle" fill="#e0d0ff" font-family="Inter,system-ui,sans-serif" font-size="12" font-weight="850">PRN</text>
+</g>
+<path d="M200 252 320 294M680 270 714 250M251 495 319 450M679 463 710 500M458 505V605" stroke="#5ee4ff" stroke-opacity=".42" stroke-width="1.4" fill="none" stroke-dasharray="4 8"/>
+<text x="460" y="730" text-anchor="middle" fill="#a9cde5" font-family="Inter,system-ui,sans-serif" font-size="13" letter-spacing="2.5">ONE COHERENT EXPERIENCE · MANY DELEGATED CAPABILITIES</text>
+</svg>
