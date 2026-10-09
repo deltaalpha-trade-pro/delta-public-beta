@@ -45,7 +45,7 @@
     "embla-carousel-react": "^8.5.1",
     "input-otp": "^1.4.1",
     "lucide-react": "^0.468.0",
-    "next": "14.2.15",
+    "next": "15.5.27",
     "next-themes": "^0.4.6",
     "react": "18.2.0",
     "react-day-picker": "^9.5.0",
@@ -68,5 +68,12 @@
     "tailwindcss": "^4.1.18",
     "tsx": "^4.21.0",
     "typescript": "^5.5.4"
+  },
+  "overrides": {
+    "next": {
+      "postcss": "8.5.23"
+    },
+    "nanoid": "3.3.18",
+    "source-map-js": "1.2.2"
   }
 }
