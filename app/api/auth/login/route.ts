@@ -58,7 +58,7 @@ export async function POST(req: Request) {
     return err("Authentication session could not be verified.", 502);
   }
 
-  setAccessCookie(session);
+  await setAccessCookie(session);
   return ok({
     email: normalizedEmail,
     authenticated: true,
