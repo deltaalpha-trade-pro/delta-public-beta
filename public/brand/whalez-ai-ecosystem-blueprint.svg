@@ -83,7 +83,7 @@
 <text x="800" y="325" text-anchor="middle" class="tiny muted">MODEL SYMBOLS AS SHOWN IN THE SOURCE BLUEPRINT</text>
 <path d="M564 347H1036" stroke="#337aa5" stroke-opacity=".5"/>
 <text x="565" y="385" font-size="25" font-weight="750" class="gold">WEALTH</text>
-<text x="716" y="385" font-size="25" font-weight="650">W = Kₓ × Lₓ × C × T / γw</text>
+<text x="716" y="385" font-size="25" font-weight="650">W = Kₓ × Lₓ × C × T / ηw</text>
 <path d="M564 404H1036" stroke="#337aa5" stroke-opacity=".35"/>
 <text x="565" y="443" font-size="25" font-weight="750" class="cyan">ENERGY</text>
 <text x="716" y="443" font-size="25" font-weight="650">E = Kₕ × Lₕ × Eₚ / μₑ</text>
@@ -97,7 +97,7 @@
 <rect class="card" x="1140" y="334" width="384" height="43" rx="10"/>
 <circle cx="1161" cy="355" r="6" fill="#66e5ff"/><text x="1179" y="361" class="label">WHALEZCHAIN</text><text x="1510" y="361" text-anchor="end" font-size="15" class="muted">Immutable Ledger</text>
 <rect class="card" x="1140" y="385" width="384" height="43" rx="10"/>
-<circle cx="1161" cy="406" r="6" fill="#ffc96f"/><text x="1179" y="412" class="label">ECON-AXIOM</text><text x="1510" y="412" text-anchor="end" font-size="15" class="muted">Economic Rules</text>
+<circle cx="1161" cy="406" r="6" fill="#ffc96f"/><text x="1179" y="412" class="label">ECON-AXIOM</text><text x="1510" y="412" text-anchor="end" font-size="15" class="muted">Wmax · Rmax Bounds</text>
 <rect class="card" x="1140" y="436" width="384" height="43" rx="10"/>
 <circle cx="1161" cy="457" r="6" fill="#75efbd"/><text x="1179" y="463" class="label">ISSUANCE-GUARD</text><text x="1510" y="463" text-anchor="end" font-size="15" class="muted">WHZ Controls</text>
 
@@ -137,7 +137,7 @@
 <rect class="card ex-violet" x="1338" y="621" width="186" height="58" rx="10"/><text x="1351" y="645" class="label white-text">ALPHA-STRATEGOS</text><text x="1351" y="665" font-size="15" class="white-text">Strategy Models</text>
 <rect class="card ex-red" x="1140" y="690" width="184" height="58" rx="10"/><text x="1155" y="714" class="label white-text">RISK-WARDEN</text><text x="1155" y="734" font-size="15" class="white-text">Risk Limits</text>
 <rect class="card ex-green" x="1338" y="690" width="186" height="58" rx="10"/><text x="1351" y="714" class="label white-text">EXEC-VECTOR</text><text x="1351" y="734" font-size="15" class="white-text">Trade Execution</text>
-<rect class="card ex-slate" x="1140" y="759" width="384" height="43" rx="10"/><text x="1155" y="785" class="label white-text">LIQUIDITY-SENTRY</text><text x="1510" y="785" text-anchor="end" font-size="15" class="white-text">Liquidity Check</text>
+<rect class="card ex-violet" x="1140" y="759" width="184" height="43" rx="10"/><text x="1152" y="779" class="label white-text" font-size="13">TRADE-EXECUTION</text><text x="1152" y="796" font-size="14" class="white-text">Trade Execution</text><rect class="card ex-slate" x="1338" y="759" width="186" height="43" rx="10"/><text x="1350" y="779" class="label white-text" font-size="13">LIQUIDITY-SENTRY</text><text x="1350" y="796" font-size="14" class="white-text">Liquidity Check</text>
 <rect x="1140" y="810" width="384" height="31" rx="9" fill="#e1edf7" stroke="#9dbdd0"/>
 <text x="1332" y="831" text-anchor="middle" font-size="14" class="cyan">TRADE · INVEST · BANK · PAYMENTS · ESCROW</text>
 
