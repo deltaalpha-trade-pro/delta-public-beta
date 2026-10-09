@@ -14,8 +14,9 @@ export function getRunplaneAuthUrl(): string | null {
   return value.trim() ? value.replace(/\/$/, "") : null;
 }
 
-export function setAccessCookie(value: string) {
-  cookies().set("access_token", value, {
+export async function setAccessCookie(value: string): Promise<void> {
+  const cookieStore = await cookies();
+  cookieStore.set("access_token", value, {
     httpOnly: true,
     sameSite: "lax",
     path: "/",
@@ -24,8 +25,9 @@ export function setAccessCookie(value: string) {
   });
 }
 
-export function clearAccessCookie() {
-  cookies().set("access_token", "", {
+export async function clearAccessCookie(): Promise<void> {
+  const cookieStore = await cookies();
+  cookieStore.set("access_token", "", {
     httpOnly: true,
     sameSite: "lax",
     path: "/",
@@ -34,8 +36,8 @@ export function clearAccessCookie() {
   });
 }
 
-export function getAccessCookie(): string | null {
-  return cookies().get("access_token")?.value || null;
+export async function getAccessCookie(): Promise<string | null> {
+  return (await cookies()).get("access_token")?.value || null;
 }
 
 export function extractAccessToken(data: unknown): string | null {
@@ -82,7 +84,7 @@ export function formBody(values: Record<string, string>): string {
 }
 
 export async function authenticatedUser() {
-  const access = getAccessCookie();
+  const access = await getAccessCookie();
   if (!access) {
     return {
       ok: false as const,
