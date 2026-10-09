@@ -97,7 +97,8 @@ async function requireUser():
     | { ok: true; user: AuthIdentity }
     | { ok: false; response: ReturnType<typeof json> }
   > {
-  if (!getAccessCookie()) {
+  const access = await getAccessCookie();
+  if (!access) {
     return {
       ok: false,
       response: json(
@@ -166,7 +167,7 @@ async function requireUser():
         method: "GET",
         headers: {
           Cookie: runplaneCookie(
-            getAccessCookie() as string,
+            access,
           ),
         },
       },
