@@ -10,7 +10,7 @@ import {
 } from "../_util";
 
 export async function GET() {
-  const access = getAccessCookie();
+  const access = await getAccessCookie();
   if (!access) return err("unauthorized", 401);
   if (!authBridgeConfigured()) return authBridgeUnavailable();
 
