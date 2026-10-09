@@ -11,14 +11,14 @@ import {
 } from "../_util";
 
 export async function POST() {
-  const access = getAccessCookie();
+  const access = await getAccessCookie();
   if (!access) {
-    clearAccessCookie();
+    await clearAccessCookie();
     return ok({ ok: true });
   }
 
   if (!authBridgeConfigured()) {
-    clearAccessCookie();
+    await clearAccessCookie();
     return authBridgeUnavailable();
   }
 
@@ -28,10 +28,10 @@ export async function POST() {
       headers: { Cookie: runplaneCookie(access) },
     });
     const data = await responseBody(res);
-    clearAccessCookie();
+    await clearAccessCookie();
     return ok({ ...(typeof data === "object" && data !== null ? data : {}), ok: res.ok }, res.status);
   } catch {
-    clearAccessCookie();
+    await clearAccessCookie();
     return err("Authentication service is temporarily unavailable. Please try again shortly.", 502);
   }
 }
