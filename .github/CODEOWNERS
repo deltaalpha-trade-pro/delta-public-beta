@@ -1,15 +1,16 @@
 # Build-authority surfaces
-# Owner: @deltaalpha-trade-pro
+# Primary repository owner: @deltaalpha-trade-pro
+# Alternate connected founder-maintainer identity: @ogolawhalez-blip
 
-/.github/workflows/**  @deltaalpha-trade-pro
-/ci/**                 @deltaalpha-trade-pro
-/scripts/**            @deltaalpha-trade-pro
-/package.json          @deltaalpha-trade-pro
-/package-lock.json     @deltaalpha-trade-pro
-/next.config.js        @deltaalpha-trade-pro
-/next.config.mjs       @deltaalpha-trade-pro
-/vercel.json           @deltaalpha-trade-pro
-/.npmrc                @deltaalpha-trade-pro
+/.github/workflows/**  @deltaalpha-trade-pro @ogolawhalez-blip
+/ci/**                 @deltaalpha-trade-pro @ogolawhalez-blip
+/scripts/**            @deltaalpha-trade-pro @ogolawhalez-blip
+/package.json          @deltaalpha-trade-pro @ogolawhalez-blip
+/package-lock.json     @deltaalpha-trade-pro @ogolawhalez-blip
+/next.config.js        @deltaalpha-trade-pro @ogolawhalez-blip
+/next.config.mjs       @deltaalpha-trade-pro @ogolawhalez-blip
+/vercel.json           @deltaalpha-trade-pro @ogolawhalez-blip
+/.npmrc                @deltaalpha-trade-pro @ogolawhalez-blip
 
 # Default owner
-*                      @deltaalpha-trade-pro
+*                      @deltaalpha-trade-pro @ogolawhalez-blip
