@@ -44,7 +44,7 @@ export function Footer() {
               <li><Link href="/terms" className="hover:text-foreground transition-colors">Terms</Link></li>
               <li><Link href="/privacy" className="hover:text-foreground transition-colors">Privacy</Link></li>
               <li><Link href="/risk-disclosure" className="hover:text-foreground transition-colors">Risk Disclosure</Link></li>
-              <li><Link href="/beta-disclaimer" className="hover:text-foreground transition-colors">Platform Boundaries</Link></li>
+              <li><Link href="/platform-boundaries" className="hover:text-foreground transition-colors">Platform Boundaries</Link></li>
               <li><Link href="/cookies" className="hover:text-foreground transition-colors">Cookies</Link></li>
             </ul>
           </div>

@@ -8,7 +8,7 @@ import { BrandFamilySection } from "@/components/brand-family-section"
 import { EcosystemProductsSection } from "@/components/ecosystem-products-section"
 import { EcosystemStorySection } from "@/components/ecosystem-story-section"
 import { CommunicationsSection } from "@/components/communications-section"
-import { BetaNotice } from "@/components/beta-notice"
+import { AccountInvitationSection } from "@/components/account-invitation-section"
 import { Footer } from "@/components/footer"
 
 export default function HomePage() {
@@ -25,7 +25,7 @@ export default function HomePage() {
         <EcosystemProductsSection />
         <EcosystemStorySection />
         <CommunicationsSection />
-        <BetaNotice />
+        <AccountInvitationSection />
       </main>
       <Footer />
     </>
