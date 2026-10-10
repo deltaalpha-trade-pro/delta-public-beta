@@ -6,7 +6,7 @@ const previewItems = [
   {
     icon: Wallet,
     title: "Account & Balance Views",
-    description: "User-facing views for account context, balances, and movement history as the Controlled Live surface evolves.",
+    description: "User-facing views for account context, balances, and movement history as the platform capabilities evolve.",
   },
   {
     icon: BarChart3,
@@ -16,11 +16,11 @@ const previewItems = [
   {
     icon: Building2,
     title: "Digital Finance Workflows",
-    description: "A controlled preview of future banking-style workflows, presented without activating custody or settlement authority.",
+    description: "A controlled view of planned banking-style workflows, presented without activating custody or settlement authority.",
   },
   {
     icon: ShieldCheck,
-    title: "Controlled Live",
+    title: "Financial Capability Boundaries",
     description: "No live banking, custody, broker execution, or settlement execution is enabled from this public surface.",
   },
 ]
@@ -37,14 +37,13 @@ export default function BankingPage() {
                 <Building2 className="w-6 h-6 text-primary" />
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-foreground">Digital Finance Preview</h1>
-                <p className="text-muted-foreground">A public-Controlled Live view of planned account and portfolio experiences.</p>
+                <h1 className="text-3xl font-bold text-foreground">Digital Finance</h1>
+                <p className="text-muted-foreground">Account and portfolio workflows within a controlled public launch.</p>
               </div>
             </div>
             <p className="text-muted-foreground leading-relaxed">
-              This page intentionally shows capabilities rather than fabricated operational records. The public Controlled Live does
-              not present simulated balances, participant identities, live ledger entries, or settlement states as real
-              account activity.
+              This page intentionally describes capabilities rather than fabricated operational records. It does not
+              present simulated balances, participant identities, ledger entries, or settlement states as real account activity.
             </p>
           </div>
 
@@ -60,7 +59,7 @@ export default function BankingPage() {
 
           <div className="mt-10 p-5 rounded-lg bg-secondary/50 border border-border">
             <p className="text-sm text-muted-foreground text-center">
-              Public Controlled Live preview only. No live account balances, custody, broker execution, settlement execution, or
+              Public operating surface only. No live account balances, custody, broker execution, settlement execution, or
               transferable asset activity is enabled here.
             </p>
           </div>

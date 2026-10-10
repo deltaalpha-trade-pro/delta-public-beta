@@ -19,7 +19,6 @@ const accessLinks = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/banking", label: "Banking" },
   { href: "/settlement", label: "Settlement" },
-  { href: "/whalezchain", label: "WhalezChain" },
   { href: "/support", label: "Support" },
   { href: "/account", label: "Account" },
   { href: "/login", label: "Login" },
