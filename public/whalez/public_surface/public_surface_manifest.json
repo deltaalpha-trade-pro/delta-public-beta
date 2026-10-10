@@ -1,13 +1,15 @@
 {
+  "schema_version": 1,
   "surface": "delta-public-beta",
   "mode": "public",
-  "lifecycle": "controlled_live",
-  "display_name": "Controlled Live",
-  "doctrine": {
-    "no_raw_cognition": true,
-    "no_actionable_signals": true,
-    "founder_hidden": true,
-    "effects_not_process": true
+  "lifecycle": "public_operating_surface",
+  "display_name": "DeltaAlpha-TradePro",
+  "capabilities": {
+    "financial_learning": true,
+    "market_observation": true,
+    "portfolio_modeling": true,
+    "simulation_available": true,
+    "live_financial_execution_enabled": false
   },
   "auth": {
     "signup_url": "/signup",
@@ -16,16 +18,5 @@
   },
   "links": {
     "telegram_channel": "TBD"
-  },
-  "tokens": {
-    "PTN": {
-      "label": "Plutonium"
-    },
-    "PRN": {
-      "label": "Plutoranium"
-    },
-    "WHZ": {
-      "label": "Whalez-Mint"
-    }
   }
 }

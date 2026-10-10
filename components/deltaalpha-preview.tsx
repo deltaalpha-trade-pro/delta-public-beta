@@ -7,7 +7,7 @@ const capabilityItems: Array<[LucideIcon, string]> = [
   [Brain, "AI coaching and financial learning"],
   [BarChart3, "Market intelligence, signals, and portfolio modeling"],
   [Eye, "Trading, investment, escrow, and settlement simulations"],
-  [ShieldCheck, "Native WHZ, PTN, PRN relationships with clear economic boundaries"],
+  [ShieldCheck, "Clear separation between simulated activity and financial authorization"],
 ]
 
 export function DeltaAlphaPreview() {
@@ -34,14 +34,13 @@ export function DeltaAlphaPreview() {
 
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild><Link href="/deltaalpha">Explore the full DeltaAlpha story <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
-              <Button variant="outline" asChild><Link href="/whalezchain">Understand WhalezChain</Link></Button>
             </div>
           </div>
 
           <div className="relative">
             <div className="rounded-2xl border border-border bg-card/70 p-5 shadow-sm">
               <div className="grid gap-3 sm:grid-cols-2">
-                {["AI Coach", "Live Market Observation", "Investment Intelligence", "Trading Simulation", "Escrow & Settlement", "WhalezChain Assets"].map((label, index) => (
+                {["AI Coach", "Live Market Observation", "Investment Intelligence", "Trading Simulation", "Escrow & Settlement", "Financial Boundaries"].map((label, index) => (
                   <div key={label} className={`rounded-xl border border-border bg-background/70 p-5 ${index === 0 ? "border-primary/30 bg-primary/5" : ""}`}>
                     <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">Capability</div>
                     <div className="mt-2 text-sm font-semibold text-foreground">{label}</div>

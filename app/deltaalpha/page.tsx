@@ -2,12 +2,12 @@ import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { Activity, BarChart3, Brain, Building2, Eye, LineChart, LockKeyhole, Network, Shield, TrendingUp, WalletCards, Zap } from "lucide-react"
+import { Activity, BarChart3, Brain, Building2, Eye, LineChart, LockKeyhole, Shield, TrendingUp, WalletCards, Zap } from "lucide-react"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "DeltaAlpha-TradePro | WHALEZ-AI",
-  description: "The Controlled Live public financial operating surface of the WHALEZ-AI ecosystem: coaching, market intelligence, investment, trading, digital finance, escrow, settlement, and native asset context.",
+  description: "The public financial operating surface of the WHALEZ-AI ecosystem: coaching, market intelligence, investment modeling, trading simulation, digital finance, escrow, and settlement boundaries.",
 }
 
 const features = [
@@ -15,10 +15,10 @@ const features = [
   { icon: LineChart, title: "Market Insights Dashboard", description: "Market conditions, trends, key metrics, and multi-timeframe context presented for systematic analysis.", href: "/terminal" },
   { icon: Zap, title: "Signal Processing", description: "Structured signal interpretation, pattern recognition, and confidence-aware context rather than unexplained alerts.", href: "/terminal" },
   { icon: Eye, title: "Strategy Analysis", description: "Scenario evaluation, systematic strategy review, and risk-reward context before execution authority exists.", href: "/trading" },
-  { icon: BarChart3, title: "Investment Intelligence", description: "Portfolio modeling across native WhalezChain assets and external positions, with reference values clearly separated from market prices.", href: "/investment" },
+  { icon: BarChart3, title: "Investment Intelligence", description: "Portfolio modeling that separates illustrative positions, market observations, and financial execution authority.", href: "/investment" },
   { icon: Building2, title: "Digital Finance", description: "Account, payment, conversion, banking-style movement and settlement experiences assembled behind eligibility and provider controls.", href: "/banking" },
-  { icon: LockKeyhole, title: "Escrow & Settlement", description: "Escrow coordination, WHZ settlement-bond modeling, finality-aware transitions, and controlled settlement workflows.", href: "/settlement" },
-  { icon: Network, title: "WhalezChain Native Rail", description: "Native asset state, receipts, provenance, and governed finality concepts for the ecosystem.", href: "/whalezchain" },
+  { icon: LockKeyhole, title: "Escrow & Settlement", description: "Escrow coordination, illustrative coverage modeling, and controlled settlement workflows with explicit execution boundaries.", href: "/settlement" },
+  { icon: Shield, title: "Simulation & Capability Boundaries", description: "Clear distinctions between portfolio modeling, public capability previews, and financial operations requiring separate authorization.", href: "/simulation" },
   { icon: TrendingUp, title: "Trend Detection", description: "Identification of momentum shifts, emerging structures, and changes in market regime.", href: "/terminal" },
   { icon: Shield, title: "Risk Assessment", description: "Exposure monitoring, correlation context, and risk framing designed to keep uncertainty visible.", href: "/investment" },
   { icon: Activity, title: "Participant Progress", description: "An ecosystem model in which learning, eligibility, action, settlement, and long-term participation can connect over time.", href: "/dashboard" },
@@ -37,8 +37,8 @@ export default function DeltaAlphaPage() {
               <h1 className="mt-3 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl md:text-6xl">DeltaAlpha-TradePro</h1>
               <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">
                 DeltaAlpha-TradePro is the public doorway into the Whalez-AI Ecosystem: an intelligent financial operating
-                environment designed to connect learning, coaching, market intelligence, investment, trading, digital finance,
-                escrow, settlement, and native economic state through one coherent user experience.
+                environment designed to connect learning, coaching, market intelligence, investment modeling, trading simulation,
+                digital finance, escrow, and settlement through one coherent user experience.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link href="/coaching"><Button>Try AI Coaching</Button></Link>

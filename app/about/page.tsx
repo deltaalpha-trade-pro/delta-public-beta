@@ -46,9 +46,8 @@ export default function AboutPage() {
                     provide actionable intelligence without overstating certainty.
                   </p>
                   <p className="mt-4 text-muted-foreground leading-relaxed">
-                    Every component of WHALEZ-AI is designed with intentionality. From our AI agents to our ledger
-                    systems, each piece serves a specific purpose within a coherent whole. This is architecture built
-                    for longevity, not spectacle.
+                    Every part of WHALEZ-AI is designed with intentionality. Analytical capabilities and supporting data models
+                    are organized to serve a coherent user experience. This is a platform built for longevity, not spectacle.
                   </p>
                 </div>
 
