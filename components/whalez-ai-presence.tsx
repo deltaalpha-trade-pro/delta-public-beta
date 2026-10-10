@@ -1,6 +1,5 @@
 "use client"
 
-import Image from "next/image"
 import { useEffect, useState } from "react"
 import { Activity, Brain, CircleDot, ShieldCheck } from "lucide-react"
 
@@ -9,25 +8,18 @@ const capabilities = [
   "Risk reasoning",
   "Investment context",
   "Trading analysis",
-  "Settlement awareness",
-  "WhalezChain state",
+  "Financial workflow context",
+  "Service eligibility context",
 ]
 
 export function WhalezAIPresence() {
   const [index, setIndex] = useState(0)
-  const [heartbeat, setHeartbeat] = useState(0)
 
   useEffect(() => {
     const capabilityTimer = window.setInterval(() => {
       setIndex((current) => (current + 1) % capabilities.length)
     }, 2200)
-    const heartbeatTimer = window.setInterval(() => {
-      setHeartbeat((current) => current + 1)
-    }, 1000)
-    return () => {
-      window.clearInterval(capabilityTimer)
-      window.clearInterval(heartbeatTimer)
-    }
+    return () => window.clearInterval(capabilityTimer)
   }, [])
 
   return (
@@ -37,14 +29,14 @@ export function WhalezAIPresence() {
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary">
               <CircleDot className="h-3.5 w-3.5 animate-pulse" />
-              Whalez-AI live presence
+              Whalez-AI capability presence
             </div>
             <h2 id="whalez-ai-presence-title" className="mt-4 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
               One intelligence, visibly present across the ecosystem.
             </h2>
             <p className="mt-4 max-w-2xl text-base leading-8 text-muted-foreground">
-              The public surface presents Whalez-AI as one coherent intelligence identity while different capabilities
-              rotate underneath the same governed experience. No private model, agent, or control-plane internals are exposed here.
+              The public surface presents Whalez-AI as one coherent intelligence identity across analysis, risk context,
+              investment, and financial workflows. This is a product-level visualization, not a report of private runtime status.
             </p>
             <div className="mt-7 flex flex-wrap gap-2">
               {capabilities.map((capability, itemIndex) => (
@@ -63,47 +55,48 @@ export function WhalezAIPresence() {
               <div className="flex items-center gap-3">
                 <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl border border-primary/30 bg-primary/10">
                   <Brain className="h-6 w-6 text-primary" />
-                  <span className="absolute -right-1 -top-1 h-3 w-3 rounded-full bg-emerald-400 shadow-[0_0_14px_rgba(52,211,153,0.8)]" />
+                  <span className="absolute -right-1 -top-1 h-3 w-3 rounded-full bg-primary/80" />
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-foreground">WHALEZ-AI</p>
-                  <p className="text-xs text-muted-foreground">Public capability presence</p>
+                  <p className="text-xs text-muted-foreground">Public capability visualization</p>
                 </div>
               </div>
-              <div className="flex items-center gap-2 text-xs text-emerald-300">
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
                 <Activity className="h-3.5 w-3.5 animate-pulse" />
-                ONLINE
+                VISUAL MODE
               </div>
             </div>
 
             <div className="mt-6 rounded-2xl border border-border bg-card/80 p-5">
-              <p className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">Current capability</p>
+              <p className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">Current visual focus</p>
               <p className="mt-2 text-xl font-semibold text-foreground">{capabilities[index]}</p>
-              <div className="mt-5 h-2 overflow-hidden rounded-full bg-secondary">
-                <div className="h-full w-2/3 rounded-full bg-primary transition-all duration-700" />
+              <div className="mt-5 flex h-2 gap-1 overflow-hidden rounded-full bg-secondary">
+                {capabilities.map((capability, itemIndex) => (
+                  <div key={capability} className={`flex-1 rounded-full transition-colors ${itemIndex === index ? "bg-primary" : "bg-muted/30"}`} />
+                ))}
               </div>
               <p className="mt-3 text-xs leading-6 text-muted-foreground">
-                Governed public presence · heartbeat {heartbeat % 1000} · capability routing remains policy-controlled.
+                Animated capability visualization · no private operational state is implied.
               </p>
             </div>
 
             <div className="mt-5 grid grid-cols-3 gap-3">
               {[
-                ["/whz-icon.svg", "WHZ", "Whalez-Mint"],
-                ["/ptn-icon.svg", "PTN", "Plutonium"],
-                ["/prn-icon.svg", "PRN", "Plutoranium"],
-              ].map(([src, symbol, name]) => (
-                <div key={symbol} className="rounded-2xl border border-white/10 bg-white/5 p-3 text-center">
-                  <Image src={src} alt={`${symbol} ${name} icon`} width={52} height={52} className="mx-auto h-11 w-11 object-contain" />
-                  <p className="mt-2 text-xs font-semibold text-foreground">{symbol}</p>
-                  <p className="mt-0.5 text-[10px] text-muted-foreground">{name}</p>
+                ["Analyze", "Market context"],
+                ["Model", "Risk scenarios"],
+                ["Understand", "Financial workflows"],
+              ].map(([title, body]) => (
+                <div key={title} className="rounded-2xl border border-white/10 bg-white/5 p-3 text-center">
+                  <p className="text-xs font-semibold text-foreground">{title}</p>
+                  <p className="mt-1 text-[10px] leading-relaxed text-muted-foreground">{body}</p>
                 </div>
               ))}
             </div>
 
             <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
               <ShieldCheck className="h-4 w-4 text-primary" />
-              Identity and capability boundaries remain explicit in Controlled Live.
+              The public experience shows capabilities, not private operational authority.
             </div>
           </div>
         </div>

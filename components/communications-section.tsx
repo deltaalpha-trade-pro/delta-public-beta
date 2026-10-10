@@ -14,8 +14,8 @@ export function CommunicationsSection() {
             One clear channel for public updates
           </h2>
           <p className="mt-4 text-muted-foreground leading-relaxed text-pretty">
-            Public communications are deliberately limited to channels that are ready to represent the beta. Telegram
-            is the current community channel for announcements, ecosystem updates, and platform event distribution.
+            Public communications are deliberately limited to channels that are ready to represent the platform. Telegram
+            is the current community channel for announcements, ecosystem updates, and platform news.
           </p>
         </div>
 
@@ -27,14 +27,13 @@ export function CommunicationsSection() {
               </div>
               <span className="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1.5 text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
                 <Radio className="h-3.5 w-3.5" />
-                Connected
+                Public channel
               </span>
             </div>
 
             <h3 className="mt-5 text-xl font-semibold text-foreground">Telegram</h3>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Follow the WHALEZ-AI / DeltaAlpha-TradePro community channel for public announcements, beta updates,
-              and platform activity delivered through the ecosystem communication layer.
+              Follow the WHALEZ-AI / DeltaAlpha-TradePro community channel for public announcements and platform updates.
             </p>
 
             <div className="mt-6">

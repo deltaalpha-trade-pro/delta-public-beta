@@ -4,11 +4,10 @@ import { Activity, BarChart3, Brain, Building2, LineChart, LockKeyhole, MessageC
 const publicFocus = [
   { icon: Brain, title: "AI Coaching", description: "Guided financial education, reasoning, risk habits, and plain-language interpretation.", href: "/coaching", label: "Explore coaching" },
   { icon: Activity, title: "Market Intelligence", description: "Market context, live-observation plumbing, signal interpretation, and trend analysis.", href: "/terminal", label: "Open terminal" },
-  { icon: BarChart3, title: "Investment", description: "Portfolio modeling across native ecosystem assets and external positions.", href: "/investment", label: "Open investment" },
+  { icon: BarChart3, title: "Investment", description: "Portfolio modeling that keeps market observations, simulated positions, and execution authority clearly separated.", href: "/investment", label: "Open investment" },
   { icon: LineChart, title: "Trading", description: "A governed simulation environment for strategies, orders, exposure, and outcome review.", href: "/trading", label: "Open trading" },
   { icon: Building2, title: "Digital Finance", description: "Banking-style account, payment, conversion, and movement workflows assembled behind controls.", href: "/banking", label: "View banking" },
-  { icon: LockKeyhole, title: "Escrow & Settlement", description: "Obligation coordination, WHZ settlement-bond modeling, finality-aware state, and settlement simulation.", href: "/settlement", label: "See settlement" },
-  { icon: Network, title: "WhalezChain", description: "The native state, economic, receipt, and provenance rail for ecosystem-native assets.", href: "/whalezchain", label: "Explore native rail" },
+  { icon: LockKeyhole, title: "Escrow & Settlement", description: "Obligation coordination, settlement workflows, and clear simulated-versus-authorized states.", href: "/settlement", label: "See settlement" },
   { icon: MessageCircle, title: "Communications", description: "Public community updates and platform communication through supported channels.", href: "/#communications", label: "See communications" },
   { icon: ShieldCheck, title: "Controlled Participation", description: "A staged path from identity and education through eligibility, capability, and qualified financial operations.", href: "/dashboard", label: "View dashboard" },
 ]
@@ -21,7 +20,7 @@ export function EcosystemProductsSection() {
           <span className="text-sm font-medium uppercase tracking-[0.22em] text-primary">Controlled Live</span>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">The ecosystem you can actually see</h2>
           <p className="mt-4 text-base leading-8 text-muted-foreground">
-            The public site is launched as a living product: capabilities have real routes,
+            The public site is a living product surface: capabilities have real routes,
             simulations where appropriate, and clear boundaries where external authority is not yet activated.
           </p>
         </div>

@@ -17,7 +17,7 @@ const features = [
     icon: Wallet,
     title: "Portfolio & Account Views",
     description:
-      "User-facing previews for balances, portfolio context, movement history, and simulated financial states during the controlled beta.",
+      "User-facing views for portfolio context, account information, and simulated financial states where explicitly indicated.",
   },
   {
     icon: Shield,
@@ -37,7 +37,7 @@ export function WhatIsSection() {
           </h2>
           <p className="mt-4 text-muted-foreground leading-relaxed text-pretty">
             WHALEZ-AI is an integrated ecosystem combining artificial intelligence, quantitative methods, and systematic
-            analysis to deliver financial intelligence. The public beta focuses on insight, modeling, controlled
+            analysis to deliver financial intelligence. The public experience focuses on insight, modeling, transparent
             simulations, and informed decision-making—not live financial execution.
           </p>
         </div>
@@ -45,7 +45,8 @@ export function WhatIsSection() {
         <div className="mt-8 rounded-2xl border border-primary/20 bg-primary/5 p-6 shadow-[0_0_60px_rgba(96,165,250,0.08)]">
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">One intelligence · many capabilities</p>
           <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-            Whalez-AI may use different models, agents, tools, and runtimes for different functions. They operate as delegated capabilities of one Whalez-AI identity rather than separate public AIs.
+            Whalez-AI provides one coherent intelligence identity across the ecosystem. Users experience specialized
+            capabilities through one consistent Whalez-AI experience.
           </p>
         </div>
 
@@ -63,8 +64,8 @@ export function WhatIsSection() {
         </div>
 
         <p className="mt-8 text-sm text-muted-foreground">
-          WHALEZ-AI does not provide financial advice, trading recommendations, or investment guarantees. All public-beta
-          outputs are informational, experimental, or simulated where explicitly stated.
+          WHALEZ-AI does not provide financial advice, individualized trading recommendations, or investment guarantees.
+          Public outputs are informational, and simulated where explicitly stated.
         </p>
       </div>
     </section>
