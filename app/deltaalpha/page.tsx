@@ -86,8 +86,8 @@ export default function DeltaAlphaPage() {
                     ["01", "Identity & eligibility", "A participant starts with identity, jurisdiction, KYC/KYB, eligibility, and capability access."],
                     ["02", "Intelligence & coaching", "Whalez-AI turns market context, risk, learning, and signals into understandable guidance."],
                     ["03", "Action & coordination", "Trading, investment, banking, escrow, and payment workflows can operate within governed boundaries."],
-                    ["04", "Settlement & provenance", "Where qualified, settlement can move through approved provider rails while WhalezChain preserves native state, receipts, and provenance."],
-                    ["05", "Economic participation", "Native ecosystem assets can carry defined platform roles, with external transferability and market access treated as separate qualification stages."],
+                    ["04", "Settlement & confirmation", "Where qualified, settlement relies on approved external providers and verified evidence before a canonical outcome is shown."],
+                    ["05", "Capability eligibility", "Financial capabilities are enabled only when the required account, provider, jurisdiction, funding, and operational conditions are satisfied."],
                   ].map(([step, title, body]) => (
                     <div key={step} className="flex gap-4">
                       <div className="flex h-9 w-9 flex-none items-center justify-center rounded-full border border-border bg-card text-xs font-semibold text-primary">{step}</div>
@@ -98,29 +98,24 @@ export default function DeltaAlphaPage() {
               </div>
               <div className="space-y-6">
                 <div className="rounded-2xl border border-primary/20 bg-primary/5 p-6">
-                  <h3 className="text-lg font-semibold text-foreground">Why the native assets matter</h3>
+                  <h3 className="text-lg font-semibold text-foreground">Capability boundaries</h3>
                   <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                    WHZ, PTN, and PRN are not inserted into DeltaAlpha merely to make the interface look like an exchange.
-                    They are intended to represent native economic and provenance relationships inside the ecosystem.
-                    Their platform roles can exist before the separate conditions for external liquidity, custody, or public
-                    trading are satisfied.
+                    Portfolio models and simulations can help explain how a financial workflow might behave, but they do not
+                    establish external liquidity, custody, market access, or transferable holdings. Public pages do not
+                    represent modeled values as live financial balances.
                   </p>
-                  <Link href="/whalezchain" className="mt-5 inline-flex items-center text-sm font-medium text-primary">Read the native-asset model →</Link>
                 </div>
                 <div className="rounded-2xl border border-border bg-card p-6">
                   <h3 className="text-lg font-semibold text-foreground">How settlement fits</h3>
                   <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                    Escrow coordinates the obligation. Settlement verifies the provider event and governed state transition.
-                    WhalezChain is the native provenance/finality rail. No public screen should imply that these layers are the same thing.
+                    Escrow coordinates an obligation. A settlement workflow must verify any provider response and applicable authorization before showing a canonical outcome. A user-visible page is not itself proof that funds moved or settlement reached finality.
                   </p>
                   <Link href="/settlement" className="mt-5 inline-flex items-center text-sm font-medium text-primary">See settlement capability →</Link>
                 </div>
                 <div className="rounded-2xl border border-border bg-card p-6">
                   <h3 className="text-lg font-semibold text-foreground">What is real in Controlled Live</h3>
                   <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                    Controlled Live exposes the routed public product surfaces, live market-data observation where configured, authenticated account flows,
-                    governed workflow shells, and verified ecosystem-native state available to each participant. Live execution, custody, regulated brokerage,
-                    and public asset liquidity remain capability-specific and are not implied merely because a page exists.
+                    The public experience includes product routes, market-data observation where configured, account flows, and simulation tools. Live execution, custody, regulated brokerage, and public asset liquidity remain capability-specific; a page existing does not prove those services are active.
                   </p>
                   <Link href="/beta-disclaimer" className="mt-5 inline-flex items-center text-sm font-medium text-primary">Read the Controlled Live boundary →</Link>
                 </div>
