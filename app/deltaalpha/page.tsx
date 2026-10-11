@@ -33,7 +33,7 @@ export default function DeltaAlphaPage() {
         <section className="py-24 md:py-32">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl">
-              <span className="text-sm font-medium uppercase tracking-[0.22em] text-primary">Controlled Live public financial operating surface</span>
+              <span className="text-sm font-medium uppercase tracking-[0.22em] text-primary">Minimum Live Platform · capability-specific access</span>
               <h1 className="mt-3 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl md:text-6xl">DeltaAlpha-TradePro</h1>
               <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">
                 DeltaAlpha-TradePro is the public doorway into the Whalez-AI Ecosystem: an intelligent financial operating
@@ -55,8 +55,7 @@ export default function DeltaAlphaPage() {
               <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">What DeltaAlpha provides</h2>
               <p className="mt-4 text-base leading-7 text-muted-foreground">
                 DeltaAlpha is a connected set of capabilities that can grow toward qualified financial operations when the legal, partner,
-                jurisdiction, identity, and infrastructure conditions are satisfied. Controlled Live means the public operating surface is launched;
-                it does not mean every capability is enabled for every participant.
+                jurisdiction, identity, and infrastructure conditions are satisfied. The Minimum Live Platform presents the current public operating surface; not every capability is enabled for every participant, and its presence does not certify live-money use.
               </p>
             </div>
             <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
@@ -113,11 +112,11 @@ export default function DeltaAlphaPage() {
                   <Link href="/settlement" className="mt-5 inline-flex items-center text-sm font-medium text-primary">See settlement capability →</Link>
                 </div>
                 <div className="rounded-2xl border border-border bg-card p-6">
-                  <h3 className="text-lg font-semibold text-foreground">What is real in Controlled Live</h3>
+                  <h3 className="text-lg font-semibold text-foreground">What is available on the public platform</h3>
                   <p className="mt-3 text-sm leading-7 text-muted-foreground">
                     The public experience includes product routes, market-data observation where configured, account flows, and simulation tools. Live execution, custody, regulated brokerage, and public asset liquidity remain capability-specific; a page existing does not prove those services are active.
                   </p>
-                  <Link href="/beta-disclaimer" className="mt-5 inline-flex items-center text-sm font-medium text-primary">Read the Controlled Live boundary →</Link>
+                  <Link href="/platform-boundaries" className="mt-5 inline-flex items-center text-sm font-medium text-primary">Read the Platform Boundaries →</Link>
                 </div>
               </div>
             </div>
