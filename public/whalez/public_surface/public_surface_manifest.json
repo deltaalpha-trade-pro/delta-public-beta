@@ -15,8 +15,5 @@
     "signup_url": "/signup",
     "login_url": "/login",
     "post_login_redirect": "/dashboard"
-  },
-  "links": {
-    "telegram_channel": "TBD"
   }
 }
