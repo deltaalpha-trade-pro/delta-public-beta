@@ -1,7 +1,13 @@
 import { NextResponse } from "next/server"
-import { cookies } from "next/headers"
 import { z } from "zod"
 import { orchestrator, type SimulationAsset } from "@/lib/whalez-ai"
+import {
+  authBridgeConfigured,
+  getAccessCookie,
+  responseBody,
+  runplaneAuthFetch,
+  runplaneCookie,
+} from "../../../auth/_util"
 
 export const runtime = "nodejs"
 
@@ -14,16 +20,57 @@ const orderSchema = z.object({
 })
 
 export async function POST(request: Request) {
-  const access = cookies().get("access_token")?.value
+  const access = getAccessCookie()
 
   if (!access) {
     return NextResponse.json(
-      {
-        success: false,
-        error: "unauthorized",
-        simulationOnly: true,
-      },
+      { success: false, error: "unauthorized", simulationOnly: true },
       { status: 401 },
+    )
+  }
+
+  if (!authBridgeConfigured()) {
+    return NextResponse.json(
+      { success: false, error: "authentication_unavailable", simulationOnly: true },
+      { status: 503 },
+    )
+  }
+
+  let sessionResponse: Response
+  try {
+    sessionResponse = await runplaneAuthFetch("/auth/me", {
+      method: "GET",
+      headers: { Cookie: runplaneCookie(access) },
+    })
+  } catch {
+    return NextResponse.json(
+      { success: false, error: "authentication_unavailable", simulationOnly: true },
+      { status: 502 },
+    )
+  }
+
+  if (sessionResponse.status === 401 || sessionResponse.status === 403) {
+    return NextResponse.json(
+      { success: false, error: "unauthorized", simulationOnly: true },
+      { status: 401 },
+    )
+  }
+
+  if (!sessionResponse.ok) {
+    return NextResponse.json(
+      { success: false, error: "authentication_unavailable", simulationOnly: true },
+      { status: 502 },
+    )
+  }
+
+  const identity = await responseBody(sessionResponse)
+  const identityRecord = identity && typeof identity === "object"
+    ? identity as Record<string, unknown>
+    : null
+  if (!identityRecord || typeof identityRecord.user_id !== "string" || !identityRecord.user_id.trim()) {
+    return NextResponse.json(
+      { success: false, error: "invalid_session_identity", simulationOnly: true },
+      { status: 502 },
     )
   }
 
@@ -100,7 +147,6 @@ export async function POST(request: Request) {
   return NextResponse.json({
     success: true,
     simulationOnly: true,
-    system: "deltapublicbetamain",
     asset,
     side,
     direction,
