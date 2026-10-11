@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   applicationName: "Whalez-AI Ecosystem",
   title: "WHALEZ-AI Ecosystem | DeltaAlpha-TradePro",
   description:
-    "Whalez-AI ecosystem gateway for trading intelligence, communications, banking, settlement, and founder-controlled Controlled Live public surfaces.",
+    "Whalez-AI Ecosystem gateway for financial intelligence, communications, investment modeling, trading simulation, and capability-specific public access.",
   generator: "Whalez-AI",
   keywords: ["Whalez-AI", "WhalezChain", "DeltaAlpha-TradePro", "WHZ", "PTN", "PRN"],
   other: {
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "WHALEZ-AI Ecosystem | DeltaAlpha-TradePro",
-    description: "Controlled Live public gateway for the Whalez-AI Ecosystem.",
+    description: "Minimum Live Platform public gateway for the Whalez-AI Ecosystem, with financial capabilities individually gated.",
     type: "website",
   },
 }

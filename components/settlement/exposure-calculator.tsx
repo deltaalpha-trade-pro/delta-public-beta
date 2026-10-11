@@ -7,31 +7,29 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Calculator, ArrowRight, CheckCircle, XCircle, Shield } from "lucide-react"
+import { Calculator, ArrowRight, Shield } from "lucide-react"
 
 export function ExposureCalculator() {
   const [amount, setAmount] = useState("")
-  const [asset, setAsset] = useState("PTN")
+  const [coverageRatio, setCoverageRatio] = useState("10")
   const [result, setResult] = useState<{
-    exposure: number
-    whzRequired: number
-    whzLocked: number
-    eligible: boolean
+    obligationAmount: number
+    coverageRatio: number
+    illustrativeCoverage: number
   } | null>(null)
 
-  const userWhzLocked = 50
-
   const calculate = () => {
-    const txAmount = Number.parseFloat(amount) || 0
-    const exposureRate = asset === "PTN" ? 0.1 : 0.15 // 10% for PTN, 15% for PRN
-    const exposure = txAmount * exposureRate
-    const whzRequired = Math.ceil(exposure)
+    const obligationAmount = Number.parseFloat(amount)
+    const ratio = Number.parseFloat(coverageRatio)
+    if (!Number.isFinite(obligationAmount) || obligationAmount <= 0 || !Number.isFinite(ratio)) {
+      setResult(null)
+      return
+    }
 
     setResult({
-      exposure,
-      whzRequired,
-      whzLocked: userWhzLocked,
-      eligible: userWhzLocked >= whzRequired,
+      obligationAmount,
+      coverageRatio: ratio,
+      illustrativeCoverage: obligationAmount * ratio / 100,
     })
   }
 
@@ -40,110 +38,88 @@ export function ExposureCalculator() {
       <CardHeader className="pb-3">
         <CardTitle className="text-foreground flex items-center gap-2">
           <Calculator className="w-5 h-5 text-primary" />
-          Exposure Calculator
+          Illustrative Coverage Calculator
         </CardTitle>
         <p className="text-xs text-muted-foreground">
-          Calculate WHZ bond requirement for pre-finality settlement eligibility
+          Model a hypothetical coverage ratio. This tool does not read account balances or determine settlement eligibility.
         </p>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Input */}
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label className="text-muted-foreground">Asset Type</Label>
-              <Select value={asset} onValueChange={setAsset}>
+              <Label className="text-muted-foreground">Illustrative Coverage Ratio</Label>
+              <Select value={coverageRatio} onValueChange={setCoverageRatio}>
                 <SelectTrigger className="bg-input border-border">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent className="bg-card border-border">
-                  <SelectItem value="PTN">PTN (Potential Token)</SelectItem>
-                  <SelectItem value="PRN">PRN (Proven Token)</SelectItem>
+                  <SelectItem value="10">10% scenario</SelectItem>
+                  <SelectItem value="20">20% scenario</SelectItem>
+                  <SelectItem value="30">30% scenario</SelectItem>
+                  <SelectItem value="40">40% scenario</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             <div className="space-y-2">
-              <Label className="text-muted-foreground">Settlement Amount</Label>
+              <Label className="text-muted-foreground">Hypothetical Obligation Amount</Label>
               <Input
                 type="number"
-                placeholder="Enter amount"
+                min="0"
+                step="any"
+                placeholder="Enter a scenario amount"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 className="bg-input border-border text-foreground"
               />
             </div>
-            <Button onClick={calculate} disabled={!amount} className="w-full">
-              Calculate Exposure
+            <Button onClick={calculate} disabled={!amount || !Number.isFinite(Number(amount)) || Number(amount) <= 0} className="w-full">
+              Calculate Illustration
             </Button>
           </div>
 
-          {/* Result */}
           <div className="space-y-4">
             {result ? (
               <>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Pre-Settlement Status</span>
-                  <Badge
-                    variant="outline"
-                    className={
-                      result.eligible
-                        ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30"
-                        : "bg-red-500/10 text-red-400 border-red-500/30"
-                    }
-                  >
-                    {result.eligible ? (
-                      <>
-                        <CheckCircle className="w-3 h-3 mr-1" /> Eligible
-                      </>
-                    ) : (
-                      <>
-                        <XCircle className="w-3 h-3 mr-1" /> Ineligible
-                      </>
-                    )}
+                  <span className="text-sm text-muted-foreground">Scenario Output</span>
+                  <Badge variant="outline" className="bg-primary/10 text-primary border-primary/30">
+                    Illustrative only
                   </Badge>
                 </div>
 
                 <div className="p-4 rounded-lg bg-secondary/50 space-y-3">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Settlement Amount</span>
-                    <span className="font-mono text-foreground">
-                      {Number.parseFloat(amount).toLocaleString()} {asset}
-                    </span>
+                  <div className="flex justify-between gap-3 text-sm">
+                    <span className="text-muted-foreground">Hypothetical Obligation</span>
+                    <span className="font-mono text-foreground">{result.obligationAmount.toLocaleString()}</span>
                   </div>
                   <div className="flex items-center justify-center">
                     <ArrowRight className="w-4 h-4 text-muted-foreground" />
                   </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Calculated Exposure</span>
-                    <span className="font-mono text-foreground">{result.exposure.toFixed(2)}</span>
+                  <div className="flex justify-between gap-3 text-sm">
+                    <span className="text-muted-foreground">Selected Coverage Ratio</span>
+                    <span className="font-mono text-foreground">{result.coverageRatio}%</span>
                   </div>
-                  <div className="pt-2 border-t border-border flex justify-between text-sm">
+                  <div className="pt-2 border-t border-border flex justify-between gap-3 text-sm">
                     <span className="text-muted-foreground flex items-center gap-1">
-                      <Shield className="w-3 h-3" /> WHZ Required
+                      <Shield className="w-3 h-3" /> Illustrative Coverage
                     </span>
-                    <span className="font-mono text-amber-400 font-medium">{result.whzRequired} WHZ</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Your Locked WHZ</span>
-                    <span className="font-mono text-foreground">{result.whzLocked} WHZ</span>
+                    <span className="font-mono text-foreground font-medium">{result.illustrativeCoverage.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>
                   </div>
                 </div>
-
-                {!result.eligible && (
-                  <p className="text-xs text-red-400">
-                    Lock {result.whzRequired - result.whzLocked} more WHZ to enable pre-settlement for this amount.
-                  </p>
-                )}
               </>
             ) : (
               <div className="flex items-center justify-center h-full p-6 rounded-lg bg-secondary/30 border border-dashed border-border">
                 <p className="text-sm text-muted-foreground text-center">
-                  Enter an amount to calculate WHZ bond requirement
+                  Enter a hypothetical amount and select a ratio to calculate an illustration.
                 </p>
               </div>
             )}
           </div>
         </div>
+        <p className="mt-5 text-xs leading-6 text-muted-foreground border-t border-border pt-4">
+          This illustration does not represent assets held, verify collateral, determine account eligibility, or authorize a transfer. Actual requirements must come from an approved and verified service.
+        </p>
       </CardContent>
     </Card>
   )

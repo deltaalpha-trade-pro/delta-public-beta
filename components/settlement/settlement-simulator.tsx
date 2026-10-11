@@ -15,10 +15,10 @@ export function SettlementSimulator() {
   const [isRunning, setIsRunning] = useState(false)
   const [currentStep, setCurrentStep] = useState(-1)
   const [steps, setSteps] = useState<SimulationStep[]>([
-    { label: "Validate WHZ bond requirement", status: "pending" },
+    { label: "Calculate illustrative coverage", status: "pending" },
     { label: "Create escrow hold", status: "pending" },
     { label: "Execute pre-settlement", status: "pending" },
-    { label: "Await finality confirmation", status: "pending" },
+    { label: "Await required confirmation", status: "pending" },
     { label: "Release escrow / finalize", status: "pending" },
   ])
 
@@ -71,7 +71,7 @@ export function SettlementSimulator() {
           Settlement Flow
         </CardTitle>
         <p className="text-xs text-muted-foreground">
-          Simulate the complete settlement lifecycle from bond validation to finality
+          Illustrate a settlement workflow from hypothetical coverage checks through confirmation
         </p>
       </CardHeader>
       <CardContent className="space-y-4">

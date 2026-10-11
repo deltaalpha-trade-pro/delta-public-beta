@@ -60,7 +60,7 @@ export function LegalPage({
                   ["Terms", "/terms"],
                   ["Privacy", "/privacy"],
                   ["Risk Disclosure", "/risk-disclosure"],
-                  ["Controlled Live Boundary", "/beta-disclaimer"],
+                  ["Platform Boundaries", "/platform-boundaries"],
                   ["Cookies", "/cookies"],
                 ].map(([name, href]) => (
                   <Link

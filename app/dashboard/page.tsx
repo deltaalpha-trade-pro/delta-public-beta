@@ -10,7 +10,7 @@ const modules = [
   { title: "Investment", href: "/investment", copy: "Portfolio modeling, exposure views, and thesis tracking.", icon: Activity },
   { title: "Account & Wallet", href: "/account", copy: "Account profile and available account controls.", icon: Wallet },
   { title: "Bank", href: "/banking", copy: "Ledger review, account status, and settlement-aware coordination.", icon: Landmark },
-  { title: "Escrow", href: "/escrow", copy: "WHZ settlement-bond modeling and release/refund coordination.", icon: Lock },
+  { title: "Escrow", href: "/escrow", copy: "Illustrative coverage modeling and release/refund coordination.", icon: Lock },
 ]
 
 export default function DashboardPage() {
@@ -38,7 +38,7 @@ export default function DashboardPage() {
                   <Lock className="mt-1 h-4 w-4 flex-none text-amber-200" />
                   <p>
                     Access posture: visible shell only. No live trading, custody, settlement execution, broker execution,
-                    or founder/private authority is enabled from this public Controlled Live route.
+                    or founder/private authority is enabled from this public route.
                   </p>
                 </div>
               </div>

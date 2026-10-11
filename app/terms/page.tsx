@@ -5,19 +5,19 @@ export default function TermsPage() {
     <LegalPage
       label="Legal"
       title="Terms of Use"
-      description="Terms for accessing the DeltaAlpha-TradePro Controlled Live surface of the WHALEZ-AI ecosystem."
+      description="Terms for accessing DeltaAlpha-TradePro, the public financial platform within the WHALEZ-AI Ecosystem."
       sections={[
         {
-          title: "Controlled Live access",
+          title: "Platform access and capability gates",
           body: [
-            "DeltaAlpha-TradePro is a Controlled Live public operating surface for eligible participants to access available ecosystem capabilities. Access, features, and financial operations remain subject to applicable eligibility and provider gates.",
-            "Controlled Live access does not by itself create a brokerage, banking, custody, advisory, fiduciary, exchange, wallet custody, or settlement relationship. Any regulated service relationship requires the applicable approved provider and jurisdiction-specific process.",
+            "DeltaAlpha-TradePro is the public financial operating platform within the Whalez-AI Ecosystem. Account access and available capabilities remain subject to eligibility, service availability, and provider and jurisdiction controls.",
+            "Public platform access does not by itself create a brokerage, banking, custody, advisory, fiduciary, exchange, wallet custody, or settlement relationship. Any regulated service relationship requires the applicable approved provider and jurisdiction-specific process.",
           ],
         },
         {
           title: "No unrestricted live execution",
           body: [
-            "The public Controlled Live surface does not expose unrestricted live trade execution, custody, broker execution, or WHZ settlement authority. Those capabilities remain separately gated until the applicable production evidence and approvals exist.",
+            "The public platform does not expose unrestricted live trade execution, custody, broker execution, or WHZ settlement authority. Those capabilities remain separately gated until the applicable production evidence and approvals exist.",
             "Any dashboard, signal, coach, wallet, banking, escrow, or settlement surface is available only to the extent its capability state, provider route, jurisdictional eligibility, and authorization permit it.",
           ],
         },

@@ -11,19 +11,19 @@ export function HeroSection() {
         <div className="mx-auto max-w-5xl text-center">
           <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-border bg-secondary/50 px-3 py-1">
             <Shield className="h-3 w-3 text-primary" />
-            <span className="text-xs text-muted-foreground">Controlled Live · staged public launch</span>
+            <span className="text-xs text-muted-foreground">Minimum Live Platform · capability-specific access</span>
           </div>
 
           <h1 className="text-4xl font-semibold tracking-tight text-foreground text-balance sm:text-5xl md:text-6xl lg:text-7xl">WHALEZ-AI</h1>
           <p className="mt-5 text-lg tracking-wide text-primary sm:text-xl md:text-2xl">One intelligence. Many capabilities. One coherent financial ecosystem.</p>
           <p className="mx-auto mt-6 max-w-4xl text-base leading-8 text-muted-foreground sm:text-lg">
             DeltaAlpha-TradePro is the public operating doorway into an evolving Whalez-AI ecosystem connecting AI coaching,
-            market intelligence, real-time signal processing, investment, trading, digital finance, escrow, settlement,
-            communications, and WhalezChain native economic state.
+            market intelligence, signal analysis, investment modeling, trading simulation, digital finance, escrow, settlement,
+            and communications through one coherent experience.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-2 text-xs text-muted-foreground">
-            {["AI Coaching", "Signals", "Investment", "Trading", "Digital Finance", "Escrow", "Settlement", "WHZ · PTN · PRN"].map((item) => (
+            {["AI Coaching", "Market Intelligence", "Signal Analysis", "Investment Modeling", "Trading Simulation", "Digital Finance", "Escrow", "Settlement", "Communications"].map((item) => (
               <span key={item} className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5">{item}</span>
             ))}
           </div>
