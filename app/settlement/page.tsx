@@ -10,10 +10,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ArrowRight, CircleCheck, Network, Scale, Shield } from "lucide-react"
 
 const flow = [
-  ["01", "Preflight", "Identity, jurisdiction, eligibility, amount limits, idempotency, and route readiness are checked before money or state is moved."],
-  ["02", "Governance", "A governed approval policy determines whether a payment or settlement action may proceed."],
+  ["01", "Preflight", "A live path must verify identity, jurisdiction, eligibility, amount limits, idempotency, and route readiness before money or state is moved."],
+  ["02", "Governance", "The intended path evaluates the applicable governance policy before a payment or settlement action proceeds."],
   ["03", "Provider response", "Where an approved external provider is used, its response must be independently verified rather than trusted from a client-side claim."],
-  ["04", "State preparation", "The platform prepares the required state and correlation context through its governed internal record path."],
+  ["04", "State preparation", "A qualified implementation prepares state and correlation context through its governed internal record path."],
   ["05", "Confirmation", "A canonical outcome is shown only when the required authorization and provider evidence exists."],
   ["06", "Complete", "The participant sees a canonical outcome only after the required state and provider evidence exist."],
 ] as const
@@ -28,9 +28,9 @@ export default function SettlementPage() {
             <Badge variant="outline" className="border-primary/30 bg-primary/10 text-primary"><Scale className="mr-1 h-3.5 w-3.5" /> Settlement architecture</Badge>
             <h1 className="mt-5 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">How settlement works inside the ecosystem</h1>
             <p className="mt-5 max-w-4xl text-base leading-8 text-muted-foreground sm:text-lg">
-              Settlement is the bridge between an approved financial obligation and a verifiable final state. Escrow can
-              coordinate the obligation, providers can move external value where legally and technically qualified, and
-              The platform preserves governed state transitions and a canonical receipt trail when the required evidence exists.
+              The intended settlement design connects an approved financial obligation with verifiable evidence of finality. Escrow may
+              coordinate the obligation, and qualified providers may move external value within their permitted roles. This page
+              describes the target flow; it does not prove that a live transaction or provider settlement has occurred.
             </p>
           </div>
 
@@ -48,7 +48,7 @@ export default function SettlementPage() {
               <CardHeader><CardTitle className="flex items-center gap-2"><Network className="h-5 w-5 text-primary" /> Separated responsibilities</CardTitle></CardHeader>
               <CardContent className="space-y-4 text-sm leading-7 text-muted-foreground">
                 <p><strong className="text-foreground">External rail.</strong> Banks, payment processors, brokers, exchanges, or other qualified providers handle external value movement according to their permitted role.</p>
-                <p><strong className="text-foreground">Platform records.</strong> Governed records preserve the applicable state, correlation identity, and receipt evidence when available.</p>
+                <p><strong className="text-foreground">Expected records.</strong> A verified implementation should preserve the applicable state, correlation identity, and receipt evidence.</p>
                 <p><strong className="text-foreground">Decision support.</strong> Whalez-AI helps participants understand eligibility and workflow context without replacing external authorization.</p>
                 <div className="flex items-center gap-2 rounded-xl border border-primary/20 bg-primary/5 p-4 text-primary"><CircleCheck className="h-4 w-4" /><span>One user experience; separate authorities underneath.</span></div>
               </CardContent>
@@ -70,7 +70,7 @@ export default function SettlementPage() {
           </div>
 
           <div className="mt-8 rounded-xl border border-border bg-secondary/50 p-4">
-            <p className="text-center text-xs leading-6 text-muted-foreground"><strong className="text-foreground">Controlled Live boundary:</strong> This page demonstrates architecture and simulation. No live settlement, custody, broker execution, or external funds movement is enabled by this public surface.</p>
+            <p className="text-center text-xs leading-6 text-muted-foreground"><strong className="text-foreground">Platform boundary:</strong> This page demonstrates architecture and simulation. No live settlement, custody, broker execution, or external funds movement is enabled by this public surface.</p>
           </div>
 
           <div className="mt-8 flex flex-wrap gap-3">

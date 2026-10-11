@@ -35,10 +35,9 @@ export default function SimulationPage() {
             <div className="flex items-start gap-3">
               <AlertTriangle className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
               <div>
-                <p className="text-sm font-medium text-amber-400 mb-1">Controlled Live Boundary</p>
+                <p className="text-sm font-medium text-amber-400 mb-1">Simulation Boundary</p>
                 <p className="text-xs text-amber-400/80">
-                  This is a simulation capability inside the Controlled Live public surface. It demonstrates system integrity under stress and does not
-                  create or imply external pricing, yield, custody, public liquidity, or live token trading.
+                  This page provides illustrative fee, graduation, and bridge-validation models. It does not prove production integrity or create or imply external pricing, yield, custody, public liquidity, or live token trading.
                 </p>
               </div>
             </div>
@@ -61,7 +60,7 @@ export default function SimulationPage() {
             <p className="text-xs text-muted-foreground text-center">
               These simulations demonstrate intended WHALEZ-AI ledger behavior. WHZ, PTN, and PRN retain their canonical native ecosystem
               identities and platform roles; this simulation does not establish market price, external liquidity, custody, or public trading.
-              The goal is to demonstrate system integrity and controlled capability behavior.
+              The goal is to make hypothetical mechanics inspectable without claiming production readiness or live economic state.
             </p>
           </div>
         </div>
