@@ -5,6 +5,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { IntegrationScripts } from "@/components/integration-scripts"
 import "./globals.css"
 
+const tidioPublicKey = process.env.NEXT_PUBLIC_TIDIO_PUBLIC_KEY?.trim()
+
 export const metadata: Metadata = {
   title: "WHALEZ-AI Ecosystem | DeltaAlpha-TradePro",
   description:
@@ -48,6 +50,13 @@ export default function RootLayout({
         <IntegrationScripts />
         <Analytics />
         <SpeedInsights />
+        {tidioPublicKey ? (
+          <script
+            id="tidio-widget"
+            src={`https://code.tidio.co/${tidioPublicKey}.js`}
+            async
+          />
+        ) : null}
       </body>
     </html>
   )

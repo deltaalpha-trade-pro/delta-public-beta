@@ -68,7 +68,8 @@ test("market news endpoint merges fresh headlines and public platform releases",
     assert.ok(body.items.some((item: { category: string }) => item.category === "fx"))
     assert.ok(body.items.some((item: { category: string }) => item.category === "macro"))
     assert.ok(body.items.some((item: { category: string }) => item.category === "platform"))
-    assert.equal(body.items[0].publishedAt, "2026-10-22T08:00:00.000Z")
+    assert.deepEqual(new Set(body.items.map((item: { category: string }) => item.category)), new Set(["crypto", "fx", "macro", "platform"]))
+    assert.equal(body.items.find((item: { category: string }) => item.category === "platform").publishedAt, "2026-10-22T08:00:00.000Z")
   } finally {
     globalThis.fetch = originalFetch
   }

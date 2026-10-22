@@ -1,19 +1,10 @@
 import Script from "next/script"
 
-const tidioPublicKey = process.env.NEXT_PUBLIC_TIDIO_PUBLIC_KEY?.trim()
 const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim()
 
 export function IntegrationScripts() {
   return (
     <>
-      {tidioPublicKey ? (
-        <Script
-          id="tidio-widget"
-          src={`https://code.tidio.co/${tidioPublicKey}.js`}
-          strategy="afterInteractive"
-        />
-      ) : null}
-
       {metaPixelId ? (
         <Script id="meta-pixel" strategy="afterInteractive">
           {`

@@ -98,7 +98,31 @@ export async function GET(request: Request) {
     if (seen.has(key)) return false
     seen.add(key)
     return true
-  }).slice(0, category === "all" ? 12 : 10)
+  })
+
+  // A global timestamp sort alone can let one fast-moving feed crowd every
+  // other category out of the "all" view. Rotate across available categories.
+  let selected: NewsItem[]
+  if (category === "all") {
+    const queues = new Map<NewsCategory, NewsItem[]>(
+      CATEGORIES.map((key) => [key, unique.filter((item) => item.category === key)]),
+    )
+    selected = []
+    while (selected.length < 12) {
+      let added = false
+      for (const key of CATEGORIES) {
+        const item = queues.get(key)?.shift()
+        if (item) {
+          selected.push(item)
+          added = true
+          if (selected.length >= 12) break
+        }
+      }
+      if (!added) break
+    }
+  } else {
+    selected = unique.slice(0, 10)
+  }
 
   const anyFeedSucceeded = results.some((result) => result.status === "fulfilled")
   return NextResponse.json({
@@ -107,7 +131,7 @@ export async function GET(request: Request) {
     source: category === "platform" ? "Public GitHub Releases" : "Google News RSS and public GitHub Releases",
     fetchedAt: new Date().toISOString(),
     refreshIntervalSeconds: 120,
-    items: unique,
+    items: selected,
     message: unique.length
       ? undefined
       : anyFeedSucceeded
