@@ -4,6 +4,7 @@ import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { TradingPanel } from "@/components/terminal/trading-panel"
 import { BankingStateBar } from "@/components/terminal/banking-state-bar"
+import { MarketNewsFeed } from "@/components/market/market-news-feed"
 import { SettlementGate } from "@/components/terminal/settlement-gate"
 import { Badge } from "@/components/ui/badge"
 import { Terminal, Shield } from "lucide-react"
@@ -35,6 +36,8 @@ export default function TerminalPage() {
           <div className="mb-4">
             <BankingStateBar />
           </div>
+
+          <div className="mb-4"><MarketNewsFeed compact /></div>
 
           {/* Main Terminal Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
