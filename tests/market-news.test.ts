@@ -1,7 +1,8 @@
 import assert from "node:assert/strict"
 import test from "node:test"
 
-import { GET, parseRssItems } from "../app/api/market-news/route"
+import { GET } from "../app/api/market-news/route"
+import { parseRssItems } from "../app/api/market-news/rss"
 
 test("RSS parser preserves publisher metadata and decodes XML entities", () => {
   const xml = `<?xml version="1.0"?>
