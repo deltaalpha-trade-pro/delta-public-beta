@@ -1,30 +1,46 @@
 import { cookies } from "next/headers";
-import { ok, err, demoMode } from "../_util";
+import {
+  ok,
+  err,
+  demoMode,
+  runplaneAuthEnabled,
+  getRunplaneAuthUrl,
+  authBridgeUnavailable,
+  authHeaders,
+  clearAccessCookie,
+  stripAuthSecrets,
+} from "../_util";
 
 export async function GET() {
   const access = cookies().get("access_token")?.value;
   if (!access) return err("unauthorized", 401);
 
-  if (demoMode()) {
-    const email = access.startsWith("demo:") ? access.slice(5) : "user@demo";
+  if (demoMode() && access.startsWith("demo:")) {
     return ok({
       user_id: "demo-user",
-      email,
+      email: access.slice(5),
       risk_tier: "R0",
       verification_level: "V0",
       mode: "demo",
+      simulationOnly: true,
     });
   }
 
-  const api = process.env.NEXT_PUBLIC_API_URL;
-  if (!api) return err("NEXT_PUBLIC_API_URL not set", 500);
+  if (!runplaneAuthEnabled()) return authBridgeUnavailable();
+  const api = getRunplaneAuthUrl();
+  if (!api) return authBridgeUnavailable();
 
-  const res = await fetch(`${api}/auth/me`, {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-    credentials: "include",
-  });
-
-  const data = await res.json().catch(() => ({}));
-  return ok(data, res.status);
+  try {
+    const res = await fetch(api + "/auth/me", {
+      method: "GET",
+      headers: authHeaders(access),
+      cache: "no-store",
+      signal: AbortSignal.timeout(8000),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (res.status === 401 || res.status === 403) clearAccessCookie();
+    return ok(stripAuthSecrets(data), res.status);
+  } catch {
+    return err("Identity service is unreachable; session status could not be verified.", 503);
+  }
 }
