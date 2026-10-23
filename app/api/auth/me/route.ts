@@ -7,13 +7,14 @@ import {
   getRunplaneAuthUrl,
   authBridgeUnavailable,
   authHeaders,
-  clearAccessCookie,
+  clearAuthCookies,
   stripAuthSecrets,
 } from "../_util";
 
 export async function GET() {
   const access = cookies().get("access_token")?.value;
-  if (!access) return err("unauthorized", 401);
+  const refresh = cookies().get("refresh_token")?.value;
+  if (!access) return err(refresh ? "session refresh required" : "unauthorized", 401);
 
   if (demoMode() && access.startsWith("demo:")) {
     return ok({
@@ -33,12 +34,12 @@ export async function GET() {
   try {
     const res = await fetch(api + "/auth/me", {
       method: "GET",
-      headers: authHeaders(access),
+      headers: authHeaders(access, refresh),
       cache: "no-store",
       signal: AbortSignal.timeout(8000),
     });
     const data = await res.json().catch(() => ({}));
-    if (res.status === 401 || res.status === 403) clearAccessCookie();
+    if ((res.status === 401 || res.status === 403) && !refresh) clearAuthCookies();
     return ok(stripAuthSecrets(data), res.status);
   } catch {
     return err("Identity service is unreachable; session status could not be verified.", 503);
