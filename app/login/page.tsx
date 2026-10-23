@@ -14,7 +14,7 @@ function LoginForm() {
   const router = useRouter();
   const sp = useSearchParams();
   const rawNext = sp.get("next") || "/dashboard";
-  const next =
+  const next = rawNext.startsWith("/") && !rawNext.startsWith("//") && !rawNext.includes("\\") ? rawNext : "/dashboard";
     rawNext.startsWith("/") && !rawNext.startsWith("//") && !rawNext.includes("\\\\")
       ? rawNext
       : "/dashboard";
