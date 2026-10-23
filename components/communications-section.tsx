@@ -1,13 +1,12 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowUpRight, Mail, MessagesSquare, Smartphone, Globe, ShieldCheck } from "lucide-react"
+import { ArrowUpRight, MessagesSquare, Smartphone, Globe, ShieldCheck } from "lucide-react"
 
 const telegramUrl = process.env.NEXT_PUBLIC_TELEGRAM_CHANNEL_URL?.trim() || "https://t.me/whalez_ai_deltaalpha_trade_pro"
 const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, "") || ""
 const whatsappUrl = whatsappNumber ? `https://wa.me/${whatsappNumber}` : "https://wa.me/"
 const facebookUrl = process.env.NEXT_PUBLIC_FACEBOOK_PAGE_URL?.trim() || ""
 const instagramUrl = process.env.NEXT_PUBLIC_INSTAGRAM_URL?.trim() || ""
-const mailSurfaceUrl = process.env.NEXT_PUBLIC_WHALEZ_MAIL_URL?.trim() || "/mail"
 const statusApiUrl = "/api/status"
 const tidioConfigured = Boolean(process.env.NEXT_PUBLIC_TIDIO_PUBLIC_KEY?.trim())
 const metaPixelConfigured = Boolean(process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim())
@@ -56,14 +55,6 @@ const cards = [
     link: statusApiUrl,
     cta: "Open status",
   },
-  {
-    title: "Whalez-mail",
-    icon: Mail,
-    status: "Available",
-    body: "Public communications surface for structured beta correspondence and future workflow routing.",
-    link: mailSurfaceUrl,
-    cta: "Open Whalez-mail",
-  },
 ]
 
 export function CommunicationsSection() {
@@ -81,7 +72,7 @@ export function CommunicationsSection() {
           </p>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-6 gap-5">
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-5">
           {cards.map((card) => {
             const Icon = card.icon
             const isDisabled = card.disabled ?? false
