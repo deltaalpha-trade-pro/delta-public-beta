@@ -72,3 +72,4 @@ Before claiming this flow is live, verify:
 - [ ] Public surfaces never receive or expose Founder audit tokens, Resend API keys, or shared server-to-server tokens.
 
 Code review alone does not establish that runtime secrets are configured, deployment is live, or end-to-end tests passed.
+- `RUNPLANE_AUTH_URL`: HTTPS base URL for the origin/orchestrator ingress. The origin exposes only the allowlisted public `/auth/*` routes and forwards them to Core using its private `WHALEZ_CORE_URL`; do not point browser code at a Termux localhost URL or expose the Core host directly.
