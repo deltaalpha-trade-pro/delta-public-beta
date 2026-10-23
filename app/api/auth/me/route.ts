@@ -39,7 +39,7 @@ export async function GET() {
       signal: AbortSignal.timeout(8000),
     });
     const data = await res.json().catch(() => ({}));
-    if ((res.status === 401 || res.status === 403) && !refresh) clearAuthCookies();
+    if (res.status === 403 || (res.status === 401 && !refresh)) clearAuthCookies();
     return ok(stripAuthSecrets(data), res.status);
   } catch {
     return err("Identity service is unreachable; session status could not be verified.", 503);
