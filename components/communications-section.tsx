@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { TidioSupportButton } from "@/components/tidio-support-button"
 import { ArrowUpRight, MessagesSquare, Smartphone, Globe, ShieldCheck } from "lucide-react"
 
 const telegramUrl = process.env.NEXT_PUBLIC_TELEGRAM_CHANNEL_URL?.trim() || "https://t.me/whalez_ai_deltaalpha_trade_pro"
@@ -99,6 +100,8 @@ export function CommunicationsSection() {
                     <Button variant="outline" className="w-full justify-between" disabled>
                       <span>{card.cta}</span>
                     </Button>
+                  ) : card.title === "Tidio live support" ? (
+                    <TidioSupportButton label={card.cta} />
                   ) : (
                     <Button asChild variant="default" className="w-full justify-between">
                       <Link href={card.link} target={card.link.startsWith("/") ? undefined : "_blank"} rel="noreferrer">
