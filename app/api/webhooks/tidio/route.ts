@@ -70,14 +70,8 @@ export async function POST(request: Request) {
     },
   })
 
-  const relay = await relayEvent(event)
+  await relayEvent(event)
 
-  return Response.json({
-    accepted: true,
-    source: "tidio",
-    event: event.event,
-    externalId: event.externalId,
-    verified: event.verified,
-    relay,
-  })
+  // Provider callback gets only an acknowledgement, not internal relay targets or results.
+  return Response.json({ accepted: true })
 }
