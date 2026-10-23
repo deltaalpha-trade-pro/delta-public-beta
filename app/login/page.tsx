@@ -27,7 +27,17 @@ function LoginForm() {
       const res = await login(email.trim(), password);
       if (!res.ok) {
         const j = await res.json().catch(() => ({}));
-        throw new Error(j?.detail || j?.error || "Login failed");
+        const detail = j?.detail || j?.error || "Login failed";
+        if (detail === "email_verification_required") {
+          router.push("/verify-email?email=" + encodeURIComponent(email.trim()));
+          return;
+        }
+        if (detail === "beta_access_not_approved") {
+          throw new Error("This email does not currently have Founder-approved Beta Access. Submit a request first.");
+        }
+        if (detail === "invalid_credentials") throw new Error("Email or password is incorrect.");
+        if (detail === "too_many_login_attempts") throw new Error("Too many failed attempts. Wait 15 minutes before trying again.");
+        throw new Error(detail);
       }
       router.push(next);
     } catch (e: unknown) {
@@ -95,11 +105,15 @@ function LoginForm() {
         </button>
 
         <div className="text-xs text-zinc-500 flex justify-between">
-          <span>Account sessions are handled by the configured identity service; demo sessions are simulation-only.</span>
+          <span>Account sessions are handled by the identity authority; demo sessions are simulation-only.</span>
           <Link className="underline hover:text-zinc-200" href="/">
             Public
           </Link>
         </div>
+        <p className="text-xs text-zinc-500">
+          Need Beta Access first?{" "}
+          <Link className="underline hover:text-zinc-200" href="/beta-access">Request Founder review</Link>
+        </p>
       </form>
     </AuthCard>
   );
