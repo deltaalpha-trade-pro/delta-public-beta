@@ -42,50 +42,29 @@ function parseHeaderPairs(header: string): Record<string, string[]> {
 }
 
 export function getIntegrationStatus() {
+  // This endpoint is public: expose only user-facing channel availability.
+  // Keep webhook routes, relay targets, secrets/configuration flags, and mail internals private.
   const tidioPublicKey = trim(process.env.NEXT_PUBLIC_TIDIO_PUBLIC_KEY)
-  const tidioWebhookSecret = trim(process.env.TIDIO_WEBHOOK_SECRET)
   const telegramChannelUrl = trim(process.env.NEXT_PUBLIC_TELEGRAM_CHANNEL_URL) || "https://t.me/whalez_ai_deltaalpha_trade_pro"
-  const telegramSecretToken = trim(process.env.TELEGRAM_WEBHOOK_SECRET_TOKEN)
-  const whatsappNumber = trim(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER).replace(/\D/g, "")
+  const whatsappNumber = trim(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER).replace(/\\D/g, "")
   const facebookUrl = trim(process.env.NEXT_PUBLIC_FACEBOOK_PAGE_URL)
   const instagramUrl = trim(process.env.NEXT_PUBLIC_INSTAGRAM_URL)
-  const metaPixelId = trim(process.env.NEXT_PUBLIC_META_PIXEL_ID)
-  const metaWebhookVerifyToken = trim(process.env.META_WEBHOOK_VERIFY_TOKEN)
-  const metaAppSecret = trim(process.env.META_APP_SECRET)
-  const mailIngestUrl = trim(process.env.WHALEZ_MAIL_INGEST_URL)
-  const controlRelayUrl = trim(process.env.WHALEZ_CONTROL_EVENT_URL)
-  const internalRelayToken = trim(process.env.WHALEZ_INTERNAL_RELAY_TOKEN)
 
   return {
     service: "delta-public-beta",
     status: "ok",
     configured: {
       tidioWidget: truthy(tidioPublicKey),
-      tidioWebhook: truthy(tidioWebhookSecret),
       telegramChannel: truthy(telegramChannelUrl),
-      telegramWebhook: truthy(telegramSecretToken),
       whatsapp: truthy(whatsappNumber),
-      metaPixel: truthy(metaPixelId),
-      metaWebhook: truthy(metaWebhookVerifyToken) || truthy(metaAppSecret),
       facebook: truthy(facebookUrl),
       instagram: truthy(instagramUrl),
-      mailRelay: truthy(mailIngestUrl),
-      controlRelay: truthy(controlRelayUrl),
-      internalRelayToken: truthy(internalRelayToken),
-    },
-    routes: {
-      status: "/api/status",
-      tidioWebhook: "/api/webhooks/tidio",
-      telegramWebhook: "/api/webhooks/telegram",
-      metaWebhook: "/api/webhooks/meta",
-      whatsappWebhook: "/api/webhooks/whatsapp",
     },
     publicLinks: {
       telegramChannelUrl,
-      whatsappUrl: whatsappNumber ? `https://wa.me/${whatsappNumber}` : "https://wa.me/",
-      facebookUrl,
-      instagramUrl,
-      mailSurfaceUrl: process.env.NEXT_PUBLIC_WHALEZ_MAIL_URL?.trim() || "/mail",
+      ...(whatsappNumber ? { whatsappUrl: `https://wa.me/${whatsappNumber}` } : {}),
+      ...(facebookUrl ? { facebookUrl } : {}),
+      ...(instagramUrl ? { instagramUrl } : {}),
     },
   }
 }
