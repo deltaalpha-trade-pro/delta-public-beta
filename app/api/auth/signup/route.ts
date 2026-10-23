@@ -3,11 +3,16 @@ import {
   err,
   demoMode,
   setAccessCookie,
+  clearAuthCookies,
+  clearRefreshCookie,
+  setRefreshCookie,
   runplaneAuthEnabled,
   getRunplaneAuthUrl,
   authBridgeUnavailable,
   extractAccessToken,
   extractAccessTokenFromCookieHeader,
+  extractRefreshToken,
+  extractRefreshTokenFromCookieHeader,
   stripAuthSecrets,
   validEmail,
 } from "../_util";
@@ -25,8 +30,8 @@ export async function POST(req: Request) {
     return err("Password must be between 8 and 1024 characters", 400);
   }
 
-  // Explicit demo mode is simulation-only and does not create a persistent identity.
   if (demoMode()) {
+    clearRefreshCookie();
     if (!setAccessCookie("demo:" + email)) return err("Could not establish demo session", 500);
     return ok({
       user_id: "demo-user",
@@ -56,8 +61,17 @@ export async function POST(req: Request) {
 
     const token =
       extractAccessToken(data) || extractAccessTokenFromCookieHeader(res.headers.get("set-cookie"));
+    const refreshToken =
+      extractRefreshToken(data) || extractRefreshTokenFromCookieHeader(res.headers.get("set-cookie"));
     if (!token || !setAccessCookie(token)) {
+      clearAuthCookies();
       return err("Identity service returned success without a usable access session; account setup was not completed.", 502);
+    }
+
+    clearRefreshCookie();
+    if (refreshToken && !setRefreshCookie(refreshToken)) {
+      clearAuthCookies();
+      return err("Identity service returned an invalid refresh session; account setup was not completed.", 502);
     }
 
     return ok(stripAuthSecrets(data), res.status);
