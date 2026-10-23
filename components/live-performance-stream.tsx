@@ -98,5 +98,3 @@ export function LivePerformanceStream() {
     </section>
   )
 }
-
-[executed on device: localhost (62449cdf-8b87-4c0d-821e-6218490f8c4c)]

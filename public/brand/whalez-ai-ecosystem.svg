@@ -13,5 +13,3 @@
   <circle cx="141" cy="157" r="9" fill="#6EE7F5"/>
   <path d="M141 133v-43M141 181v24M117 157H93M165 157h24" stroke="#6EE7F5" stroke-opacity=".5" stroke-width="3" stroke-linecap="round"/>
 </svg>
-
-[executed on device: localhost (62449cdf-8b87-4c0d-821e-6218490f8c4c)]
