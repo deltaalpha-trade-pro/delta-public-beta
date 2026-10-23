@@ -45,12 +45,15 @@ export async function POST(req: Request) {
       extractAccessToken(data) || extractAccessTokenFromCookieHeader(res.headers.get("set-cookie"));
     const refreshToken =
       extractRefreshToken(data) || extractRefreshTokenFromCookieHeader(res.headers.get("set-cookie"));
-    if (!accessToken || !setAccessCookie(accessToken)) {
+    if (!accessToken) {
       clearAuthCookies();
       return err("Identity service did not return a usable session after verification.", 502);
     }
     clearAuthCookies();
-    if (!setAccessCookie(accessToken)) return err("Could not establish a verified session.", 502);
+    if (!setAccessCookie(accessToken)) {
+      clearAuthCookies();
+      return err("Could not establish a verified session.", 502);
+    }
     if (refreshToken && !setRefreshCookie(refreshToken)) {
       clearAuthCookies();
       return err("Identity service returned an invalid refresh session.", 502);
