@@ -40,6 +40,10 @@ function parseHeaderPairs(header: string): Record<string, string[]> {
 }
 
 export function verifyTidioWebhook(rawBody: string, signatureHeader: string | null, secret: string) {
+  if (!secret) {
+    return { verified: false, reason: "missing_secret_configuration" as const }
+  }
+
   if (!signatureHeader) {
     return { verified: false, reason: "missing_signature" as const }
   }
@@ -62,19 +66,23 @@ export function verifyTidioWebhook(rawBody: string, signatureHeader: string | nu
 
 export function verifyTelegramWebhook(secret: string, headerToken: string | null) {
   if (!secret) {
-    return { verified: true as const, reason: "no_secret_configured" as const }
+    return { verified: false, reason: "missing_secret_configuration" as const }
   }
 
   if (!headerToken) {
-    return { verified: false as const, reason: "missing_secret_token" as const }
+    return { verified: false, reason: "missing_secret_token" as const }
   }
 
-  return headerToken === secret
+  return safeEqual(headerToken, secret)
     ? { verified: true as const }
     : { verified: false as const, reason: "secret_token_mismatch" as const }
 }
 
 export function verifyMetaWebhook(rawBody: string, signatureHeader: string | null, appSecret: string) {
+  if (!appSecret) {
+    return { verified: false, reason: "missing_secret_configuration" as const }
+  }
+
   if (!signatureHeader) {
     return { verified: false as const, reason: "missing_signature" as const }
   }
@@ -91,10 +99,20 @@ export function verifyMetaWebhook(rawBody: string, signatureHeader: string | nul
 }
 
 export async function relayEvent(event: RelayEvent) {
+  // Defense in depth: never forward an unverified provider event or use an
+  // internal relay target without the shared service credential.
+  if (!event.verified) {
+    return { forwarded: false as const, reason: "event_not_verified" as const, targets: [] as Array<{ name: string; status: "not-configured" }> }
+  }
+
+  const internalRelayToken = trim(process.env.WHALEZ_INTERNAL_RELAY_TOKEN)
+  if (!internalRelayToken) {
+    return { forwarded: false as const, reason: "relay_auth_unavailable" as const, targets: [] as Array<{ name: string; status: "not-configured" }> }
+  }
+
   const targets: RelayTarget[] = []
   const mailIngestUrl = trim(process.env.WHALEZ_MAIL_INGEST_URL)
   const controlRelayUrl = trim(process.env.WHALEZ_CONTROL_EVENT_URL)
-  const internalRelayToken = trim(process.env.WHALEZ_INTERNAL_RELAY_TOKEN)
 
   if (mailIngestUrl) targets.push({ name: "whalez-mail", url: mailIngestUrl })
   if (controlRelayUrl) targets.push({ name: "control-plane", url: controlRelayUrl })
@@ -109,7 +127,7 @@ export async function relayEvent(event: RelayEvent) {
         method: "POST",
         headers: {
           "content-type": "application/json",
-          ...(internalRelayToken ? { "x-whalez-internal-token": internalRelayToken } : {}),
+          "x-whalez-internal-token": internalRelayToken,
         },
         body: JSON.stringify(event),
       })
@@ -134,7 +152,6 @@ export async function relayEvent(event: RelayEvent) {
     }),
   }
 }
-
 export function buildRelayEvent(params: {
   source: RelaySource
   event: string
