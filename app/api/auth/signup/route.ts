@@ -61,6 +61,7 @@ export async function POST(req: Request) {
 
     // Email-verification is a successful signup stage, not a missing-token error.
     if (data && typeof data === "object" && (data as Record<string, unknown>).verification_required === true) {
+      clearAuthCookies();
       return ok(stripAuthSecrets(data), res.status);
     }
 
