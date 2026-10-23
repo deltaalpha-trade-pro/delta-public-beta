@@ -9,7 +9,6 @@ import { EcosystemMark } from "@/components/brand-marks"
 const publicLinks = [
   { href: "/#communications", label: "Communications" },
   { href: "/#product-surface", label: "Products" },
-  { href: "/mail", label: "Whalez-mail" },
 ]
 
 const accessLinks = [
