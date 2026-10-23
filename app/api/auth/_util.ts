@@ -57,6 +57,18 @@ export function setAccessCookie(value: string): boolean {
   return true;
 }
 
+export function setRefreshCookie(value: string): boolean {
+  if (!value || value.length > 8192 || /[;\r\n]/.test(value)) return false;
+  cookies().set("refresh_token", value, {
+    httpOnly: true,
+    sameSite: "lax",
+    path: "/api/auth/refresh",
+    secure: process.env.NODE_ENV === "production",
+    maxAge: 60 * 60 * 24 * 30,
+  });
+  return true;
+}
+
 export function clearAccessCookie() {
   cookies().set("access_token", "", {
     httpOnly: true,
@@ -65,6 +77,21 @@ export function clearAccessCookie() {
     secure: process.env.NODE_ENV === "production",
     maxAge: 0,
   });
+}
+
+export function clearRefreshCookie() {
+  cookies().set("refresh_token", "", {
+    httpOnly: true,
+    sameSite: "lax",
+    path: "/api/auth/refresh",
+    secure: process.env.NODE_ENV === "production",
+    maxAge: 0,
+  });
+}
+
+export function clearAuthCookies() {
+  clearAccessCookie();
+  clearRefreshCookie();
 }
 
 export function extractAccessToken(data: unknown): string | null {
@@ -95,6 +122,32 @@ export function extractAccessTokenFromCookieHeader(setCookie: string | null): st
   }
 }
 
+export function extractRefreshToken(data: unknown): string | null {
+  if (!data || typeof data !== "object") return null;
+  const record = data as Record<string, unknown>;
+  const direct = record.refresh_token || record.refreshToken;
+  if (typeof direct === "string" && direct.length > 0) return direct;
+  for (const key of ["session", "data", "result"]) {
+    const nested = record[key];
+    if (nested && typeof nested === "object") {
+      const token = extractRefreshToken(nested);
+      if (token) return token;
+    }
+  }
+  return null;
+}
+
+export function extractRefreshTokenFromCookieHeader(setCookie: string | null): string | null {
+  if (!setCookie) return null;
+  const match = /(?:^|[,;]\\s*)refresh_token=([^;,\\s]+)/i.exec(setCookie);
+  if (!match?.[1]) return null;
+  try {
+    return decodeURIComponent(match[1]);
+  } catch {
+    return match[1];
+  }
+}
+
 export function stripAuthSecrets(data: unknown): unknown {
   if (Array.isArray(data)) return data.map(stripAuthSecrets);
   if (!data || typeof data !== "object") return data;
@@ -108,13 +161,14 @@ export function stripAuthSecrets(data: unknown): unknown {
   return output;
 }
 
-export function authHeaders(accessToken?: string): Record<string, string> {
-  if (!accessToken) return { "Content-Type": "application/json" };
-  return {
-    "Content-Type": "application/json",
-    Authorization: "Bearer " + accessToken,
-    Cookie: "access_token=" + encodeURIComponent(accessToken),
-  };
+export function authHeaders(accessToken?: string, refreshToken?: string): Record<string, string> {
+  const headers: Record<string, string> = { "Content-Type": "application/json" };
+  if (accessToken) headers.Authorization = "Bearer " + accessToken;
+  const cookieParts: string[] = [];
+  if (accessToken) cookieParts.push("access_token=" + encodeURIComponent(accessToken));
+  if (refreshToken) cookieParts.push("refresh_token=" + encodeURIComponent(refreshToken));
+  if (cookieParts.length) headers.Cookie = cookieParts.join("; ");
+  return headers;
 }
 
 export function authBridgeUnavailable() {
