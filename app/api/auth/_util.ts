@@ -62,7 +62,7 @@ export function setRefreshCookie(value: string): boolean {
   cookies().set("refresh_token", value, {
     httpOnly: true,
     sameSite: "lax",
-    path: "/api/auth/refresh",
+    path: "/api/auth",
     secure: process.env.NODE_ENV === "production",
     maxAge: 60 * 60 * 24 * 30,
   });
@@ -83,7 +83,7 @@ export function clearRefreshCookie() {
   cookies().set("refresh_token", "", {
     httpOnly: true,
     sameSite: "lax",
-    path: "/api/auth/refresh",
+    path: "/api/auth",
     secure: process.env.NODE_ENV === "production",
     maxAge: 0,
   });
