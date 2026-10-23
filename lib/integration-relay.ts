@@ -19,8 +19,6 @@ type RelayTarget = {
 
 const trim = (value: string | undefined | null) => value?.trim() ?? ""
 
-const truthy = (value: string | undefined | null) => Boolean(trim(value))
-
 function safeEqual(left: string, right: string): boolean {
   const leftBuffer = Buffer.from(left)
   const rightBuffer = Buffer.from(right)
@@ -39,34 +37,6 @@ function parseHeaderPairs(header: string): Record<string, string[]> {
     acc[key].push(value)
     return acc
   }, {})
-}
-
-export function getIntegrationStatus() {
-  // This endpoint is public: expose only user-facing channel availability.
-  // Keep webhook routes, relay targets, secrets/configuration flags, and mail internals private.
-  const tidioPublicKey = trim(process.env.NEXT_PUBLIC_TIDIO_PUBLIC_KEY)
-  const telegramChannelUrl = trim(process.env.NEXT_PUBLIC_TELEGRAM_CHANNEL_URL) || "https://t.me/whalez_ai_deltaalpha_trade_pro"
-  const whatsappNumber = trim(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER).replace(/\D/g, "")
-  const facebookUrl = trim(process.env.NEXT_PUBLIC_FACEBOOK_PAGE_URL)
-  const instagramUrl = trim(process.env.NEXT_PUBLIC_INSTAGRAM_URL)
-
-  return {
-    service: "delta-public-beta",
-    status: "ok",
-    configured: {
-      tidioWidget: truthy(tidioPublicKey),
-      telegramChannel: truthy(telegramChannelUrl),
-      whatsapp: truthy(whatsappNumber),
-      facebook: truthy(facebookUrl),
-      instagram: truthy(instagramUrl),
-    },
-    publicLinks: {
-      telegramChannelUrl,
-      ...(whatsappNumber ? { whatsappUrl: `https://wa.me/${whatsappNumber}` } : {}),
-      ...(facebookUrl ? { facebookUrl } : {}),
-      ...(instagramUrl ? { instagramUrl } : {}),
-    },
-  }
 }
 
 export function verifyTidioWebhook(rawBody: string, signatureHeader: string | null, secret: string) {
