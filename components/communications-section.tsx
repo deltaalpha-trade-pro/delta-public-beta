@@ -10,7 +10,6 @@ const facebookUrl = process.env.NEXT_PUBLIC_FACEBOOK_PAGE_URL?.trim() || ""
 const instagramUrl = process.env.NEXT_PUBLIC_INSTAGRAM_URL?.trim() || ""
 const statusApiUrl = "/api/status"
 const tidioConfigured = Boolean(process.env.NEXT_PUBLIC_TIDIO_PUBLIC_KEY?.trim())
-const metaPixelConfigured = Boolean(process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim())
 
 const cards = [
   {
@@ -25,7 +24,7 @@ const cards = [
   {
     title: "Telegram channel",
     icon: Globe,
-    status: "Connected",
+    status: "Public link",
     body: "Use Telegram for public announcements, community updates, and beta communications.",
     link: telegramUrl,
     cta: "Open Telegram",
@@ -42,8 +41,8 @@ const cards = [
   {
     title: "Meta Facebook / Instagram",
     icon: ArrowUpRight,
-    status: metaPixelConfigured || facebookUrl || instagramUrl ? "Available" : "Not connected",
-    body: "Social links and optional measurement are activated only when the corresponding public configuration exists.",
+    status: facebookUrl || instagramUrl ? "Available" : "Not connected",
+    body: "Facebook and Instagram links appear only when their public profile URLs are configured; analytics alone do not make a social channel available.",
     link: facebookUrl || instagramUrl || "#",
     cta: facebookUrl ? "Open Facebook" : instagramUrl ? "Open Instagram" : "Unavailable",
     disabled: !facebookUrl && !instagramUrl,
