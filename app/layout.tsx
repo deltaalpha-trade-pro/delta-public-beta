@@ -10,7 +10,7 @@ const tidioPublicKey = process.env.NEXT_PUBLIC_TIDIO_PUBLIC_KEY?.trim()
 export const metadata: Metadata = {
   title: "WHALEZ-AI Ecosystem | DeltaAlpha-TradePro",
   description:
-    "Whalez-AI ecosystem gateway for trading intelligence, communications, banking, settlement, and founder-controlled public beta surfaces.",
+    "Public access to market intelligence, portfolio modeling, and controlled financial simulations from Whalez-AI and DeltaAlpha-TradePro. No live trading, custody, or settlement execution.",
   generator: "Whalez-AI",
   icons: {
     icon: [

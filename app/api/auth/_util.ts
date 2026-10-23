@@ -56,10 +56,8 @@ export function extractAccessToken(data: unknown): string | null {
 }
 
 export function authBridgeUnavailable() {
-  return err(
-    "Runplane auth bridge is not configured for this deployment. Set RUNPLANE_AUTH_ENABLED=true and RUNPLANE_AUTH_URL to activate real auth.",
-    503,
-  );
+  // Keep implementation details and private configuration names out of public API errors.
+  return err("Authentication is temporarily unavailable. Please try again later.", 503);
 }
 
 export function authBridgeConfigured(): boolean {

@@ -2,6 +2,8 @@ import { buildRelayEvent, relayEvent, verifyMetaWebhook } from "@/lib/integratio
 
 export const runtime = "nodejs"
 
+const isEnabled = () => process.env.META_WEBHOOK_ENABLED?.trim().toLowerCase() === "true"
+
 export function GET(request: Request) {
   const url = new URL(request.url)
   const mode = url.searchParams.get("hub.mode")
@@ -9,49 +11,39 @@ export function GET(request: Request) {
   const challenge = url.searchParams.get("hub.challenge")
   const verifyToken = process.env.META_WEBHOOK_VERIFY_TOKEN?.trim() || ""
 
-  if (mode === "subscribe" && challenge && verifyToken && token === verifyToken) {
+  if (!isEnabled() || !verifyToken) {
+    return Response.json({ verified: false, error: "Meta webhook integration is disabled." }, { status: 503 })
+  }
+
+  if (mode === "subscribe" && challenge && token === verifyToken) {
     return new Response(challenge, {
       status: 200,
-      headers: {
-        "content-type": "text/plain; charset=utf-8",
-      },
+      headers: { "content-type": "text/plain; charset=utf-8" },
     })
   }
 
-  return Response.json(
-    {
-      verified: false,
-      error: "verification_failed",
-    },
-    { status: 403 },
-  )
+  return Response.json({ verified: false, error: "verification_failed" }, { status: 403 })
 }
 
 export async function POST(request: Request) {
-  const rawBody = await request.text()
+  const enabled = isEnabled()
   const appSecret = process.env.META_APP_SECRET?.trim() || ""
-  const signatureHeader = request.headers.get("x-hub-signature-256")
 
-  if (!appSecret && process.env.NODE_ENV === "production") {
+  // Fail closed when either the explicit flag or the provider signing secret is missing.
+  if (!enabled || !appSecret) {
     return Response.json(
-      {
-        accepted: false,
-        error: "META_APP_SECRET is not configured.",
-      },
-      { status: 500 },
+      { accepted: false, error: "Meta webhook integration is disabled." },
+      { status: 503 },
     )
   }
 
-  const verification = appSecret
-    ? verifyMetaWebhook(rawBody, signatureHeader, appSecret)
-    : { verified: true as const, reason: "no_secret_configured" as const }
+  const rawBody = await request.text()
+  const signatureHeader = request.headers.get("x-hub-signature-256")
+  const verification = verifyMetaWebhook(rawBody, signatureHeader, appSecret)
 
   if (!verification.verified) {
     return Response.json(
-      {
-        accepted: false,
-        error: verification.reason,
-      },
+      { accepted: false, error: "Webhook signature verification failed." },
       { status: 401 },
     )
   }
@@ -60,13 +52,7 @@ export async function POST(request: Request) {
   try {
     payload = JSON.parse(rawBody) as Record<string, unknown>
   } catch {
-    return Response.json(
-      {
-        accepted: false,
-        error: "invalid_json",
-      },
-      { status: 400 },
-    )
+    return Response.json({ accepted: false, error: "invalid_json" }, { status: 400 })
   }
 
   const event = buildRelayEvent({
@@ -75,18 +61,9 @@ export async function POST(request: Request) {
     externalId: typeof payload.object === "string" ? payload.object : undefined,
     payload,
     verified: verification.verified,
-    meta: {
-      signatureConfigured: Boolean(appSecret),
-    },
+    meta: { signatureConfigured: true },
   })
 
-  const relay = await relayEvent(event)
-
-  return Response.json({
-    accepted: true,
-    source: "meta",
-    event: event.event,
-    verified: event.verified,
-    relay,
-  })
+  await relayEvent(event)
+  return Response.json({ accepted: true })
 }

@@ -19,7 +19,7 @@ type RelayTarget = {
 
 const trim = (value: string | undefined | null) => value?.trim() ?? ""
 
-const truthy = (value: string | undefined | null) => Boolean(trim(value))
+const deliveryUnavailable = () => new Error("Webhook delivery temporarily unavailable")
 
 function safeEqual(left: string, right: string): boolean {
   const leftBuffer = Buffer.from(left)
@@ -41,56 +41,11 @@ function parseHeaderPairs(header: string): Record<string, string[]> {
   }, {})
 }
 
-export function getIntegrationStatus() {
-  const tidioPublicKey = trim(process.env.NEXT_PUBLIC_TIDIO_PUBLIC_KEY)
-  const tidioWebhookSecret = trim(process.env.TIDIO_WEBHOOK_SECRET)
-  const telegramChannelUrl = trim(process.env.NEXT_PUBLIC_TELEGRAM_CHANNEL_URL) || "https://t.me/whalez_ai_deltaalpha_trade_pro"
-  const telegramSecretToken = trim(process.env.TELEGRAM_WEBHOOK_SECRET_TOKEN)
-  const whatsappNumber = trim(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER).replace(/\D/g, "")
-  const facebookUrl = trim(process.env.NEXT_PUBLIC_FACEBOOK_PAGE_URL)
-  const instagramUrl = trim(process.env.NEXT_PUBLIC_INSTAGRAM_URL)
-  const metaPixelId = trim(process.env.NEXT_PUBLIC_META_PIXEL_ID)
-  const metaWebhookVerifyToken = trim(process.env.META_WEBHOOK_VERIFY_TOKEN)
-  const metaAppSecret = trim(process.env.META_APP_SECRET)
-  const mailIngestUrl = trim(process.env.WHALEZ_MAIL_INGEST_URL)
-  const controlRelayUrl = trim(process.env.WHALEZ_CONTROL_EVENT_URL)
-  const internalRelayToken = trim(process.env.WHALEZ_INTERNAL_RELAY_TOKEN)
-
-  return {
-    service: "delta-public-beta",
-    status: "ok",
-    configured: {
-      tidioWidget: truthy(tidioPublicKey),
-      tidioWebhook: truthy(tidioWebhookSecret),
-      telegramChannel: truthy(telegramChannelUrl),
-      telegramWebhook: truthy(telegramSecretToken),
-      whatsapp: truthy(whatsappNumber),
-      metaPixel: truthy(metaPixelId),
-      metaWebhook: truthy(metaWebhookVerifyToken) || truthy(metaAppSecret),
-      facebook: truthy(facebookUrl),
-      instagram: truthy(instagramUrl),
-      mailRelay: truthy(mailIngestUrl),
-      controlRelay: truthy(controlRelayUrl),
-      internalRelayToken: truthy(internalRelayToken),
-    },
-    routes: {
-      status: "/api/status",
-      tidioWebhook: "/api/webhooks/tidio",
-      telegramWebhook: "/api/webhooks/telegram",
-      metaWebhook: "/api/webhooks/meta",
-      whatsappWebhook: "/api/webhooks/whatsapp",
-    },
-    publicLinks: {
-      telegramChannelUrl,
-      whatsappUrl: whatsappNumber ? `https://wa.me/${whatsappNumber}` : "https://wa.me/",
-      facebookUrl,
-      instagramUrl,
-      mailSurfaceUrl: process.env.NEXT_PUBLIC_WHALEZ_MAIL_URL?.trim() || "/mail",
-    },
-  }
-}
-
 export function verifyTidioWebhook(rawBody: string, signatureHeader: string | null, secret: string) {
+  if (!secret) {
+    return { verified: false, reason: "missing_secret_configuration" as const }
+  }
+
   if (!signatureHeader) {
     return { verified: false, reason: "missing_signature" as const }
   }
@@ -113,19 +68,23 @@ export function verifyTidioWebhook(rawBody: string, signatureHeader: string | nu
 
 export function verifyTelegramWebhook(secret: string, headerToken: string | null) {
   if (!secret) {
-    return { verified: true as const, reason: "no_secret_configured" as const }
+    return { verified: false, reason: "missing_secret_configuration" as const }
   }
 
   if (!headerToken) {
-    return { verified: false as const, reason: "missing_secret_token" as const }
+    return { verified: false, reason: "missing_secret_token" as const }
   }
 
-  return headerToken === secret
+  return safeEqual(headerToken, secret)
     ? { verified: true as const }
     : { verified: false as const, reason: "secret_token_mismatch" as const }
 }
 
 export function verifyMetaWebhook(rawBody: string, signatureHeader: string | null, appSecret: string) {
+  if (!appSecret) {
+    return { verified: false, reason: "missing_secret_configuration" as const }
+  }
+
   if (!signatureHeader) {
     return { verified: false as const, reason: "missing_signature" as const }
   }
@@ -142,16 +101,26 @@ export function verifyMetaWebhook(rawBody: string, signatureHeader: string | nul
 }
 
 export async function relayEvent(event: RelayEvent) {
+  // Defense in depth: never forward an unverified provider event or use an
+  // internal relay target without the shared service credential.
+  if (!event.verified) {
+    throw deliveryUnavailable()
+  }
+
+  const internalRelayToken = trim(process.env.WHALEZ_INTERNAL_RELAY_TOKEN)
+  if (!internalRelayToken) {
+    throw deliveryUnavailable()
+  }
+
   const targets: RelayTarget[] = []
   const mailIngestUrl = trim(process.env.WHALEZ_MAIL_INGEST_URL)
   const controlRelayUrl = trim(process.env.WHALEZ_CONTROL_EVENT_URL)
-  const internalRelayToken = trim(process.env.WHALEZ_INTERNAL_RELAY_TOKEN)
 
   if (mailIngestUrl) targets.push({ name: "whalez-mail", url: mailIngestUrl })
   if (controlRelayUrl) targets.push({ name: "control-plane", url: controlRelayUrl })
 
   if (targets.length === 0) {
-    return { forwarded: false as const, targets: [] as Array<{ name: string; status: "not-configured" }> }
+    throw deliveryUnavailable()
   }
 
   const results = await Promise.allSettled(
@@ -160,7 +129,7 @@ export async function relayEvent(event: RelayEvent) {
         method: "POST",
         headers: {
           "content-type": "application/json",
-          ...(internalRelayToken ? { "x-whalez-internal-token": internalRelayToken } : {}),
+          "x-whalez-internal-token": internalRelayToken,
         },
         body: JSON.stringify(event),
       })
@@ -173,19 +142,24 @@ export async function relayEvent(event: RelayEvent) {
     }),
   )
 
-  return {
-    forwarded: true as const,
-    targets: results.map((result, index) => {
-      if (result.status === "fulfilled") return result.value
-      return {
-        name: targets[index]?.name ?? `target-${index + 1}`,
-        status: "failed" as const,
-        error: result.reason instanceof Error ? result.reason.message : String(result.reason),
-      }
-    }),
-  }
-}
+  const deliveryResults = results.map((result, index) => {
+    if (result.status === "fulfilled") return result.value
+    return {
+      name: targets[index]?.name ?? `target-${index + 1}`,
+      status: "failed" as const,
+      error: result.reason instanceof Error ? result.reason.message : String(result.reason),
+    }
+  })
 
+  // The route handlers acknowledge only after this promise resolves. Any missing
+  // destination or failed target must propagate as a non-2xx provider response
+  // so the provider can retry instead of treating an undelivered event as accepted.
+  if (deliveryResults.some((result) => result.status !== "forwarded")) {
+    throw deliveryUnavailable()
+  }
+
+  return { forwarded: true as const, targets: deliveryResults }
+}
 export function buildRelayEvent(params: {
   source: RelaySource
   event: string
