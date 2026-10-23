@@ -59,6 +59,11 @@ export async function POST(req: Request) {
     const data = await res.json().catch(() => ({}));
     if (!res.ok) return ok(stripAuthSecrets(data), res.status);
 
+    // Email-verification is a successful signup stage, not a missing-token error.
+    if (data && typeof data === "object" && (data as Record<string, unknown>).verification_required === true) {
+      return ok(stripAuthSecrets(data), res.status);
+    }
+
     const token =
       extractAccessToken(data) || extractAccessTokenFromCookieHeader(res.headers.get("set-cookie"));
     const refreshToken =
