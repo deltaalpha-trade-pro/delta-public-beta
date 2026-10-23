@@ -46,7 +46,7 @@ export function getIntegrationStatus() {
   // Keep webhook routes, relay targets, secrets/configuration flags, and mail internals private.
   const tidioPublicKey = trim(process.env.NEXT_PUBLIC_TIDIO_PUBLIC_KEY)
   const telegramChannelUrl = trim(process.env.NEXT_PUBLIC_TELEGRAM_CHANNEL_URL) || "https://t.me/whalez_ai_deltaalpha_trade_pro"
-  const whatsappNumber = trim(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER).replace(/\\D/g, "")
+  const whatsappNumber = trim(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER).replace(/\D/g, "")
   const facebookUrl = trim(process.env.NEXT_PUBLIC_FACEBOOK_PAGE_URL)
   const instagramUrl = trim(process.env.NEXT_PUBLIC_INSTAGRAM_URL)
 
