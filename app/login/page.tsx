@@ -13,7 +13,11 @@ function LoginForm() {
   const [busy, setBusy] = useState(false);
   const router = useRouter();
   const sp = useSearchParams();
-  const next = sp.get("next") || "/dashboard";
+  const rawNext = sp.get("next") || "/dashboard";
+  const next =
+    rawNext.startsWith("/") && !rawNext.startsWith("//") && !rawNext.startsWith("/\\\\")
+      ? rawNext
+      : "/dashboard";
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -23,11 +27,11 @@ function LoginForm() {
       const res = await login(email.trim(), password);
       if (!res.ok) {
         const j = await res.json().catch(() => ({}));
-        throw new Error(j?.detail || "Login failed");
+        throw new Error(j?.detail || j?.error || "Login failed");
       }
       router.push(next);
-    } catch (e: any) {
-      setErr(e?.message || "Login failed");
+    } catch (e: unknown) {
+      setErr(e instanceof Error ? e.message : "Login failed");
     } finally {
       setBusy(false);
     }
@@ -40,7 +44,7 @@ function LoginForm() {
       footer={
         <span>
           New here?{" "}
-          <Link className="underline hover:text-zinc-200" href={`/signup?next=${encodeURIComponent(next)}`}>
+          <Link className="underline hover:text-zinc-200" href={"/signup?next=" + encodeURIComponent(next)}>
             Create an account
           </Link>
         </span>
@@ -48,10 +52,13 @@ function LoginForm() {
     >
       <form onSubmit={onSubmit} className="space-y-4">
         <div>
-          <label className="text-xs text-zinc-400">Email</label>
+          <label className="text-xs text-zinc-400" htmlFor="login-email">Email</label>
           <input
+            id="login-email"
             type="email"
+            autoComplete="email"
             required
+            maxLength={254}
             className="mt-1 w-full rounded-md bg-zinc-900 border border-zinc-800 px-3 py-2 outline-none focus:border-zinc-600"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -60,10 +67,13 @@ function LoginForm() {
         </div>
 
         <div>
-          <label className="text-xs text-zinc-400">Password</label>
+          <label className="text-xs text-zinc-400" htmlFor="login-password">Password</label>
           <input
+            id="login-password"
             type="password"
+            autoComplete="current-password"
             required
+            maxLength={1024}
             className="mt-1 w-full rounded-md bg-zinc-900 border border-zinc-800 px-3 py-2 outline-none focus:border-zinc-600"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -72,7 +82,7 @@ function LoginForm() {
         </div>
 
         {err ? (
-          <div className="rounded-md border border-red-900 bg-red-950/40 px-3 py-2 text-sm text-red-200">
+          <div role="alert" className="rounded-md border border-red-900 bg-red-950/40 px-3 py-2 text-sm text-red-200">
             {err}
           </div>
         ) : null}
@@ -85,7 +95,7 @@ function LoginForm() {
         </button>
 
         <div className="text-xs text-zinc-500 flex justify-between">
-          <span>Demo mode accepts any email + password.</span>
+          <span>Account sessions are handled by the configured identity service; demo sessions are simulation-only.</span>
           <Link className="underline hover:text-zinc-200" href="/">
             Public
           </Link>
