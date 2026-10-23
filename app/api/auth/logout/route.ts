@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import {
-  clearAccessCookie,
+  clearAuthCookies,
   ok,
   err,
   demoMode,
@@ -13,11 +13,12 @@ import {
 
 export async function POST() {
   const access = cookies().get("access_token")?.value;
+  const refresh = cookies().get("refresh_token")?.value;
 
-  // Clear the browser session regardless of upstream availability.
-  clearAccessCookie();
+  // Clear browser-held credentials regardless of upstream availability.
+  clearAuthCookies();
   if (demoMode()) return ok({ ok: true, mode: "demo", sessionCleared: true });
-  if (!access) return ok({ ok: true, sessionCleared: true });
+  if (!access && !refresh) return ok({ ok: true, sessionCleared: true });
 
   if (!runplaneAuthEnabled()) return authBridgeUnavailable();
   const api = getRunplaneAuthUrl();
@@ -26,7 +27,8 @@ export async function POST() {
   try {
     const res = await fetch(api + "/auth/logout", {
       method: "POST",
-      headers: authHeaders(access),
+      headers: authHeaders(access, refresh),
+      body: refresh ? JSON.stringify({ refresh_token: refresh }) : undefined,
       cache: "no-store",
       signal: AbortSignal.timeout(8000),
     });
