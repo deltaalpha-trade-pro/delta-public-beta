@@ -25,9 +25,20 @@ function SignupForm() {
     setBusy(true);
     try {
       const res = await signup(email.trim(), password);
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data?.verification_required === true) {
+        router.push("/verify-email?email=" + encodeURIComponent(data.email || email.trim()));
+        return;
+      }
       if (!res.ok) {
-        const j = await res.json().catch(() => ({}));
-        throw new Error(j?.detail || j?.error || "Signup failed");
+        const detail = data?.detail || data?.error || "Signup failed";
+        if (detail === "beta_access_not_approved") {
+          throw new Error("Founder approval is required before creating a live account. Submit a Beta Access request first.");
+        }
+        if (detail === "account_already_exists") {
+          throw new Error("An account already exists for this email. Log in or use account recovery.");
+        }
+        throw new Error(detail);
       }
       router.push(next);
     } catch (e: unknown) {
@@ -99,7 +110,11 @@ function SignupForm() {
         </button>
 
         <p className="text-xs text-zinc-500">
-          Creating an account does not itself grant approved beta entitlement or authorize financial execution. Access remains subject to Founder review, verification, and governance.
+          A live account requires Founder-approved Beta Access and email verification. Account creation does not authorize financial execution.
+        </p>
+        <p className="text-xs text-zinc-500">
+          Need approval first?{" "}
+          <Link className="underline hover:text-zinc-200" href="/beta-access">Request Beta Access</Link>
         </p>
       </form>
     </AuthCard>
