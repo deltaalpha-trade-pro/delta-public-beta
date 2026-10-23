@@ -139,7 +139,7 @@ export function extractRefreshToken(data: unknown): string | null {
 
 export function extractRefreshTokenFromCookieHeader(setCookie: string | null): string | null {
   if (!setCookie) return null;
-  const match = /(?:^|[,;]\\s*)refresh_token=([^;,\\s]+)/i.exec(setCookie);
+  const match = /(?:^|[,;]\s*)refresh_token=([^;,\s]+)/i.exec(setCookie);
   if (!match?.[1]) return null;
   try {
     return decodeURIComponent(match[1]);
