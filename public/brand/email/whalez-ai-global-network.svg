@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400" role="img" aria-labelledby="title desc">
+  <title id="title">Whalez-AI Ecosystem Global Network</title>
+  <desc id="desc">A premium navy, cyan and gold digital network with a connected global sphere.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#061326"/><stop offset=".55" stop-color="#071d35"/><stop offset="1" stop-color="#030914"/>
+    </linearGradient>
+    <radialGradient id="glow" cx=".78" cy=".44" r=".62">
+      <stop offset="0" stop-color="#087da5" stop-opacity=".48"/><stop offset=".58" stop-color="#0b3f70" stop-opacity=".18"/><stop offset="1" stop-color="#061326" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="planet" cx=".34" cy=".25" r=".8">
+      <stop offset="0" stop-color="#57d7f5" stop-opacity=".68"/><stop offset=".38" stop-color="#116c9e" stop-opacity=".55"/><stop offset="1" stop-color="#061a35" stop-opacity=".9"/>
+    </radialGradient>
+    <linearGradient id="goldLine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#31d4f3" stop-opacity="0"/><stop offset=".42" stop-color="#31d4f3" stop-opacity=".7"/><stop offset=".78" stop-color="#efc56a" stop-opacity=".92"/><stop offset="1" stop-color="#efc56a" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="blueLine" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2fc4f1" stop-opacity="0"/><stop offset=".5" stop-color="#2fc4f1" stop-opacity=".8"/><stop offset="1" stop-color="#2fc4f1" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="softGlow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <clipPath id="sphereClip"><circle cx="900" cy="190" r="154"/></clipPath>
+  </defs>
+  <rect width="1200" height="400" fill="url(#bg)"/>
+  <rect width="1200" height="400" fill="url(#glow)"/>
+  <g fill="none" stroke="#20b9e4" stroke-width="1" opacity=".11">
+    <path d="M-60 300 C170 220 260 360 470 267 S780 232 920 284 S1110 333 1260 210"/>
+    <path d="M-80 332 C130 262 292 390 500 300 S790 258 934 310 S1120 358 1270 248"/>
+    <path d="M-70 270 C110 180 280 310 470 232 S775 195 928 250 S1100 292 1260 175"/>
+    <path d="M-30 358 C160 286 308 414 512 326 S780 295 938 340 S1110 382 1240 276"/>
+  </g>
+  <g fill="none" stroke="url(#blueLine)" stroke-width="1.4">
+    <path d="M390 0 C560 80 530 172 690 200 S940 178 1200 60"/>
+    <path d="M315 35 C520 90 565 212 720 230 S1000 205 1200 116"/>
+    <path d="M350 78 C500 130 555 255 750 271 S1020 238 1210 160"/>
+  </g>
+  <g>
+    <circle cx="900" cy="190" r="168" fill="none" stroke="#42ceef" stroke-opacity=".22" stroke-width="1"/>
+    <circle cx="900" cy="190" r="154" fill="url(#planet)" stroke="#5cdcff" stroke-opacity=".65" stroke-width="1.5"/>
+    <g clip-path="url(#sphereClip)" fill="none" stroke="#83e7ff" stroke-width="1.1" stroke-opacity=".36">
+      <ellipse cx="900" cy="190" rx="52" ry="154"/>
+      <ellipse cx="900" cy="190" rx="103" ry="154"/>
+      <ellipse cx="900" cy="190" rx="140" ry="154"/>
+      <ellipse cx="900" cy="190" rx="154" ry="44"/>
+      <ellipse cx="900" cy="190" rx="154" ry="87"/>
+      <ellipse cx="900" cy="190" rx="154" ry="121"/>
+      <path d="M746 190 H1054 M900 36 V344"/>
+      <path d="M766 105 C835 145 968 145 1034 95"/>
+      <path d="M766 275 C842 232 969 235 1034 285"/>
+      <path d="M784 60 C820 116 820 257 784 319"/>
+      <path d="M1017 60 C981 116 981 257 1017 319"/>
+    </g>
+    <g fill="none" stroke="#e6bf6b" stroke-width="1.5" stroke-opacity=".8">
+      <path d="M640 286 C730 218 805 236 867 263 S1004 325 1117 268"/>
+      <path d="M676 111 C775 40 872 52 943 81 S1064 107 1168 43"/>
+      <path d="M720 355 C805 324 875 347 948 365 S1100 370 1210 330"/>
+    </g>
+    <g fill="#51dbff" filter="url(#softGlow)">
+      <circle cx="790" cy="80" r="3.2"/><circle cx="844" cy="108" r="2.8"/><circle cx="971" cy="100" r="3.2"/>
+      <circle cx="1022" cy="169" r="2.5"/><circle cx="818" cy="221" r="2.4"/><circle cx="953" cy="245" r="3"/>
+      <circle cx="883" cy="150" r="2.5"/><circle cx="985" cy="208" r="2.4"/><circle cx="858" cy="279" r="2.8"/>
+      <circle cx="1047" cy="226" r="2.6"/><circle cx="918" cy="66" r="2.2"/>
+    </g>
+    <g fill="#f3cb75" filter="url(#softGlow)">
+      <circle cx="737" cy="128" r="3.3"/><circle cx="866" cy="60" r="2.4"/><circle cx="1000" cy="133" r="3.5"/>
+      <circle cx="1031" cy="260" r="3.2"/><circle cx="915" cy="302" r="2.5"/><circle cx="790" cy="280" r="2.5"/>
+      <circle cx="1091" cy="180" r="3.3"/><circle cx="1122" cy="275" r="2.1"/>
+    </g>
+  </g>
+  <g fill="none" stroke="url(#goldLine)" stroke-width="2.2" filter="url(#softGlow)">
+    <path d="M395 360 C565 342 600 282 722 293 S934 370 1108 287 S1191 222 1230 208"/>
+    <path d="M510 29 C627 94 658 124 742 120 S912 62 1047 104 S1156 129 1220 95"/>
+  </g>
+  <g fill="#eec56e" filter="url(#softGlow)">
+    <circle cx="650" cy="318" r="3.3"/><circle cx="722" cy="293" r="3"/><circle cx="1108" cy="287" r="3.2"/>
+    <circle cx="1047" cy="104" r="3.1"/><circle cx="742" cy="120" r="2.4"/><circle cx="1176" cy="66" r="2.5"/>
+  </g>
+  <rect x="0" y="0" width="1200" height="400" fill="none" stroke="#8bcce8" stroke-opacity=".18"/>
+</svg>
