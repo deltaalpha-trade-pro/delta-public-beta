@@ -19,6 +19,8 @@ type RelayTarget = {
 
 const trim = (value: string | undefined | null) => value?.trim() ?? ""
 
+const deliveryUnavailable = () => new Error("Webhook delivery temporarily unavailable")
+
 function safeEqual(left: string, right: string): boolean {
   const leftBuffer = Buffer.from(left)
   const rightBuffer = Buffer.from(right)
@@ -102,12 +104,12 @@ export async function relayEvent(event: RelayEvent) {
   // Defense in depth: never forward an unverified provider event or use an
   // internal relay target without the shared service credential.
   if (!event.verified) {
-    return { forwarded: false as const, reason: "event_not_verified" as const, targets: [] as Array<{ name: string; status: "not-configured" }> }
+    throw deliveryUnavailable()
   }
 
   const internalRelayToken = trim(process.env.WHALEZ_INTERNAL_RELAY_TOKEN)
   if (!internalRelayToken) {
-    return { forwarded: false as const, reason: "relay_auth_unavailable" as const, targets: [] as Array<{ name: string; status: "not-configured" }> }
+    throw deliveryUnavailable()
   }
 
   const targets: RelayTarget[] = []
@@ -118,7 +120,7 @@ export async function relayEvent(event: RelayEvent) {
   if (controlRelayUrl) targets.push({ name: "control-plane", url: controlRelayUrl })
 
   if (targets.length === 0) {
-    return { forwarded: false as const, targets: [] as Array<{ name: string; status: "not-configured" }> }
+    throw deliveryUnavailable()
   }
 
   const results = await Promise.allSettled(
@@ -140,17 +142,23 @@ export async function relayEvent(event: RelayEvent) {
     }),
   )
 
-  return {
-    forwarded: true as const,
-    targets: results.map((result, index) => {
-      if (result.status === "fulfilled") return result.value
-      return {
-        name: targets[index]?.name ?? `target-${index + 1}`,
-        status: "failed" as const,
-        error: result.reason instanceof Error ? result.reason.message : String(result.reason),
-      }
-    }),
+  const deliveryResults = results.map((result, index) => {
+    if (result.status === "fulfilled") return result.value
+    return {
+      name: targets[index]?.name ?? `target-${index + 1}`,
+      status: "failed" as const,
+      error: result.reason instanceof Error ? result.reason.message : String(result.reason),
+    }
+  })
+
+  // The route handlers acknowledge only after this promise resolves. Any missing
+  // destination or failed target must propagate as a non-2xx provider response
+  // so the provider can retry instead of treating an undelivered event as accepted.
+  if (deliveryResults.some((result) => result.status !== "forwarded")) {
+    throw deliveryUnavailable()
   }
+
+  return { forwarded: true as const, targets: deliveryResults }
 }
 export function buildRelayEvent(params: {
   source: RelaySource

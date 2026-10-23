@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "prebuild": "npm run test:relay",
+    "test:relay": "tsx --test tests/integration-relay.test.ts",
     "dev": "node scripts/guarded-next.mjs dev",
     "build": "node scripts/guarded-next.mjs build",
     "start": "node scripts/guarded-next.mjs start"
