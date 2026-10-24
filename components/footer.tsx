@@ -25,11 +25,6 @@ export function Footer() {
                   DeltaAlpha-TradePro
                 </Link>
               </li>
-              <li>
-                <Link href="/mail" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Whalez-mail
-                </Link>
-              </li>
             </ul>
           </div>
 
