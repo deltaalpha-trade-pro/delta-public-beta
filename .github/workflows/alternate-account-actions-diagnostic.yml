@@ -1,0 +1,23 @@
+name: Alternate Account Same-Repository Actions Diagnostic
+
+on:
+  push:
+    branches:
+      - diagnostics/alt-account-actions-same-repo-20261026
+
+permissions:
+  contents: read
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Confirm runner starts
+        run: |
+          echo "WHALEZ_SAME_REPO_ACTIONS=STARTED"
+          echo "Runner OS: $RUNNER_OS"
+      - name: Confirm command execution
+        run: |
+          echo "WHALEZ_SAME_REPO_ACTIONS=PASS"
+          test "$RUNNER_OS" = "Linux"
