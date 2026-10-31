@@ -54,3 +54,12 @@ Denied by default unless **all** are true:
 8. Never redirect `console` to the private Founder Vercel project or use the old Cloudflare tunnel; preserve unrelated `www`, `alpha` and Mail routing.
 
 **Current decision: NO-GO for Admin activation, private origin cutover, provider webhook activation, real settlement, mail send, or privileged writes.**
+
+## Read-only programmatic overview (2026-10-31)
+
+- `GET /api/admin/overview` is an optional administration status endpoint; its response is **404 by default**, exactly like the Admin page.
+- It reuses `adminAccessGranted()`, including the exact `console` Host, verified Runplane admin role, verified email and backend MFA claim. It cannot be accessed through `www`, a preview hostname or a direct Vercel deployment host after successful origin routing.
+- The returned JSON exposes deployment readiness labels only, not message content, customer records, provider API keys, private financial state or execution controls.
+- `Cache-Control: private, no-store` and `X-Robots-Tag: noindex` are returned for success and denials.
+- **Subdomain session handoff is not implemented**: the existing `access_token` cookie is host-only, so sessions established on `www` do not automatically apply to `console`. Do not broaden cookie scope to all subdomains. Design an independent Admin login flow with session binding, CSRF and MFA before enabling the route.
+- Current operational decision remains NO-GO: the runtime has no verified MFA claim, and the correct independent Admin deployment/origin is not yet proven.
