@@ -81,3 +81,13 @@ Cloudflare Zero Trust organization independent MFA is enabled, and the `console`
 The existing public `/login` page has not been certified as a dedicated Admin login. The `access_token` cookie remains host-only and must be issued independently on `console`, not copied or broadened from `www`. Do not enable `ADMIN_CONTROL_PANEL_ENABLED` while authentication service reachability or dedicated login UX remains unverified.
 
 The present README's earlier mention of requiring backend `mfa_verified` must be interpreted as the previous, not current, design. The new independent-MFA path requires **both** Cloudflare-enforced MFA and validated backend role+email, never one alone.
+
+## Resend Admin sender — November 1, 2026
+
+- Verified Resend domain: `deltaalpha-trade-pro.com` (outbound and inbound capabilities enabled at domain level).
+- Requested Admin identity: `admin@deltaalpha-trade-pro.com`.
+- Source config `lib/admin-console/email-identity.ts` declares the approved sender and `Reply-To: support@deltaalpha-trade-pro.com`, using the existing Resend support inbox.
+- No automatic sending or inbound Admin mailbox is activated.
+- Resend refused an additional Admin inbox with HTTP 403 **inbox plan quota reached** (the existing operations, support and DMARC inboxes are preserved). An inbox is not equivalent to a sending identity.
+- Domain MX currently routes inbound mail to AWS SES; do not change the MX or assume new inbox delivery. Dedicated Admin inbound receiving requires an approved SES routing rule or an explicitly approved paid Resend plan change.
+- Admin sends, delivery receipts and reply handling require independent authenticated acceptance before enabling any customer-facing notifications.
