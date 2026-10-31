@@ -1,5 +1,11 @@
 import { notFound } from "next/navigation"
-import { authenticatedUser } from "@/app/api/auth/_util"
+import {
+  authBridgeConfigured,
+  getAccessCookie,
+  runplaneAuthFetch,
+  runplaneCookie,
+  responseBody,
+} from "@/app/api/auth/_util"
 
 export const dynamic = "force-dynamic"
 export const revalidate = 0
@@ -21,8 +27,22 @@ export default async function AdminControlPanelPage() {
   // Remains 404 until policy, identity, MFA and deployment review are complete.
   if (process.env.ADMIN_CONTROL_PANEL_ENABLED !== "true") notFound()
 
-  const result = await authenticatedUser()
-  if (!result.ok || !isVerifiedAdministrator(result.user)) notFound()
+  const access = getAccessCookie()
+  if (!access || !authBridgeConfigured()) notFound()
+
+  let authorized = false
+  try {
+    // The backend verifies the signed session, current account role and MFA state.
+    const response = await runplaneAuthFetch("/auth/me", {
+      method: "GET",
+      headers: { Cookie: runplaneCookie(access) },
+    })
+    if (response.ok) authorized = isVerifiedAdministrator(await responseBody(response))
+  } catch {
+    // Authentication service unavailable: deny rather than fall back to client claims.
+    authorized = false
+  }
+  if (!authorized) notFound()
 
   return (
     <main className="min-h-screen bg-background text-foreground">
