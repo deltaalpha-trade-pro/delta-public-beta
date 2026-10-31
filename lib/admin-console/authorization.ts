@@ -8,23 +8,7 @@ import {
   responseBody,
 } from "@/app/api/auth/_util"
 
-// The separate Admin hostname is never synonymous with the Founder Console.
-// A deployment's direct *.vercel.app name does not grant admin access.
-export const ADMIN_HOSTNAME = "console.deltaalpha-trade-pro.com"
-
-export function approvedAdminHost(host: string | null, forwardedHost: string | null): boolean {
-  const clean = (value: string | null) => (value || "").trim().toLowerCase()
-  const direct = clean(host)
-  const forwarded = clean(forwardedHost)
-  // No comma-separated X-Forwarded-Host lists or unexpected ports allowed.
-  return direct === ADMIN_HOSTNAME && (!forwarded || forwarded === ADMIN_HOSTNAME)
-}
-
-export function isVerifiedAdministrator(value: unknown): boolean {
-  if (!value || typeof value !== "object" || Array.isArray(value)) return false
-  const user = value as Record<string, unknown>
-  return user.role === "admin" && user.email_verified === true && user.mfa_verified === true
-}
+import { approvedAdminHost, isVerifiedAdministrator } from "./policy"
 
 export async function adminAccessGranted(): Promise<boolean> {
   // No default activation. Production needs independent Founder security review.
