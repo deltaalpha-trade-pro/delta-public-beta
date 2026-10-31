@@ -99,8 +99,13 @@ export function verifyTidioWebhook(rawBody: string, signatureHeader: string | nu
   const timestamp = parts.t?.[0] ?? ""
   const signatures = parts.s ?? []
 
-  if (!timestamp || signatures.length === 0) {
+  if (!timestamp || !/^\\d+$/.test(timestamp) || signatures.length === 0) {
     return { verified: false, reason: "malformed_signature" as const }
+  }
+
+  const timestampSeconds = Number(timestamp)
+  if (!Number.isSafeInteger(timestampSeconds) || Math.abs(Date.now() - timestampSeconds * 1000) > 5 * 60 * 1000) {
+    return { verified: false as const, reason: "stale_or_invalid_signature_timestamp" as const }
   }
 
   const expected = crypto.createHmac("sha256", secret).update(`${rawBody}_${timestamp}`).digest("hex")
@@ -141,16 +146,16 @@ export function verifyMetaWebhook(rawBody: string, signatureHeader: string | nul
     : { verified: false as const, reason: "signature_mismatch" as const }
 }
 
-export async function relayEvent(event: RelayEvent) {
+export async function relayEvent(event: RelayEvent, options: { includeControlPlane?: boolean } = {}) {
   const targets: RelayTarget[] = []
   const mailIngestUrl = trim(process.env.WHALEZ_MAIL_INGEST_URL)
   const controlRelayUrl = trim(process.env.WHALEZ_CONTROL_EVENT_URL)
   const internalRelayToken = trim(process.env.WHALEZ_INTERNAL_RELAY_TOKEN)
 
   if (mailIngestUrl) targets.push({ name: "whalez-mail", url: mailIngestUrl })
-  if (controlRelayUrl) targets.push({ name: "control-plane", url: controlRelayUrl })
+  if (controlRelayUrl && options.includeControlPlane !== false) targets.push({ name: "control-plane", url: controlRelayUrl })
 
-  if (targets.length === 0) {
+  if (targets.length === 0 || !internalRelayToken) {
     return { forwarded: false as const, targets: [] as Array<{ name: string; status: "not-configured" }> }
   }
 
@@ -180,7 +185,7 @@ export async function relayEvent(event: RelayEvent) {
       return {
         name: targets[index]?.name ?? `target-${index + 1}`,
         status: "failed" as const,
-        error: result.reason instanceof Error ? result.reason.message : String(result.reason),
+        error: "downstream_unavailable",
       }
     }),
   }
