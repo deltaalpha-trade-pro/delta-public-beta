@@ -7,7 +7,7 @@ Status: NOT ACTIVATED; read-only, deny-by-default.
 - This repository contains an application route, not an instruction to attach the hostname or deploy a new Vercel project.
 - `ADMIN_CONTROL_PANEL_ENABLED` is unset by default; all requests receive 404.
 - Activation additionally requires server-originated `role=admin`, `email_verified=true`, and `mfa_verified=true` from the authenticated Runplane `/auth/me` bridge. The legacy backend does not yet supply the MFA claim; activation remains blocked until independently verified.
-- No browser-controlled cookie claims are trusted as role authority: `authenticatedUser()` resolves the session through the Runplane authentication service.
+- No browser-controlled cookie claims are trusted as role authority: the server route calls Runplane `/auth/me` using the auth bridge, and Runplane resolves the session against stored account state.
 - This scaffold provides no direct write actions, finance, minting, Founder/ROOT authority, secure-shell or internal execution.
 - Before publication, independently review the Runplane admin endpoints for CSRF, HTML encoding, session binding and MFA; never proxy the legacy /admin HTML directly to the Internet.
 - Test unauthorized, customer, non-MFA and administrator sessions; verify each API independently before adding any admin mutations.
