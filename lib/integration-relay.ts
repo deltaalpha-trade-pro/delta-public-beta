@@ -99,7 +99,7 @@ export function verifyTidioWebhook(rawBody: string, signatureHeader: string | nu
   const timestamp = parts.t?.[0] ?? ""
   const signatures = parts.s ?? []
 
-  if (!timestamp || !/^\\d+$/.test(timestamp) || signatures.length === 0) {
+  if (!timestamp || !/^\d+$/.test(timestamp) || signatures.length === 0) {
     return { verified: false, reason: "malformed_signature" as const }
   }
 
