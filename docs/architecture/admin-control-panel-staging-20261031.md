@@ -63,3 +63,21 @@ Denied by default unless **all** are true:
 - `Cache-Control: private, no-store` and `X-Robots-Tag: noindex` are returned for success and denials.
 - **Subdomain session handoff is not implemented**: the existing `access_token` cookie is host-only, so sessions established on `www` do not automatically apply to `console`. Do not broaden cookie scope to all subdomains. Design an independent Admin login flow with session binding, CSRF and MFA before enabling the route.
 - Current operational decision remains NO-GO: the runtime has no verified MFA claim, and the correct independent Admin deployment/origin is not yet proven.
+
+## Cloudflare independent MFA + same-identity origin enforcement (2026-10-31)
+
+The earlier requirement that `/auth/me` supply `mfa_verified=true` is superseded by a **separate Cloudflare Access independent MFA challenge**, followed by backend role confirmation. Runplane does not currently issue an MFA claim and no such claim is fabricated.
+
+All of the following are required before the Admin page and `/api/admin/overview` can render:
+
+1. The exact request `Host` and optional `x-forwarded-host` are `console.deltaalpha-trade-pro.com`.
+2. `ADMIN_CONTROL_PANEL_ENABLED=true`, with server-side `ADMIN_CLOUDFLARE_ACCESS_AUD` set to the exact Cloudflare console application audience and `ADMIN_CLOUDFLARE_MFA_REQUIRED=true`.
+3. A valid `Cf-Access-Jwt-Assertion` signed by Cloudflare's published RS256 JWKS, issued by `https://dry-hat-231a.cloudflareaccess.com`, with the configured audience, app-token type, subject, nonempty email, expiration and age limits.
+4. A genuine, host-only, HTTP-only Runplane session cookie is supplied on the Admin hostname. The backend must validate it against current account state and return `role=admin` and `email_verified=true`.
+5. The identity email in the cryptographically validated Access JWT must match the active backend account's email exactly (after lowercasing/trimming).
+
+Cloudflare Zero Trust organization independent MFA is enabled, and the `console` self-hosted Access application currently has zero Allow policies (DENY ALL). Never add an Allow policy before administrator identity, authenticator enrollment, Runplane login, firewall/origin and production approval are verified. The JWT alone does not grant Founder/ROOT/settlement authority or permit financial execution.
+
+The existing public `/login` page has not been certified as a dedicated Admin login. The `access_token` cookie remains host-only and must be issued independently on `console`, not copied or broadened from `www`. Do not enable `ADMIN_CONTROL_PANEL_ENABLED` while authentication service reachability or dedicated login UX remains unverified.
+
+The present README's earlier mention of requiring backend `mfa_verified` must be interpreted as the previous, not current, design. The new independent-MFA path requires **both** Cloudflare-enforced MFA and validated backend role+email, never one alone.
