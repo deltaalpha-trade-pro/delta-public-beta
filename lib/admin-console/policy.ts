@@ -14,3 +14,14 @@ export function isVerifiedAdministrator(value: unknown): boolean {
   const user = value as Record<string, unknown>
   return user.role === "admin" && user.email_verified === true && user.mfa_verified === true
 }
+
+/** Requires independent identity assurance from a validated Access JWT. */
+export function administratorMatchesAccessIdentity(user: unknown, cloudflareEmail: string): boolean {
+  if (!user || typeof user !== "object" || Array.isArray(user)) return false
+  const account = user as Record<string, unknown>
+  return account.role === "admin" &&
+    account.email_verified === true &&
+    typeof account.email === "string" &&
+    account.email.trim().toLowerCase() === cloudflareEmail.trim().toLowerCase() &&
+    cloudflareEmail.trim().length > 0
+}
