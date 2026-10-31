@@ -7,6 +7,7 @@ import {
 } from "lucide-react"
 import { adminAccessGranted } from "@/lib/admin-console/authorization"
 import { adminIntegrationReadiness, type Readiness } from "@/lib/admin-console/readiness"
+import { ADMIN_EMAIL_IDENTITY } from "@/lib/admin-console/email-identity"
 
 export const dynamic = "force-dynamic"
 export const revalidate = 0
@@ -106,6 +107,12 @@ export default async function AdminControlPanelPage() {
                 <div><p className="text-xs text-slate-500">Resend delivery confirmation</p><div className="mt-2"><Status value={integrations.whalezMail.providerDelivery} /></div></div>
                 <div><p className="text-xs text-slate-500">Human-monitored support inbox</p><div className="mt-2"><Status value={integrations.whalezMail.inboundSupportInbox} /></div></div>
                 <div><p className="text-xs text-slate-500">Signed delivery and audit receipts</p><div className="mt-2"><Status value={integrations.whalezMail.auditReceipts} /></div></div>
+              </div>
+              <div className="mt-6 rounded-xl border border-slate-700 bg-slate-950 p-4">
+                <p className="text-sm font-medium text-white">Admin notification identity</p>
+                <p className="mt-2 break-all font-mono text-sm text-sky-300">{ADMIN_EMAIL_IDENTITY.address}</p>
+                <p className="mt-2 text-xs leading-5 text-slate-400">Sender address on the verified Resend domain. Replies use {ADMIN_EMAIL_IDENTITY.replyTo}. A separate Admin receiving inbox is not provisioned because the Resend inbox quota is full.</p>
+                <p className="mt-2 text-xs text-amber-300">No automatic sending · No provider delivery acceptance yet</p>
               </div>
               <p className="mt-6 rounded-xl bg-slate-950 p-4 text-sm leading-6 text-slate-300">Operational boundary: human-approved customer notices, access recovery, support escalation and delivery evidence. This panel cannot send mail, read private inbox messages or approve sensitive requests.</p>
             </Panel>
