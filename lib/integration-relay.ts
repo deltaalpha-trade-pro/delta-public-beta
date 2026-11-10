@@ -177,7 +177,7 @@ export async function relayEvent(
       url.hostname === "mail.deltaalpha-trade-pro.com" &&
       url.port === "" && !url.username && !url.password &&
       !url.search && !url.hash &&
-      url.pathname.replace(/\\/+$/, "") === providerPath[event.source]
+      url.pathname.replace(/\/+$/, "") === providerPath[event.source]
   } catch { /* fail closed */ }
 
   if (!event.verified || !internalRelayToken || !validDestination) {
