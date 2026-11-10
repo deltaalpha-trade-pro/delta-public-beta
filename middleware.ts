@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { consoleRouteDecision } from "@/lib/admin-console/routing";
+import { verifiedCustomerSession } from "@/lib/auth/verified-customer-session";
 
 const PRIVATE_PREFIXES = ["/founder", "/founder-console", "/internal", "/mail"];
 const PROTECTED_PREFIXES = ["/dashboard", "/account", "/trading", "/terminal"];
@@ -51,10 +52,7 @@ export async function middleware(req: NextRequest) {
     });
     if (!response.ok) return redirectToLogin(response.status >= 500);
     const session: unknown = await response.json().catch(() => null);
-    if (!session || typeof session !== "object" || Array.isArray(session)) return redirectToLogin();
-    const account = session as Record<string, unknown>;
-    // Never allow preview/demo tokens or unverified users into customer actions.
-    if (account.mode === "demo" || account.email_verified !== true) return redirectToLogin();
+    if (!verifiedCustomerSession(session)) return redirectToLogin();
     return NextResponse.next();
   } catch {
     return redirectToLogin(true);
