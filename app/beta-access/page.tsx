@@ -68,7 +68,7 @@ export default function BetaAccessPage() {
                   Request Beta Access
                 </h1>
                 <p className="mt-6 text-muted-foreground leading-relaxed text-pretty">
-                  DeltaAlpha-TradePro is the public beta gateway of WHALEZ-AI. Access is reviewed before activation so
+                  DeltaAlpha-TradePro is the public beta gateway of Alpha-AI. Access is reviewed before activation so
                   the beta remains controlled, informational, and ready for staged user feedback.
                 </p>
               </div>

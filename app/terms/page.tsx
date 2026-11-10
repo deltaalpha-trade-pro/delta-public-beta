@@ -5,7 +5,7 @@ export default function TermsPage() {
     <LegalPage
       label="Legal"
       title="Terms of Use"
-      description="Terms for accessing the DeltaAlpha-TradePro public beta surface of the WHALEZ-AI ecosystem."
+      description="Terms for accessing the DeltaAlpha-TradePro public beta surface of the Alpha-AI ecosystem."
       sections={[
         {
           title: "Public beta access",

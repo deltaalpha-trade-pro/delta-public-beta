@@ -3,7 +3,7 @@ import { Cpu, Bot, Database, Globe } from "lucide-react"
 const architectureItems = [
   {
     icon: Cpu,
-    title: "AI Core (WHALEZ-AI)",
+    title: "AI Core (Alpha-AI)",
     description:
       "Central intelligence processing unit that orchestrates all analysis, learning, and output generation across the ecosystem.",
   },

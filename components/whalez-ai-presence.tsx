@@ -128,7 +128,7 @@ export function WhalezAIPresence() {
               Intelligence with a recognizable presence.
             </h2>
             <p className="mt-5 max-w-2xl text-base leading-8 text-slate-300">
-              One Whalez-AI identity, expressed through specialized capabilities. The interface gives people visible feedback,
+              One Alpha-AI identity, expressed through specialized capabilities. The interface gives people visible feedback,
               distinct model signatures, and clear explanations of what is happening—without exposing private control systems.
             </p>
 
@@ -158,7 +158,7 @@ export function WhalezAIPresence() {
 
             <p className="mt-5 flex items-start gap-2 text-xs leading-6 text-slate-400">
               <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-cyan-200" />
-              Design direction draws from the Founder Replica and intelligence-model artwork in your Library. The public experience uses the shared whale mark; the Founder Replica remains a private governance persona.
+              Visual concepts illustrate distinct public service modes. This is an illustrative presentation, not a live status or access to internal orchestration.
             </p>
           </div>
 
@@ -167,7 +167,7 @@ export function WhalezAIPresence() {
 
             <div className="relative flex items-center justify-between gap-4 border-b border-white/10 pb-5">
               <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Whalez-AI</p>
+                <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Alpha-AI</p>
                 <p className="mt-1 text-sm font-semibold text-white">Public intelligence interface</p>
               </div>
               <span className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-amber-300/[0.07] px-2.5 py-1.5 text-[10px] font-medium uppercase tracking-wide text-amber-100">
@@ -183,14 +183,14 @@ export function WhalezAIPresence() {
               <div className="relative flex h-28 w-28 items-center justify-center rounded-[2rem] border border-sky-200/25 bg-[#0e1c2d] shadow-[0_0_50px_rgba(56,189,248,0.18)]">
                 <Image
                   src="/brand/whalez-ai-ecosystem.svg"
-                  alt="Whalez-AI whale crest"
+                  alt="Alpha-AI whale crest"
                   width={88}
                   height={88}
                   priority={false}
                   className="h-[5.5rem] w-[5.5rem] object-contain"
                 />
               </div>
-              <h3 className="relative mt-5 text-2xl font-semibold tracking-wide text-white">WHALEZ-AI</h3>
+              <h3 className="relative mt-5 text-2xl font-semibold tracking-wide text-white">Alpha-AI</h3>
               <p className="relative mt-2 max-w-xs text-sm leading-6 text-slate-400">
                 One coherent presence across many governed capabilities.
               </p>

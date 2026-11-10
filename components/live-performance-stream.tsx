@@ -56,10 +56,10 @@ export function LivePerformanceStream() {
 
           <div className="relative flex flex-col items-center gap-4 border-b border-white/10 pb-6 text-center sm:flex-row sm:text-left">
             <div className={"relative flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-sky-200/20 bg-sky-200/[0.06] " + (playing ? "shadow-[0_0_30px_rgba(56,189,248,0.13)]" : "")}>
-              <Image src="/brand/whalez-ai-ecosystem.svg" alt="Whalez-AI ecosystem mark" width={52} height={52} className="h-12 w-12 object-contain" />
+              <Image src="/brand/whalez-ai-ecosystem.svg" alt="Alpha-AI ecosystem mark" width={52} height={52} className="h-12 w-12 object-contain" />
             </div>
             <div className="flex-1">
-              <p className="text-sm font-semibold tracking-wide text-white">WHALEZ-AI · GOVERNED INTERACTION</p>
+              <p className="text-sm font-semibold tracking-wide text-white">Alpha-AI · GOVERNED INTERACTION</p>
               <p className="mt-1 text-sm text-slate-400">A model-neutral experience: understand → route → govern → verify → respond.</p>
             </div>
             <span className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-amber-300/[0.06] px-3 py-1.5 text-[10px] font-medium uppercase tracking-wide text-amber-100">

@@ -5,7 +5,7 @@ export default function LegalIndexPage() {
     <LegalPage
       label="Legal Center"
       title="Legal and Public Beta Notices"
-      description="Centralized public notices for the DeltaAlpha-TradePro public beta surface of the WHALEZ-AI ecosystem."
+      description="Centralized public notices for the DeltaAlpha-TradePro public beta surface of the Alpha-AI ecosystem."
       sections={[
         {
           title: "Public beta boundary",

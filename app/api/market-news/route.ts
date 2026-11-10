@@ -27,7 +27,7 @@ async function fetchRss(category: Exclude<NewsCategory, "platform">): Promise<Ne
   const response = await fetch(RSS_FEEDS[category], {
     headers: {
       Accept: "application/rss+xml, application/xml, text/xml",
-      "User-Agent": "Whalez-AI-MarketBrief/1.0 (+https://www.deltaalpha-trade-pro.com)",
+      "User-Agent": "DeltaAlpha-MarketBrief/1.0 (+https://www.deltaalpha-trade-pro.com)",
     },
     next: { revalidate: 120 },
     signal: AbortSignal.timeout(7000),
@@ -37,13 +37,13 @@ async function fetchRss(category: Exclude<NewsCategory, "platform">): Promise<Ne
 }
 
 async function fetchPlatformReleases(): Promise<NewsItem[]> {
-  const repositories = ["deltaalpha-trade-pro/delta-public-beta", "deltaalpha-trade-pro/whalez-ai-core"]
+  const repositories = ["deltaalpha-trade-pro/delta-public-beta"]
   const results = await Promise.allSettled(repositories.map(async (repository) => {
     const response = await fetch("https://api.github.com/repos/" + repository + "/releases?per_page=5", {
       headers: {
         Accept: "application/vnd.github+json",
         "X-GitHub-Api-Version": "2022-11-28",
-        "User-Agent": "Whalez-AI-MarketBrief",
+        "User-Agent": "DeltaAlpha-MarketBrief",
       },
       next: { revalidate: 300 },
       signal: AbortSignal.timeout(5000),

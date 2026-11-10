@@ -4,7 +4,7 @@ export type MarkProps = React.SVGProps<SVGSVGElement> & {
   title?: string
 }
 
-export function EcosystemMark({ title = "Whalez-AI Ecosystem", ...props }: MarkProps) {
+export function EcosystemMark({ title = "DeltaAlpha public intelligence mark", ...props }: MarkProps) {
   const titleId = React.useId()
 
   return (
