@@ -45,8 +45,10 @@ export function getIntegrationStatus() {
   const tidioPublicKey = trim(process.env.NEXT_PUBLIC_TIDIO_PUBLIC_KEY)
   const tidioWebhookSecret = trim(process.env.TIDIO_WEBHOOK_SECRET)
   const tidioWebhookEnabled = trim(process.env.TIDIO_WEBHOOK_ENABLED).toLowerCase() === "true"
-  const telegramChannelUrl = trim(process.env.NEXT_PUBLIC_TELEGRAM_CHANNEL_URL) || "https://t.me/whalez_ai_deltaalpha_trade_pro"
+  const telegramChannelUrl = trim(process.env.NEXT_PUBLIC_TELEGRAM_CHANNEL_URL)
   const telegramSecretToken = trim(process.env.TELEGRAM_WEBHOOK_SECRET_TOKEN)
+  const telegramWebhookEnabled = trim(process.env.TELEGRAM_WEBHOOK_ENABLED).toLowerCase() === "true"
+  const metaWebhookEnabled = trim(process.env.META_WEBHOOK_ENABLED).toLowerCase() === "true"
   const whatsappNumber = trim(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER).replace(/\D/g, "")
   const facebookUrl = trim(process.env.NEXT_PUBLIC_FACEBOOK_PAGE_URL)
   const instagramUrl = trim(process.env.NEXT_PUBLIC_INSTAGRAM_URL)
@@ -65,10 +67,10 @@ export function getIntegrationStatus() {
       tidioWebhook: tidioWebhookEnabled && truthy(tidioWebhookSecret) && truthy(mailIngestUrl) && truthy(internalRelayToken),
       tidioWebhookEnabled,
       telegramChannel: truthy(telegramChannelUrl),
-      telegramWebhook: truthy(telegramSecretToken),
+      telegramWebhook: telegramWebhookEnabled && truthy(telegramSecretToken) && truthy(trim(process.env.WHALEZ_TELEGRAM_INGEST_URL)) && truthy(internalRelayToken),
       whatsapp: truthy(whatsappNumber),
       metaPixel: truthy(metaPixelId),
-      metaWebhook: truthy(metaWebhookVerifyToken) && truthy(metaAppSecret),
+      metaWebhook: metaWebhookEnabled && truthy(metaWebhookVerifyToken) && truthy(metaAppSecret) && truthy(trim(process.env.WHALEZ_META_INGEST_URL)) && truthy(internalRelayToken),
       facebook: truthy(facebookUrl),
       instagram: truthy(instagramUrl),
       mailRelay: truthy(mailIngestUrl),
@@ -84,10 +86,10 @@ export function getIntegrationStatus() {
     },
     publicLinks: {
       telegramChannelUrl,
-      whatsappUrl: whatsappNumber ? `https://wa.me/${whatsappNumber}` : "https://wa.me/",
+      whatsappUrl: whatsappNumber ? `https://wa.me/${whatsappNumber}` : "",
       facebookUrl,
       instagramUrl,
-      mailSurfaceUrl: process.env.NEXT_PUBLIC_WHALEZ_MAIL_URL?.trim() || "/mail",
+      mailSurfaceUrl: "", // Internal Mail is never a public destination.
     },
   }
 }
@@ -133,6 +135,7 @@ export function verifyTelegramWebhook(secret: string, headerToken: string | null
 }
 
 export function verifyMetaWebhook(rawBody: string, signatureHeader: string | null, appSecret: string) {
+  if (!appSecret) return { verified: false as const, reason: "secret_not_configured" as const }
   if (!signatureHeader) {
     return { verified: false as const, reason: "missing_signature" as const }
   }
