@@ -21,6 +21,7 @@ export function administratorMatchesAccessIdentity(user: unknown, cloudflareEmai
   const account = user as Record<string, unknown>
   return account.role === "admin" &&
     account.email_verified === true &&
+    account.mfa_verified === true &&
     typeof account.email === "string" &&
     account.email.trim().toLowerCase() === cloudflareEmail.trim().toLowerCase() &&
     cloudflareEmail.trim().length > 0
