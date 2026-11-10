@@ -44,6 +44,7 @@ function parseHeaderPairs(header: string): Record<string, string[]> {
 export function getIntegrationStatus() {
   const tidioPublicKey = trim(process.env.NEXT_PUBLIC_TIDIO_PUBLIC_KEY)
   const tidioWebhookSecret = trim(process.env.TIDIO_WEBHOOK_SECRET)
+  const tidioWebhookEnabled = trim(process.env.TIDIO_WEBHOOK_ENABLED).toLowerCase() === "true"
   const telegramChannelUrl = trim(process.env.NEXT_PUBLIC_TELEGRAM_CHANNEL_URL) || "https://t.me/whalez_ai_deltaalpha_trade_pro"
   const telegramSecretToken = trim(process.env.TELEGRAM_WEBHOOK_SECRET_TOKEN)
   const whatsappNumber = trim(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER).replace(/\D/g, "")
@@ -61,12 +62,13 @@ export function getIntegrationStatus() {
     status: "ok",
     configured: {
       tidioWidget: truthy(tidioPublicKey),
-      tidioWebhook: truthy(tidioWebhookSecret),
+      tidioWebhook: tidioWebhookEnabled && truthy(tidioWebhookSecret) && truthy(mailIngestUrl) && truthy(internalRelayToken),
+      tidioWebhookEnabled,
       telegramChannel: truthy(telegramChannelUrl),
       telegramWebhook: truthy(telegramSecretToken),
       whatsapp: truthy(whatsappNumber),
       metaPixel: truthy(metaPixelId),
-      metaWebhook: truthy(metaWebhookVerifyToken) || truthy(metaAppSecret),
+      metaWebhook: truthy(metaWebhookVerifyToken) && truthy(metaAppSecret),
       facebook: truthy(facebookUrl),
       instagram: truthy(instagramUrl),
       mailRelay: truthy(mailIngestUrl),
@@ -118,14 +120,14 @@ export function verifyTidioWebhook(rawBody: string, signatureHeader: string | nu
 
 export function verifyTelegramWebhook(secret: string, headerToken: string | null) {
   if (!secret) {
-    return { verified: true as const, reason: "no_secret_configured" as const }
+    return { verified: false as const, reason: "secret_not_configured" as const }
   }
 
   if (!headerToken) {
     return { verified: false as const, reason: "missing_secret_token" as const }
   }
 
-  return headerToken === secret
+  return safeEqual(headerToken, secret)
     ? { verified: true as const }
     : { verified: false as const, reason: "secret_token_mismatch" as const }
 }
@@ -163,6 +165,8 @@ export async function relayEvent(event: RelayEvent, options: { includeControlPla
     targets.map(async (target) => {
       const response = await fetch(target.url, {
         method: "POST",
+        redirect: "error",
+        signal: AbortSignal.timeout(event.source === "tidio" ? 2500 : 10000),
         headers: {
           "content-type": "application/json",
           ...(internalRelayToken ? { "x-whalez-internal-token": internalRelayToken } : {}),
@@ -170,9 +174,18 @@ export async function relayEvent(event: RelayEvent, options: { includeControlPla
         body: JSON.stringify(event),
       })
 
+      // For customer support, require an explicit durable-storage receipt.
+      // HTTP 200 alone does not prove the support event was accepted or stored.
+      let durablyAccepted = response.ok
+      if (event.source === "tidio") {
+        const receipt: unknown = await response.json().catch(() => null)
+        const recorded = receipt && typeof receipt === "object" && !Array.isArray(receipt)
+          ? receipt as Record<string, unknown> : {}
+        durablyAccepted = response.ok && recorded.accepted === true && recorded.stored === true
+      }
       return {
         name: target.name,
-        status: response.ok ? ("forwarded" as const) : ("failed" as const),
+        status: durablyAccepted ? ("forwarded" as const) : ("failed" as const),
         httpStatus: response.status,
       }
     }),
