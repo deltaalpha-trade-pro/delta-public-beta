@@ -57,7 +57,7 @@ export function getIntegrationStatus() {
   const metaAppSecret = trim(process.env.META_APP_SECRET)
   const mailIngestUrl = trim(process.env.WHALEZ_MAIL_INGEST_URL)
   const controlRelayUrl = trim(process.env.WHALEZ_CONTROL_EVENT_URL)
-  const internalRelayToken = trim(process.env.WHALEZ_INTERNAL_RELAY_TOKEN)
+  const internalRelayToken = trim(process.env.WHALEZ_SUPPORT_RELAY_TOKEN)
 
   return {
     service: "delta-public-beta",
@@ -159,7 +159,7 @@ export async function relayEvent(
   event: RelayEvent,
   _options: { includeControlPlane?: boolean } = {},
 ) {
-  const internalRelayToken = trim(process.env.WHALEZ_INTERNAL_RELAY_TOKEN)
+  const internalRelayToken = trim(process.env.WHALEZ_SUPPORT_RELAY_TOKEN)
   const mailIngestUrl = trim(
     event.source === "tidio" ? process.env.WHALEZ_MAIL_INGEST_URL :
     event.source === "telegram" ? process.env.WHALEZ_TELEGRAM_INGEST_URL :
