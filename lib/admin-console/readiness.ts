@@ -27,7 +27,7 @@ const configured = (name: string): boolean => Boolean(process.env[name]?.trim())
 const enabled = (name: string): boolean => process.env[name] === "true"
 
 export function adminIntegrationReadiness(): IntegrationReadiness {
-  const relayPresent = configured("WHALEZ_MAIL_INGEST_URL") && configured("WHALEZ_INTERNAL_RELAY_TOKEN")
+  const relayPresent = configured("WHALEZ_MAIL_INGEST_URL") && configured("WHALEZ_SUPPORT_RELAY_TOKEN")
   // Environment presence is NOT proof that a provider has accepted or delivered an event.
   return {
     tidio: {
