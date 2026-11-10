@@ -6,9 +6,9 @@ import { LineChart, Zap, Eye, BarChart3, TrendingUp, Shield } from "lucide-react
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "DeltaAlpha-TradePro | WHALEZ-AI",
+  title: "DeltaAlpha-TradePro | Alpha-AI",
   description:
-    "Public intelligence and analysis interface of the WHALEZ-AI ecosystem. Access market insights, signals visualization, and strategy analysis tools.",
+    "Public intelligence and analysis interface of the Alpha-AI ecosystem. Access market insights, signals visualization, and strategy analysis tools.",
 }
 
 const features = [
@@ -63,7 +63,7 @@ export default function DeltaAlphaPage() {
                 DeltaAlpha-TradePro
               </h1>
               <p className="mt-6 text-lg text-muted-foreground leading-relaxed text-pretty">
-                The public-facing intelligence and analysis interface of the WHALEZ-AI ecosystem. DeltaAlpha-TradePro
+                The public-facing intelligence and analysis interface of the Alpha-AI ecosystem. DeltaAlpha-TradePro
                 transforms complex market data into actionable insights through intuitive visualization and systematic
                 analysis tools.
               </p>
@@ -78,7 +78,7 @@ export default function DeltaAlphaPage() {
             </h2>
             <p className="mt-4 text-muted-foreground max-w-2xl leading-relaxed text-pretty">
               A comprehensive suite of analytical tools designed for systematic market participants. All features are
-              built on the WHALEZ-AI intelligence infrastructure.
+              built on the Alpha-AI intelligence infrastructure.
             </p>
 
             <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

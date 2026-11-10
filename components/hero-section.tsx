@@ -16,7 +16,7 @@ export function HeroSection() {
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight text-foreground text-balance">
-            WHALEZ-AI
+            Markets move. Move with insight.
           </h1>
 
           <p className="mt-4 text-lg sm:text-xl md:text-2xl text-primary tracking-wide">
@@ -31,7 +31,7 @@ export function HeroSection() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-xs text-muted-foreground">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5">
               <EcosystemMark className="h-4 w-4 text-primary" />
-              Whalez-AI Ecosystem
+              Alpha-AI
             </span>
             <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5">
               <DeltaAlphaMark className="h-4 w-4 text-primary" />

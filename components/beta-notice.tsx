@@ -17,7 +17,7 @@ export function BetaNotice() {
 
           <div className="mt-6 space-y-4 text-muted-foreground">
             <p className="leading-relaxed">
-              WHALEZ-AI and DeltaAlpha-TradePro are currently operating in a controlled beta environment. Access is
+              Alpha-AI and DeltaAlpha-TradePro are currently operating in a controlled beta environment. Access is
               limited and features are under active development.
             </p>
             <p className="leading-relaxed">

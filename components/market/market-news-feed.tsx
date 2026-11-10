@@ -165,7 +165,7 @@ export function MarketNewsFeed({ compact = false }: { compact?: boolean }) {
       <div className="mt-4 flex items-start gap-2 border-t border-border pt-4 text-[11px] leading-5 text-muted-foreground">
         <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
         <p>
-          News is third-party editorial content, not a Whalez-AI trading signal. Prices, execution and settlement are verified separately.
+          News is third-party editorial content, not a DeltaAlpha-Trade-Pro trading signal. Prices, execution and settlement are verified separately.
           The feed shows no invented headlines when a source is unavailable.
         </p>
       </div>

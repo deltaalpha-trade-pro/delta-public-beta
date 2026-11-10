@@ -14,7 +14,7 @@ export function FrameworkDiagram() {
           <div className="flex flex-col items-center">
             <div className="w-32 h-32 rounded-full bg-primary/20 border-2 border-primary flex items-center justify-center mb-8">
               <div className="text-center">
-                <p className="text-sm font-bold text-primary">WHALEZ-AI</p>
+                <p className="text-sm font-bold text-primary">Alpha-AI</p>
                 <p className="text-xs text-muted-foreground">Core Engine</p>
               </div>
             </div>

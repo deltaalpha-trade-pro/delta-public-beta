@@ -3,9 +3,9 @@ import { Footer } from "@/components/footer"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "About | WHALEZ-AI",
+  title: "About | Alpha-AI",
   description:
-    "Learn about the vision and philosophy behind WHALEZ-AI - AI-driven financial intelligence built on discipline, structure, and sustainability.",
+    "Learn about the vision and philosophy behind Alpha-AI - AI-driven financial intelligence built on discipline, structure, and sustainability.",
 }
 
 export default function AboutPage() {
@@ -18,7 +18,7 @@ export default function AboutPage() {
             <div className="max-w-3xl">
               <span className="text-sm text-accent font-medium tracking-wide uppercase">About</span>
               <h1 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-foreground text-balance">
-                The Vision Behind WHALEZ-AI
+                The Vision Behind Alpha-AI
               </h1>
             </div>
 
@@ -27,7 +27,7 @@ export default function AboutPage() {
                 <div>
                   <h2 className="text-xl font-medium text-foreground">Origin & Purpose</h2>
                   <p className="mt-4 text-muted-foreground leading-relaxed">
-                    WHALEZ-AI was conceived as a response to the increasing complexity of modern financial markets.
+                    Alpha-AI was conceived as a response to the increasing complexity of modern financial markets.
                     Rather than chasing short-term gains or sensational predictions, we focused on building robust
                     analytical infrastructure—systems that understand, process, and illuminate market dynamics with
                     clarity and precision.
@@ -46,7 +46,7 @@ export default function AboutPage() {
                     provide actionable intelligence without overstating certainty.
                   </p>
                   <p className="mt-4 text-muted-foreground leading-relaxed">
-                    Every component of WHALEZ-AI is designed with intentionality. From our AI agents to our ledger
+                    Every component of Alpha-AI is designed with intentionality. From our AI agents to our ledger
                     systems, each piece serves a specific purpose within a coherent whole. This is architecture built
                     for longevity, not spectacle.
                   </p>
@@ -55,7 +55,7 @@ export default function AboutPage() {
                 <div>
                   <h2 className="text-xl font-medium text-foreground">Long-Term Focus</h2>
                   <p className="mt-4 text-muted-foreground leading-relaxed">
-                    WHALEZ-AI is not a product rushed to market. It is an evolving ecosystem that will continue to
+                    Alpha-AI is not a product rushed to market. It is an evolving ecosystem that will continue to
                     develop, refine, and expand based on real-world performance and user feedback. We measure progress
                     not in weeks, but in the compounding value of systematic improvement over years.
                   </p>
@@ -81,7 +81,7 @@ export default function AboutPage() {
                 <div className="p-6 rounded-lg border border-border bg-card">
                   <h3 className="text-sm font-medium text-foreground uppercase tracking-wide">Our Commitment</h3>
                   <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
-                    We will never promise what we cannot deliver. WHALEZ-AI provides tools and insights—not financial
+                    We will never promise what we cannot deliver. Alpha-AI provides tools and insights—not financial
                     advice or guaranteed outcomes. Users remain responsible for their own decisions.
                   </p>
                 </div>

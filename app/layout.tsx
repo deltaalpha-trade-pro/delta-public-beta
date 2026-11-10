@@ -8,10 +8,10 @@ import "./globals.css"
 const tidioPublicKey = process.env.NEXT_PUBLIC_TIDIO_PUBLIC_KEY?.trim()
 
 export const metadata: Metadata = {
-  title: "WHALEZ-AI Ecosystem | DeltaAlpha-TradePro",
+  title: "Alpha-AI Ecosystem | DeltaAlpha-TradePro",
   description:
-    "Whalez-AI ecosystem gateway for trading intelligence, communications, banking, settlement, and founder-controlled public beta surfaces.",
-  generator: "Whalez-AI",
+    "DeltaAlpha-Trade-Pro public gateway for market intelligence, product access and customer support. Features require appropriate verification and authorization.",
+  generator: "DeltaAlpha-Trade-Pro",
   icons: {
     icon: [
       {

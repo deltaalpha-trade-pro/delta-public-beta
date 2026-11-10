@@ -64,7 +64,7 @@ export default function SimulationPage() {
           {/* Disclaimer */}
           <div className="p-4 rounded-lg bg-secondary/50 border border-border">
             <p className="text-xs text-muted-foreground text-center">
-              These simulations demonstrate the intended behavior of the WHALEZ-AI ledger system. PTN, PRN, and WHZ are
+              These simulations demonstrate the intended behavior of the Alpha-AI ledger system. PTN, PRN, and WHZ are
               internal accounting primitives, not tradable assets. The goal is to demonstrate system integrity under
               stress, not user growth or monetization.
             </p>
