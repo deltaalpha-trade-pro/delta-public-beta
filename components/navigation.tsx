@@ -4,12 +4,11 @@ import Link from "next/link"
 import { useState } from "react"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { EcosystemMark } from "@/components/brand-marks"
+import { DeltaAlphaMark } from "@/components/brand-marks"
 
 const publicLinks = [
   { href: "/#communications", label: "Communications" },
   { href: "/#product-surface", label: "Products" },
-  { href: "/mail", label: "Whalez-mail" },
 ]
 
 const accessLinks = [
@@ -27,9 +26,9 @@ export function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-3" onClick={() => setIsOpen(false)}>
-            <EcosystemMark className="h-8 w-8 text-primary" />
+            <DeltaAlphaMark className="h-8 w-8 text-primary" />
             <div className="leading-tight">
-              <span className="block text-sm font-semibold tracking-[0.24em] text-foreground">WHALEZ-AI</span>
+              <span className="block text-sm font-semibold tracking-[0.24em] text-foreground">DeltaAlpha-Trade-Pro</span>
               <span className="block text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
                 DeltaAlpha-TradePro
               </span>

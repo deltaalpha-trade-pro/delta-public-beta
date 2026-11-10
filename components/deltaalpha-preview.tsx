@@ -13,7 +13,7 @@ export function DeltaAlphaPreview() {
               DeltaAlpha-TradePro
             </h2>
             <p className="mt-4 text-muted-foreground leading-relaxed text-pretty">
-              The public-facing intelligence and analysis interface of the WHALEZ-AI ecosystem. DeltaAlpha-TradePro
+              The public-facing intelligence and analysis interface of the Alpha-AI ecosystem. DeltaAlpha-TradePro
               provides access to market insights, signals visualization, and strategy analysis tools.
             </p>
 

@@ -1,7 +1,6 @@
 import { Navigation } from "@/components/navigation"
 import { HeroSection } from "@/components/hero-section"
-import { WhalezAIPresence } from "@/components/whalez-ai-presence"
-import { LivePerformanceStream } from "@/components/live-performance-stream"
+import { AlphaAIShowcase } from "@/components/alpha-ai-showcase"
 import { WhatIsSection } from "@/components/what-is-section"
 import { DeltaAlphaPreview } from "@/components/deltaalpha-preview"
 import { MarketNewsFeed } from "@/components/market/market-news-feed"
@@ -16,8 +15,7 @@ export default function HomePage() {
       <Navigation />
       <main>
         <HeroSection />
-        <WhalezAIPresence />
-        <LivePerformanceStream />
+        <AlphaAIShowcase />
         <WhatIsSection />
         <DeltaAlphaPreview />
         <section className="py-12 md:py-16"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><MarketNewsFeed /></div></section>

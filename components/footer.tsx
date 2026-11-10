@@ -6,7 +6,7 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           <div className="col-span-2 md:col-span-1">
-            <span className="text-lg font-semibold tracking-tight text-foreground">WHALEZ-AI</span>
+            <span className="text-lg font-semibold tracking-tight text-foreground">Alpha-AI</span>
             <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
               AI-driven financial intelligence, market analysis, communications, and controlled beta product previews.
             </p>
@@ -25,11 +25,7 @@ export function Footer() {
                   DeltaAlpha-TradePro
                 </Link>
               </li>
-              <li>
-                <Link href="/mail" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Whalez-mail
-                </Link>
-              </li>
+              
             </ul>
           </div>
 
@@ -98,7 +94,7 @@ export function Footer() {
 
         <div className="mt-12 pt-8 border-t border-white/10">
           <p className="text-sm text-muted-foreground text-center">
-            © WHALEZ-AI. Public beta only. No live trading, custody, broker execution, settlement execution, or private authority.
+            © DeltaAlpha-Trade-Pro. Public beta only. No live trading, custody, broker execution, settlement execution, or private authority.
           </p>
         </div>
       </div>

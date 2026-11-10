@@ -33,10 +33,10 @@ export function WhatIsSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground text-balance">
-            What WHALEZ-AI Is
+            What Alpha-AI Is
           </h2>
           <p className="mt-4 text-muted-foreground leading-relaxed text-pretty">
-            WHALEZ-AI is an integrated ecosystem combining artificial intelligence, quantitative methods, and systematic
+            Alpha-AI is an integrated ecosystem combining artificial intelligence, quantitative methods, and systematic
             analysis to deliver financial intelligence. The public beta focuses on insight, modeling, controlled
             simulations, and informed decision-making—not live financial execution.
           </p>
@@ -56,7 +56,7 @@ export function WhatIsSection() {
         </div>
 
         <p className="mt-8 text-sm text-muted-foreground">
-          WHALEZ-AI does not provide financial advice, trading recommendations, or investment guarantees. All public-beta
+          Alpha-AI does not provide financial advice, trading recommendations, or investment guarantees. All public-beta
           outputs are informational, experimental, or simulated where explicitly stated.
         </p>
       </div>
