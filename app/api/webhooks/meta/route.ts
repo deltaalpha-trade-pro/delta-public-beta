@@ -1,3 +1,4 @@
+import crypto from "node:crypto"
 import { buildRelayEvent, relayEvent, verifyMetaWebhook } from "@/lib/integration-relay"
 
 export const runtime = "nodejs"
@@ -46,10 +47,15 @@ export async function POST(request: Request) {
     return Response.json({ accepted: false, error: "meta_invalid_payload" }, { status: 400 })
   }
   const kind = typeof payload.object === "string" ? payload.object.slice(0, 80) : "webhook"
-  // Provider user data, chat text, identifiers and message attachments remain
-  // in the authenticated provider inbox, never a public or Founder API.
+  if (!new Set(["whatsapp_business_account", "page", "instagram", "webhook"]).has(kind)) {
+    return Response.json({ accepted: false, error: "meta_topic_not_supported" }, { status: 422 })
+  }
+  // Fingerprint provider input without retaining content or customer identifiers.
+  // This stable reference lets Mail deduplicate webhook retries.
+  const fingerprint = crypto.createHash("sha256").update(raw, "utf8").digest("hex")
   const event = buildRelayEvent({
-    source: "meta", event: kind, payload: { kind }, verified: true,
+    source: "meta", event: kind, externalId: fingerprint,
+    payload: { kind }, verified: true,
   })
   const relay = await relayEvent(event, { includeControlPlane: false })
   if (!relay.targets.some(t => t.name === "whalez-mail" && t.status === "forwarded")) {
