@@ -17,7 +17,7 @@ export async function POST(request: Request) {
   }
 
   const secret = process.env.TIDIO_WEBHOOK_SECRET?.trim() || ""
-  const internalToken = process.env.WHALEZ_INTERNAL_RELAY_TOKEN?.trim() || ""
+  const internalToken = process.env.WHALEZ_SUPPORT_RELAY_TOKEN?.trim() || ""
   const target = process.env.WHALEZ_MAIL_INGEST_URL?.trim() || ""
   if (!secret || !internalToken) {
     return Response.json({ accepted: false, error: "tidio_relay_auth_not_configured" }, { status: 503 })
