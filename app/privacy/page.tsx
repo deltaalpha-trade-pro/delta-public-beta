@@ -24,7 +24,7 @@ export default function PrivacyPage() {
         {
           title: "Private surfaces",
           body: [
-            "Founder, internal, and protected control surfaces are not public services. Public site visitors should not expect access to private operational systems from this domain.",
+            "Restricted control services are not public services. Visitors should not expect access to privileged operational systems from this domain.",
           ],
         },
       ]}
