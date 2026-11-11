@@ -17,13 +17,13 @@ export default function BetaDisclaimerPage() {
         {
           title: "No private authority",
           body: [
-            "The public beta does not expose founder authority, internal control paths, private infrastructure, secure-shell operations, or irreversible execution. Private surfaces must remain separated from the public deployment.",
+            "The public beta does not expose restricted operational authority or irreversible execution. Administrative and internal operations are not public capabilities.",
           ],
         },
         {
           title: "Availability",
           body: [
-            "Beta access may be restricted, interrupted, or removed at any time. Launch-readiness depends on auth, legal, security, compliance, infrastructure, and founder approval gates.",
+            "Beta access may be restricted, interrupted, or removed at any time. Launch-readiness depends on auth, legal, security, compliance, infrastructure, and formal authorization and governance gates.",
           ],
         },
       ]}

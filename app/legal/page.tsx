@@ -11,7 +11,7 @@ export default function LegalIndexPage() {
           title: "Public beta boundary",
           body: [
             "DeltaAlpha-TradePro is a public beta gateway for informational financial intelligence, ecosystem previews, and staged product communication. It is not a live trading, custody, banking, brokerage, exchange, settlement, or advisory service.",
-            "Private founder and internal routes are not public services and should not be exposed from the public domain.",
+            "Restricted operational routes are not public services and cannot be accessed through this gateway.",
           ],
         },
         {

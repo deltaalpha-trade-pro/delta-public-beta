@@ -37,7 +37,7 @@ export default function DashboardPage() {
                   <Lock className="mt-1 h-4 w-4 flex-none text-amber-200" />
                   <p>
                     Access posture: visible shell only. No live trading, custody, settlement execution, broker execution,
-                    or founder/private authority is enabled from this public beta route.
+                    or restricted operational authority is enabled from this public beta route.
                   </p>
                 </div>
               </div>
@@ -58,11 +58,6 @@ export default function DashboardPage() {
               <div className="mt-10 flex flex-col gap-3 sm:flex-row">
                 <Link href="/login">
                   <Button className="min-h-11 rounded-xl">Login</Button>
-                </Link>
-                <Link href="/founder">
-                  <Button variant="outline" className="min-h-11 rounded-xl border-white/15 bg-white/5 backdrop-blur-xl">
-                    Founder gate
-                  </Button>
                 </Link>
               </div>
             </div>

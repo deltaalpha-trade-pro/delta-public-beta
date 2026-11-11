@@ -30,6 +30,11 @@ export function Footer() {
                   Settlement Ledger
                 </Link>
               </li>
+              <li>
+                <Link href="/platform-status" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Platform Status
+                </Link>
+              </li>
             </ul>
           </div>
 

@@ -14,6 +14,7 @@ import {
 const publicLinks = [
   { href: "/about", label: "About" },
   { href: "/#product-surface", label: "Products" },
+  { href: "/platform-status", label: "Platform status" },
   { href: "/whalezchain", label: "Ledger" },
   { href: "/beta-access", label: "Beta Access" },
 ]
@@ -53,6 +54,9 @@ export function Navigation() {
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link href="/dashboard">Dashboard</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/platform-status">Platform verification status</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -106,7 +110,7 @@ export function Navigation() {
                 </Link>
               ))}
               <p className="px-3 pt-2 text-xs leading-relaxed text-muted-foreground">
-                Private founder and internal routes are not exposed on the public deployment.
+                Restricted capabilities are available only through authorized access.
               </p>
             </div>
           </div>

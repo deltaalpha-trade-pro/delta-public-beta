@@ -36,7 +36,7 @@ export function LegalPage({
               <div className="mt-10 rounded-2xl border border-amber-300/20 bg-amber-300/5 p-5 text-sm leading-7 text-amber-100/85">
                 This page is provided for public beta transparency and does not replace legal, financial, tax, compliance,
                 investment, or regulatory advice. The public beta is informational only and does not enable live trading,
-                custody, broker execution, settlement execution, or private founder authority.
+                custody, broker execution, settlement execution, or restricted operational authority.
               </div>
             </div>
 
