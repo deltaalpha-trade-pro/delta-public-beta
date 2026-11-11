@@ -94,7 +94,7 @@ export function EcosystemProductsSection() {
               </h3>
               <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
                 These surfaces are presented as beta-stage product modules. They describe what users may purchase,
-                subscribe to, or utilize after review, compliance readiness, and founder-approved activation.
+                subscribe to, or utilize after review, compliance readiness, and formal authorization.
               </p>
               <p className="mt-4 text-xs text-muted-foreground leading-relaxed">
                 Public beta boundary: no live trading, no custody, no broker execution, and no settlement execution are
