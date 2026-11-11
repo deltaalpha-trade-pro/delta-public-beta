@@ -1,0 +1,62 @@
+name: Central CI dry-run (DeltaAlpha public gateway)
+
+on:
+  push:
+    branches:
+      - "codex/centralized-ci-dry-run-*"
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/**"
+      - "app/**"
+      - "components/**"
+      - "lib/**"
+      - "package.json"
+      - "package-lock.json"
+      - "tsconfig.json"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  node-build:
+    uses: Whalezchain/whalezchain-enterprise-orchestrator/.github/workflows/node-next-validation.yml@63bc0c2ae219ed139ca578ca0a36162ae32bad8a
+    permissions:
+      contents: read
+    with:
+      project-directory: .
+      node-version: "20"
+      test-command: npx tsc --noEmit
+      build-command: npm run build
+
+  security:
+    uses: Whalezchain/whalezchain-enterprise-orchestrator/.github/workflows/security-scan.yml@63bc0c2ae219ed139ca578ca0a36162ae32bad8a
+    permissions:
+      contents: read
+      security-events: write
+    with:
+      codeql-languages: "javascript-typescript,actions"
+
+  governance:
+    uses: Whalezchain/whalezchain-enterprise-orchestrator/.github/workflows/governance-policy.yml@63bc0c2ae219ed139ca578ca0a36162ae32bad8a
+    permissions:
+      contents: read
+    with:
+      provider-ref: 63bc0c2ae219ed139ca578ca0a36162ae32bad8a
+
+  evidence:
+    uses: Whalezchain/whalezchain-enterprise-orchestrator/.github/workflows/sbom-evidence.yml@63bc0c2ae219ed139ca578ca0a36162ae32bad8a
+    permissions:
+      contents: read
+    with:
+      evidence-label: delta-public-ci-dry-run
+
+  release-verification:
+    needs: [node-build, security, governance, evidence]
+    uses: Whalezchain/whalezchain-enterprise-orchestrator/.github/workflows/nonproduction-release-verification.yml@63bc0c2ae219ed139ca578ca0a36162ae32bad8a
+    permissions:
+      contents: read
+    with:
+      evidence-label: delta-public-ci-dry-run
+      required-workflow-names: "node-build,security,governance,evidence"
