@@ -126,7 +126,7 @@ test("HTTP validation rejects HTML, redirects, and oversize bodies", async () =>
   }
 })
 
-test("actual public HTTPS gateway validates and discloses snapshot provenance", async () => {
+test("actual public HTTPS gateway verifies live-origin or labeled snapshot provenance", async () => {
   const before = process.env.WHALEZCHAIN_NATIVE_ASSET_READ_URL
   process.env.WHALEZCHAIN_NATIVE_ASSET_READ_URL = expectedUrl
   try {
@@ -134,9 +134,18 @@ test("actual public HTTPS gateway validates and discloses snapshot provenance", 
     assert.ok(result, "The deployed read gateway must match the approved contract")
     assert.deepEqual(result.assets.map(asset => asset.symbol), ["WHZ", "PTN", "PRN"])
     assert.equal(result.identity_contract_sha256, verifiedDigest)
-    assert.equal(result.verification_mode, "verified_source_snapshot")
-    assert.equal(result.origin_live_verified, false)
     assert.equal(result.mainnet_execution_enabled, false)
+    assert.equal(result.settlement_enabled, false)
+    if (result.verification_mode === "live_origin") {
+      assert.equal(result.schema, "whalezchain.public-native-assets.v1")
+      assert.equal(result.origin_live_verified, true)
+      assert.ok(result.read_verified_utc)
+    } else {
+      assert.equal(result.verification_mode, "verified_source_snapshot")
+      assert.equal(result.schema, "whalezchain.public-native-assets.v2")
+      assert.equal(result.origin_live_verified, false)
+      assert.ok(result.snapshot_verified_date)
+    }
   } finally {
     if (before === undefined) delete process.env.WHALEZCHAIN_NATIVE_ASSET_READ_URL
     else process.env.WHALEZCHAIN_NATIVE_ASSET_READ_URL = before
