@@ -1,0 +1,26 @@
+name: Linux Build
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: linux-build-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Linux Build / build
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install
+        run: npm install --no-audit --no-fund
+      - name: Build
+        run: npm run build
