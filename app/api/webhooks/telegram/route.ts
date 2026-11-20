@@ -1,6 +1,8 @@
 import { buildRelayEvent, relayEvent, verifyTelegramWebhook } from "@/lib/integration-relay"
+import { publicTelegramChatId, publicTelegramReply } from "@/lib/telegram-public-bot"
 
 export const runtime = "nodejs"
+export const maxDuration = 30
 
 export function GET() {
   // Public liveness must not imply the private bot credential is configured.
@@ -63,8 +65,29 @@ export async function POST(request: Request) {
       headers: { "Cache-Control": "no-store" },
     })
   }
+  // Provider retries must not send the same command response twice.
+  if (relay.duplicate !== true) {
+    const incoming = payload.message && typeof payload.message === "object"
+      ? payload.message as Record<string, unknown> : null
+    const chatId = publicTelegramChatId(incoming)
+    const messageText = incoming?.text
+    if (chatId && typeof messageText === "string" && messageText.length <= 1200) {
+      const reply = await publicTelegramReply(messageText)
+      if (reply) {
+        // Telegram supports a Bot API request in the webhook HTTP response.
+        // This avoids a public bot-token dependency. Provider delivery is not
+        // independently acknowledged, so the authoritative receipt is for the
+        // metadata inbox, not a guaranteed outgoing message.
+        return Response.json({
+          method: "sendMessage", chat_id: chatId, text: reply,
+          disable_web_page_preview: true,
+        }, { headers: { "Cache-Control": "no-store" } })
+      }
+    }
+  }
   return Response.json({
     accepted: true, source: "telegram", event: kind,
     externalId, verified: true, stored: true,
+    duplicate: relay.duplicate === true,
   }, { headers: { "Cache-Control": "no-store" } })
 }

@@ -36,7 +36,6 @@ function fixture() {
     source: "telegram",
     event: "message",
     externalId: "10001",
-    receivedAt: "2026-11-20T10:00:00.000Z",
     verified: true,
     payload: { update_id: "10001", kind: "message" },
   })

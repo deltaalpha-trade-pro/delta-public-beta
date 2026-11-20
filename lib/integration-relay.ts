@@ -196,7 +196,7 @@ export async function relayEvent(event: RelayEvent) {
       const record = receipt && typeof receipt === "object" ? receipt as Record<string, unknown> : {}
       const stored = response.ok && record.accepted === true && record.stored === true
         && record.source === "telegram" && record.externalId === expected
-      return { forwarded: stored, targets: [{
+      return { forwarded: stored, duplicate: record.duplicate === true, targets: [{
         name: "whalez-mail-telegram",
         status: stored ? ("forwarded" as const) : ("failed" as const),
         httpStatus: response.status,
