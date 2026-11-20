@@ -113,14 +113,14 @@ export function verifyTidioWebhook(rawBody: string, signatureHeader: string | nu
 
 export function verifyTelegramWebhook(secret: string, headerToken: string | null) {
   if (!secret) {
-    return { verified: true as const, reason: "no_secret_configured" as const }
+    return { verified: false as const, reason: "secret_not_configured" as const }
   }
 
   if (!headerToken) {
     return { verified: false as const, reason: "missing_secret_token" as const }
   }
 
-  return headerToken === secret
+  return safeEqual(headerToken, secret)
     ? { verified: true as const }
     : { verified: false as const, reason: "secret_token_mismatch" as const }
 }
@@ -142,6 +142,73 @@ export function verifyMetaWebhook(rawBody: string, signatureHeader: string | nul
 }
 
 export async function relayEvent(event: RelayEvent) {
+  // Telegram support updates are metadata-only and must reach the dedicated
+  // Whalez-Mail durable intake before the webhook acknowledges delivery.
+  // The general Tidio ingress expects a different signed provider contract.
+  if (event.source === "telegram") {
+    const target = trim(process.env.WHALEZ_TELEGRAM_SUPPORT_INGEST_URL)
+    const token = trim(process.env.WHALEZ_TELEGRAM_SUPPORT_RELAY_TOKEN)
+    const expected = event.externalId || ""
+    const payload = event.payload && typeof event.payload === "object" && !Array.isArray(event.payload)
+      ? event.payload as Record<string, unknown> : {}
+    const validPayload = event.verified === true
+      && /^\d{1,20}$/.test(expected)
+      && (event.event === "message" || event.event === "update")
+      && Object.keys(payload).length === 2
+      && payload.update_id === expected
+      && payload.kind === event.event
+
+    let validTarget = false
+    try {
+      const parsed = new URL(target)
+      const localOnly = process.env.NODE_ENV !== "production"
+        && parsed.protocol === "http:"
+        && ["127.0.0.1", "localhost"].includes(parsed.hostname)
+      validTarget = (parsed.protocol === "https:" || localOnly)
+        && parsed.pathname === "/api/integrations/telegram"
+        && !parsed.username && !parsed.password && !parsed.search && !parsed.hash
+    } catch {
+      validTarget = false
+    }
+
+    if (!validPayload) {
+      return { forwarded: false as const, reason: "telegram_envelope_invalid" as const,
+        targets: [{ name: "whalez-mail-telegram", status: "rejected" as const }] }
+    }
+    if (!validTarget || token.length < 32 || token.length > 256) {
+      return { forwarded: false as const, reason: "telegram_support_not_configured" as const,
+        targets: [{ name: "whalez-mail-telegram", status: "not-configured" as const }] }
+    }
+
+    try {
+      const response = await fetch(target, {
+        method: "POST",
+        redirect: "error",
+        cache: "no-store",
+        signal: AbortSignal.timeout(7000),
+        headers: {
+          "content-type": "application/json",
+          "x-whalez-internal-token": token,
+        },
+        body: JSON.stringify({ ...event, payload: { update_id: expected, kind: event.event }, meta: {} }),
+      })
+      const receipt: unknown = await response.json().catch(() => null)
+      const record = receipt && typeof receipt === "object" ? receipt as Record<string, unknown> : {}
+      const stored = response.ok && record.accepted === true && record.stored === true
+        && record.source === "telegram" && record.externalId === expected
+      return { forwarded: stored, duplicate: record.duplicate === true, targets: [{
+        name: "whalez-mail-telegram",
+        status: stored ? ("forwarded" as const) : ("failed" as const),
+        httpStatus: response.status,
+      }] }
+    } catch {
+      return { forwarded: false as const, targets: [{
+        name: "whalez-mail-telegram", status: "failed" as const,
+        error: "telegram_support_relay_unavailable" as const,
+      }] }
+    }
+  }
+
   const targets: RelayTarget[] = []
   const mailIngestUrl = trim(process.env.WHALEZ_MAIL_INGEST_URL)
   const controlRelayUrl = trim(process.env.WHALEZ_CONTROL_EVENT_URL)
